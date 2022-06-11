@@ -1,0 +1,61 @@
+.quality {
+  padding-top: 5rem;
+  display: flex;
+  &_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+  &_icon {
+    font-size: 3rem;
+    color: rgba(255, 0, 0, 0.6);
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.25s linear;
+    &:hover {
+      color: rgba(255, 0, 0, 0.9);
+      transform: scale(1.2);
+    }
+  }
+  &_title {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  &_container {
+    margin-top: 5rem;
+    display: flex;
+
+    // justify-content: space-between;
+  }
+  &_img {
+    // margin-right: 2rem;
+    width: 20rem;
+    transition: all 0.25s linear;
+    cursor: pointer;
+    transform: scale(1.1);
+    &:hover {
+      transform: scale(1);
+    }
+  }
+}
+.img_wapper {
+  max-width: 16rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+
+  overflow: hidden;
+}
+.title_big {
+  margin-top: 4rem;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: bold;
+}
+.quality_hr {
+  width: 8rem;
+  height: 0.3rem;
+  background-color: brown;
+}

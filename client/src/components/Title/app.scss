@@ -1,0 +1,68 @@
+.title {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 4rem;
+  &_right {
+    // width: 100rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &_title {
+    font-weight: bold;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    width: 20rem;
+  }
+  &_desc {
+    font-weight: normal;
+    margin-bottom: 2rem;
+    line-height: 2;
+    font-size: 1.25rem;
+    opacity: 0.7;
+  }
+  &_btn {
+    background-color: brown;
+    border-radius: 0.2rem;
+    width: 9rem;
+    color: white;
+    font-size: 1.5rem;
+    padding: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s linear;
+    &:hover {
+      opacity: 0.5;
+      color: black;
+    }
+  }
+  &_right {
+    width: 30rem;
+  }
+  &_img {
+    border-radius: 5px;
+  }
+  &_mo {
+    position: absolute;
+    top: 15rem;
+    right: 34.5rem;
+    width: 10rem;
+    height: 20rem;
+    background-color: brown;
+    z-index: 0;
+    border-radius: 5px;
+  }
+}
+.small {
+  position: absolute;
+  z-index: 2;
+  width: 15rem;
+  top: 28.7rem;
+  right: 35rem;
+}
+.big {
+  width: 25rem;
+  height: 30rem;
+  z-index: 1;
+}
