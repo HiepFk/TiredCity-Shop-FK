@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { BsFillGridFill, BsList } from "react-icons/bs";
+import styled from "styled-components";
 
-import "./app.scss";
 function Sort({ setList, list }) {
-  //   const [list, setList] = useState(true);
   const [sort, setSort] = useState("");
   const updateSort = (e) => {
     e.preventDefault();
     setSort(e.target.value);
   };
   return (
-    <div className="sort">
+    <SortStyle>
       <div className="sort_wrapper">
         <div className="sort_icons">
           <BsFillGridFill
@@ -41,8 +40,58 @@ function Sort({ setList, list }) {
           </select>
         </form>
       </div>
-    </div>
+    </SortStyle>
   );
 }
+
+const SortStyle = styled.div`
+  margin-bottom: 1rem;
+  width: 55rem;
+  .sort_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  label {
+    margin-right: 0.5rem;
+    width: 4rem;
+    transform: translateY(0.25rem);
+  }
+  p {
+    width: 10rem;
+  }
+  hr {
+    height: 0.1rem;
+    margin-right: 2.25rem;
+    margin-left: 2.25rem;
+  }
+  .sort_icons {
+    display: flex;
+    // width: 5rem;
+  }
+  .sort_icon {
+    font-size: 1.5rem;
+    padding: 0.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-right: 0.5rem;
+  }
+  .sort_input {
+    font-size: 1rem;
+    padding: 0.2rem 0.8rem;
+    border: none;
+    border: 3px solid transparent;
+    border-radius: 4px;
+  }
+  .sort_form {
+    display: flex;
+  }
+  .active {
+    color: white;
+    background-color: black;
+  }
+`;
 
 export default Sort;

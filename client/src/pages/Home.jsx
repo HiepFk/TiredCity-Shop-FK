@@ -1,13 +1,13 @@
 import React from "react";
-import Title from "../components/Title/Title";
-import Product from "../components/ProductMini/Product";
-import Quality from "../components/Quality/Quality";
-import Form from "../components/Form/Form";
+import Title from "../components/Home/Title";
+import ProductAd from "../components/Home/ProductAd";
+import Quality from "../components/Home/Quality";
+import Form from "../components/Home/Form";
 function Home() {
   return (
     <div>
       <Title />
-      <Product />
+      <ProductAd />
       <Quality />
       <Form />
     </div>

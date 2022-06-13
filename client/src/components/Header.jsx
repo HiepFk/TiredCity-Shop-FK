@@ -7,7 +7,7 @@ function Header() {
   const [user, setUser] = useState(false);
   const [items, setItems] = useState(10);
   return (
-    <HeaderStyle>
+    <HeaderStyle className="header">
       <Link to={"/"} className="header_logo">
         <img src="./image/logo.webp" alt="" />
       </Link>
@@ -41,12 +41,16 @@ function Header() {
           </>
         ) : (
           <>
-            <div className="header_icons" style={{ width: "6.5rem" }}>
+            <Link
+              to={"/login"}
+              className="header_icons"
+              style={{ width: "6.5rem" }}
+            >
               Login
               <div className="header_icon">
                 <FiUserPlus />
               </div>
-            </div>
+            </Link>
           </>
         )}
       </div>
@@ -57,8 +61,10 @@ function Header() {
 const HeaderStyle = styled.div`
   display: flex;
   justify-content: space-between;
-  /* position: sticky;
-  top: 1rem; */
+  /* position: sticky; */
+  /* top: 1rem; */
+  /* background-color: black; */
+  /* z-index: 1000; */
   .header_links {
     display: flex;
   }
@@ -67,6 +73,8 @@ const HeaderStyle = styled.div`
     font-size: 1rem;
     margin-right: 2rem;
     color: black;
+    /* border-bottom: 0px solid #ff4c4c; */
+    /* transition: all 0.25s linear; */
     &:hover {
       border-bottom: 3px solid #ff4c4c;
     }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Filter from "../components/Filter";
-import Sort from "../components/Sort/Sort";
+import Sort from "../components/Sort";
 import ListView from "../components/View/ListView";
 import GridView from "../components/View/GridView";
 import styled from "styled-components";

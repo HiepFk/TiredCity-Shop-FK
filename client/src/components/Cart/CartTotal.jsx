@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 function CartTotal() {
   const user = false;
@@ -23,9 +24,11 @@ function CartTotal() {
             Đặt hàng
           </button>
         ) : (
-          <button className="btn" type="button">
-            Login
-          </button>
+          <Link to={"/login"}>
+            <button className="btn" type="button">
+              Login
+            </button>
+          </Link>
         )}
       </div>
     </Wrapper>

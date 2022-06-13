@@ -5,7 +5,6 @@ import { FaShippingFast } from "react-icons/fa";
 import { Ri24HoursFill } from "react-icons/ri";
 import { GiReturnArrow } from "react-icons/gi";
 import { AiOutlineCreditCard } from "react-icons/ai";
-import "./app.scss";
 function Quality() {
   const icons = [
     {
@@ -91,6 +90,65 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  .quality {
+    padding-top: 5rem;
+    display: flex;
+  }
+  .quality_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+  .quality_icon {
+    font-size: 3rem;
+    color: rgba(255, 0, 0, 0.6);
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.25s linear;
+    &:hover {
+      color: rgba(255, 0, 0, 0.9);
+      transform: scale(1.2);
+    }
+  }
+  .quality_title {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  .quality_container {
+    margin-top: 5rem;
+    display: flex;
+  }
+  .quality_img {
+    width: 20rem;
+    transition: all 0.25s linear;
+    cursor: pointer;
+    transform: scale(1.1);
+    &:hover {
+      transform: scale(1);
+    }
+  }
+  .quality_hr {
+    width: 8rem;
+    height: 0.3rem;
+    background-color: brown;
+    margin-top: 1rem;
+  }
+  .img_wapper {
+    max-width: 16rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+
+    overflow: hidden;
+  }
+  .title_big {
+    margin-top: 4rem;
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+  }
 `;
 
 export default Quality;

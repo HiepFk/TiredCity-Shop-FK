@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ProductImage from "../components/Product/ProductImage";
 import ProductStar from "../components/Product/ProductStar";
 import ProductAdd from "../components/Product/ProductAdd";
+import ProductAd from "../components/Home/ProductAd";
 import styled from "styled-components";
 
 function Product() {
@@ -50,6 +51,7 @@ function Product() {
           <div className="product_add btn">Add to cart</div>
         </div>
       </div>
+      <ProductAd />
     </Wrapper>
   );
 }
