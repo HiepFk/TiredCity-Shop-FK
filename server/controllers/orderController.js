@@ -76,6 +76,22 @@ const orderController = {
       });
     }
   },
+
+  userAddOrder: async (req, res) => {
+    try {
+      const data = { ...req.body };
+      data.user = req.user.id;
+      const newOrder = new Order(data);
+      const saveOrder = await newOrder.save();
+      res.status(200).json({
+        status: "success",
+        message: "Đặt hàng thành công",
+        data: { saveOrder },
+      });
+    } catch (error) {
+      res.status(404).json(error);
+    }
+  },
 };
 
 module.exports = orderController;

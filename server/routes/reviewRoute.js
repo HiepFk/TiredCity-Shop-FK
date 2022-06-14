@@ -5,6 +5,7 @@ const router = require("express").Router();
 router.use(authController.protect);
 
 // Thiếu của người dùng
+router.route("/user").post(reivewController.userAddReview);
 
 router.use(authController.isAdmin);
 router.route("/").post(reivewController.addReview);

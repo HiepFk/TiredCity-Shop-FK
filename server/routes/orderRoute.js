@@ -6,6 +6,8 @@ router.use(authController.protect);
 
 // Thiếu của người dùng
 
+router.route("/user").post(orderController.userAddOrder);
+
 router.use(authController.isAdmin);
 router.route("/").post(orderController.addOrder);
 router.route("/:id").patch(orderController.updateOrder);

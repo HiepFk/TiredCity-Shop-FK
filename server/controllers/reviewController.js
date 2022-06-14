@@ -76,6 +76,23 @@ const userController = {
       });
     }
   },
+
+  // Phần user
+  userAddReview: async (req, res) => {
+    try {
+      const data = { ...req.body };
+      data.user = req.user.id;
+      const newReview = new Review(data);
+      const saveReview = await newReview.save();
+      res.status(200).json({
+        status: "success",
+        message: "Thêm nhận xét thành công",
+        data: { saveReview },
+      });
+    } catch (error) {
+      res.status(404).json(error);
+    }
+  },
 };
 
 module.exports = userController;

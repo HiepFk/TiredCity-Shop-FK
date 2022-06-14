@@ -47,7 +47,6 @@ app.use("/v1/review", reviewRoute);
 app.use("/v1/cart", cartRoute);
 app.use("/v1/order", orderRoute);
 
-//////////////
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find this on this server!`, 404));
 });
