@@ -12,7 +12,6 @@ const productSchema = new mongoose.Schema(
       minlength: [10, "A tour name must have more or equal then 10 characters"],
     },
     slug: String,
-
     ratingsAverage: {
       type: Number,
       default: 4.5,
@@ -54,10 +53,10 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-tourSchema.index({ price: 1, ratingsAverage: -1 });
-tourSchema.index({ slug: 1 });
+productSchema.index({ price: 1, ratingsAverage: -1 });
+productSchema.index({ slug: 1 });
 
-tourSchema.pre("save", function (next) {
+productSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });

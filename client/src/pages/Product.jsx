@@ -87,6 +87,11 @@ const Wrapper = styled.div`
       opacity: 0.6;
     }
   }
+  .product_title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
   .product_back {
     margin-bottom: 2rem;
   }

@@ -39,6 +39,76 @@ const GridStyle = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 40px;
+  .product_wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 3rem;
+  }
+  .product_mini {
+    margin-right: 2.5rem;
+    margin-left: 2.5rem;
+  }
+  .product_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &:hover {
+      .product_wap {
+        display: flex;
+      }
+      .product_img {
+        opacity: 0.5;
+      }
+    }
+  }
+  .product_img {
+    width: 15rem;
+  }
+  .product_desc {
+    display: flex;
+    justify-content: space-around;
+    font-weight: 600;
+  }
+  .product_price {
+    color: brown;
+  }
+  .product_btn {
+    background-color: brown;
+    border-radius: 0.2rem;
+    width: 7rem;
+    margin-top: 3rem;
+    color: white;
+    font-size: 1rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s linear;
+    &:hover {
+      opacity: 0.5;
+      color: black;
+    }
+  }
+  .product_icon {
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .product_wap {
+    background-color: rgb(165, 42, 42);
+    position: absolute;
+    top: 7rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    cursor: pointer;
+  }
 `;
 const NoProduct = styled.div`
   font-weight: 600;
