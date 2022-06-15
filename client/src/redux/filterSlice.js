@@ -80,16 +80,26 @@ export const filterSlice = createSlice({
       }
       return { ...state, filtered_products: temProducts };
     },
-    HideAlert: (state) => {
+    clearFilter: (state) => {
       return {
         ...state,
-        show: false,
-        type: "",
-        msg: "",
+        filters: {
+          ...state.filters,
+          text: "",
+          type: "all",
+          price: state.filters.max_price,
+          shipping: false,
+        },
       };
     },
   },
 });
 
-export const { ShowAlert, HideAlert } = filterSlice.actions;
+export const {
+  updateFilter,
+  filteredProduct,
+  updateSort,
+  sortProduct,
+  clearFilter,
+} = filterSlice.actions;
 export default filterSlice.reducer;
