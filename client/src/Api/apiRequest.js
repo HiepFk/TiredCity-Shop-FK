@@ -8,7 +8,7 @@ import {
   GetMeStart,
   GetMeError,
   GetMeSuccess,
-} from "./authSlice";
+} from "../../redux/authSlice";
 
 import {
   AddProduct,
@@ -17,6 +17,6 @@ import {
   DecreaseProduct,
   IncreaseProduct,
   GetToTal,
-} from "./cartSlice";
+} from "../../redux/cartSlice";
 
-import { ShowAlert, HideAlert } from "./alertSlice";
+import { ShowAlert, HideAlert } from "../../redux/alertSlice";
