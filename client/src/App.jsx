@@ -8,7 +8,7 @@ import { About, Cart, Home, Products, Product, Error, Login } from "./pages";
 function App() {
   return (
     <>
-      <div className="app">
+      <div className="app page">
         <Header />
         <Routes>
           <Route exact path="/" element={<Home />} />

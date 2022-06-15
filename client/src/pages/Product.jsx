@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ProductImage from "../components/Product/ProductImage";
 import ProductStar from "../components/Product/ProductStar";
 import ProductAdd from "../components/Product/ProductAdd";
+import Review from "../components/Product/Review";
 import ProductAd from "../components/Home/ProductAd";
 import styled from "styled-components";
 
@@ -49,6 +50,8 @@ function Product() {
           </p>
           <ProductAdd color={item.color} />
           <div className="product_add btn">Add to cart</div>
+          <hr />
+          <Review />
         </div>
       </div>
       <ProductAd />
@@ -59,6 +62,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 4rem;
+  hr {
+    margin-top: 2rem;
+  }
 
   .info {
     text-transform: capitalize;
@@ -75,7 +81,7 @@ const Wrapper = styled.div`
     height: 3rem;
     background-color: brown;
     color: white;
-    font-size: 1, 25rem;
+    font-size: 1.25rem;
     letter-spacing: 0.1rem;
     display: flex;
     justify-content: center;
@@ -94,6 +100,7 @@ const Wrapper = styled.div`
   }
   .product_back {
     margin-bottom: 2rem;
+    width: 12.5rem;
   }
   .product_info {
     display: flex;

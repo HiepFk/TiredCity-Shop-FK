@@ -46,7 +46,7 @@ function Sort({ setList, list }) {
 
 const SortStyle = styled.div`
   margin-bottom: 1rem;
-  width: 55rem;
+  min-width: 50rem;
   .sort_wrapper {
     display: flex;
     justify-content: space-between;
@@ -60,15 +60,17 @@ const SortStyle = styled.div`
   }
   p {
     width: 10rem;
+    font-weight: 600;
   }
   hr {
     height: 0.1rem;
+    width: 20rem;
     margin-right: 2.25rem;
     margin-left: 2.25rem;
   }
   .sort_icons {
     display: flex;
-    // width: 5rem;
+    width: 5rem;
   }
   .sort_icon {
     font-size: 1.5rem;

@@ -12,6 +12,10 @@ const cartSchema = new mongoose.Schema(
         quantity: {
           type: Number,
         },
+        color: {
+          type: String,
+          enum: ["white , black"],
+        },
       },
     ],
     user: {

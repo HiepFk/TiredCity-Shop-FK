@@ -9,7 +9,7 @@ function Header() {
   return (
     <HeaderStyle className="header">
       <Link to={"/"} className="header_logo">
-        <img src="./image/logo.webp" alt="" />
+        <img src="/image/logo.webp" alt="" />
       </Link>
       <ul className="header_links">
         {headerLink.map((item) => {

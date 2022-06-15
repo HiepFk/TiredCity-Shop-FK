@@ -26,15 +26,16 @@ function ProductImage({ imgs }) {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 25rem;
+  max-width: 35rem;
   margin-right: 4rem;
   .img_main {
     border: 3px solid #e0d9d7;
     margin-bottom: 0.5rem;
     border-radius: 5px;
+    min-width: 25rem;
   }
   .img_wrapper {
-    max-width: 25rem;
+    min-width: 25rem;
     display: flex;
     justify-content: space-between;
     align-items: center;

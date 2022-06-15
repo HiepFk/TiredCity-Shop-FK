@@ -7,11 +7,16 @@ function Login() {
   return (
     <Wrapper class="login_page page">
       <div className="login_wrapper">
-        {login ? (
-          <img src="/image/about/login.webp" className="login_img " alt="" />
-        ) : (
-          <img src="/image/about/signup.webp" className="login_img " alt="" />
-        )}
+        <img
+          src="/image/about/login.webp"
+          className={!login ? "login_img none" : "login_img "}
+          alt=""
+        />
+        <img
+          src="/image/about/signup.webp"
+          className={login ? "login_img none" : "login_img "}
+          alt=""
+        />
       </div>
       <div class="form">
         {login ? (
@@ -63,6 +68,7 @@ const Wrapper = styled.div`
     height: 35rem;
     transition: transform 0.25s linear;
     cursor: pointer;
+    transition: all 0.25s linear;
     :hover {
       transform: scale(1.05);
     }
@@ -71,6 +77,9 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
     overflow: hidden;
+  }
+  .none {
+    display: none;
   }
   form {
     align-items: center;
