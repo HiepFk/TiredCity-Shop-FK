@@ -2,10 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-function ListView({ Tee, Hoodie, Sweater, Bag }) {
-  const data = Tee.concat(Hoodie, Sweater, Bag);
-  // const data = null;
-  if (!data) {
+function ListView({ products }) {
+  if (!products) {
     return (
       <NoProduct className="page">
         Sorry , no products can't be found 😥
@@ -14,19 +12,15 @@ function ListView({ Tee, Hoodie, Sweater, Bag }) {
   }
   return (
     <ListStyle className="list">
-      {data.map((item) => {
+      {products.map((item) => {
         return (
-          <div className="list_wrapper">
-            <img src={item.src} alt="" className="list_img" />
+          <div className="list_wrapper" key={item.id}>
+            <img src={item.imageCover} alt="" className="list_img" />
             <div className="list_container">
-              <div className="list_title">{item.title}</div>
-              <div className="list_price">{item.price}</div>
-              <div className="list_desc">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Incidunt, optio dolorum est Incidunt, optio dolorum est
-                Incidunt, optio dolorum est
-              </div>
-              <Link to={"/products/hihi"}>
+              <div className="list_title">{item.name}</div>
+              <div className="list_price">${item.price}</div>
+              <div className="list_desc">{item.description}</div>
+              <Link to={`/products/${item.slug}`}>
                 <button className="list_btn">Detail</button>
               </Link>
             </div>

@@ -1,13 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-function ProductImage({ imgs }) {
+function ProductImage({ imgs, type }) {
+  console.log(type);
   const [main, setMain] = useState(0);
+  const [images, setImages] = useState(imgs);
 
+  const tee = [
+    "https://res.cloudinary.com/hieptlu/image/upload/v1655365573/Ao_FK/mau.1_wz2cqb.webp",
+    "https://res.cloudinary.com/hieptlu/image/upload/v1655365572/Ao_FK/mau.2_ualogc.webp",
+  ];
+  const sweater = [
+    "https://res.cloudinary.com/hieptlu/image/upload/v1655365588/Ao_FK/mau.1_vxhjyt.webp",
+    "https://res.cloudinary.com/hieptlu/image/upload/v1655365587/Ao_FK/mau.2_unfy8o.webp",
+  ];
+  const hoodie = [
+    "https://res.cloudinary.com/hieptlu/image/upload/v1655365553/Ao_FK/mau.1_fw3hzi.webp",
+    "https://res.cloudinary.com/hieptlu/image/upload/v1655365552/Ao_FK/mau.2_pmjmj5.webp",
+  ];
+
+  useEffect(() => {
+    if (type === "tee" && images.length === 2) {
+      setImages(images.concat(tee));
+    }
+    if (type === "sweater" && images.length === 2) {
+      setImages(images.concat(sweater));
+    }
+    if (type === "hoodie" && images.length === 2) {
+      setImages(images.concat(hoodie));
+    }
+  }, [type]);
   return (
     <Wrapper>
-      <img src={imgs[main]} alt="" className="img_main" />
+      <img src={images[main]} alt="" className="img_main" />
       <div className="img_wrapper">
-        {imgs.map((item, index) => {
+        {images.map((item, index) => {
           return (
             <img
               src={item}

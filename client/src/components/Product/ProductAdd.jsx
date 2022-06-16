@@ -4,7 +4,7 @@ import { FaCheck } from "react-icons/fa";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
 function ProductAdd({ color }) {
-  const size = ["S", "M", "L", "XL", "XL"];
+  const size = ["S", "M", "L", "XL", "XXL"];
   const [mainColor, setMainColor] = useState(0);
   const [mainSize, setMainSize] = useState(0);
   return (
@@ -112,11 +112,13 @@ const Wrapper = styled.div`
     justify-content: center;
     border: 1.5px solid black;
     opacity: 0.6;
+    font-size: 0.8rem;
   }
   .active {
     border: 1.5px solid red;
     color: red;
     opacity: 1;
+    font-weight: 700;
   }
 `;
 

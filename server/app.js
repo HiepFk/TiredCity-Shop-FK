@@ -6,6 +6,8 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const cookieParser = require("cookie-parser");
+const fileupload = require("express-fileupload");
+
 const app = express();
 
 const userRoute = require("./routes/userRoute");
@@ -14,8 +16,25 @@ const reviewRoute = require("./routes/reviewRoute");
 const cartRoute = require("./routes/cartRoute");
 const orderRoute = require("./routes/orderRoute");
 
-app.use(cors());
+// app.use(cors());
 
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", process.env.REACT_URL);
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
+
+app.options("/*", (_, res) => {
+  res.sendStatus(200);
+});
 app.use(cookieParser());
 
 app.use(morgan("common"));

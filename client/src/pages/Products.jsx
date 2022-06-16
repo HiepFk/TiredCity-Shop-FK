@@ -1,25 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+
+import { getAllProduct } from "../Api/product";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
 import ListView from "../components/View/ListView";
 import GridView from "../components/View/GridView";
-import styled from "styled-components";
-import { Tee, Hoodie, Sweater, Bag } from "../utils/data";
+import Loading from "../components/Loading";
 
 function Products() {
   const [list, setList] = useState(true);
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.product?.loading);
+  const products = useSelector(
+    (state) => state.product?.products?.data?.products
+  );
+
+  useEffect(() => {
+    getAllProduct(dispatch);
+  }, [dispatch]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Wrapper>
       <Filter />
       <Header>
-        <Sort setList={setList} list={list} />
-        {!list && (
-          <GridView Tee={Tee} Hoodie={Hoodie} Sweater={Sweater} Bag={Bag} />
-        )}
-        {list && (
-          <ListView Tee={Tee} Hoodie={Hoodie} Sweater={Sweater} Bag={Bag} />
-        )}
+        <Sort setList={setList} list={list} length={products.length} />
+        {!list && <GridView products={products} />}
+        {list && <ListView products={products} />}
       </Header>
     </Wrapper>
   );

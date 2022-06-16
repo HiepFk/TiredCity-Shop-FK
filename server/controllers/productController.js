@@ -1,10 +1,57 @@
 const Product = require("../models/productModel");
 const multer = require("multer"); // dùng để tải ảnh
+const cloudinary = require("./../utils/cloudinary");
+
+const multerStorage = multer.diskStorage({}); // file ở bộ nhớ
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb(
+      new res.status(404).json({
+        status: "error",
+        message: "Ảnh ko đúng",
+      }),
+      false
+    );
+  }
+};
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
 
 const productController = {
+  uploadImages: upload.fields([
+    { name: "imageCover", maxCount: 1 },
+    { name: "images", maxCount: 4 },
+  ]),
+  saveImages: async (req, res, next) => {
+    // const result = await cloudinary.uploader.upload(
+    //   req.files.imageCover[0].path,
+    //   {
+    //     resource_type: "auto",
+    //   }
+    // );
+    // req.body.imageCover = result.secure_url;
+    req.body.images = [];
+    await Promise.all(
+      req.files.images.map(async (item) => {
+        const file = await cloudinary.uploader.upload(item.path, {
+          resource_type: "auto",
+        });
+        const url = file.secure_url;
+        req.body.images.push(url);
+      })
+    );
+
+    next();
+  },
   addProduct: async (req, res) => {
     try {
-      const newProduct = new Product(req.body);
+      const data = { ...req.body };
+      data.imageCover = data.images[0];
+      const newProduct = new Product(data);
       const saveProduct = await newProduct.save();
       res.status(200).json({
         status: "success",
@@ -36,22 +83,24 @@ const productController = {
   getAllProducts: async (req, res) => {
     try {
       const queryObj = { ...req.query };
-      const query = User.find(queryObj);
+      const query = Product.find(queryObj);
       const products = await query;
+      // const products = await Product.find();
       res.status(200).json({
         status: "success",
-        results: users.length,
+        results: products.length,
         data: { products },
       });
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },
 
   getProduct: async (req, res) => {
     try {
-      const product = await Product.findById(req.params.id);
-      if (user) {
+      const product = await Product.findOne({ slug: req.params.id });
+      if (product) {
         res.status(200).json({
           status: "success",
           data: { product },
@@ -63,6 +112,7 @@ const productController = {
         });
       }
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },

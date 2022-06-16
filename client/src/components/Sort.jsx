@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BsFillGridFill, BsList } from "react-icons/bs";
 import styled from "styled-components";
 
-function Sort({ setList, list }) {
+function Sort({ setList, list, length }) {
   const [sort, setSort] = useState("");
   const updateSort = (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ function Sort({ setList, list }) {
           />
         </div>
         <hr />
-        <p>15 products found.</p>
+        <p>{length} products found.</p>
         <hr />
         <form className="sort_form">
           <label htmlFor="sort">Sort by</label>
@@ -46,6 +46,7 @@ function Sort({ setList, list }) {
 
 const SortStyle = styled.div`
   margin-bottom: 1rem;
+  width: 55rem;
   min-width: 50rem;
   .sort_wrapper {
     display: flex;
@@ -59,12 +60,13 @@ const SortStyle = styled.div`
     transform: translateY(0.25rem);
   }
   p {
-    width: 10rem;
+    max-width: 10rem;
     font-weight: 600;
   }
   hr {
     height: 0.1rem;
-    width: 20rem;
+    /* max-width: 20rem; */
+    width: 7rem;
     margin-right: 2.25rem;
     margin-left: 2.25rem;
   }

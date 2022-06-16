@@ -1,27 +1,38 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { getProduct } from "../Api/product";
+import { useSelector, useDispatch } from "react-redux";
+
 import ProductImage from "../components/Product/ProductImage";
 import ProductStar from "../components/Product/ProductStar";
 import ProductAdd from "../components/Product/ProductAdd";
 import Review from "../components/Product/Review";
 import ProductAd from "../components/Home/ProductAd";
+import Loading from "../components/Loading";
+
 import styled from "styled-components";
 
 function Product() {
   const item = {
-    title: "Áo Đẹp ",
-    imgs: [
-      "/image/tee/1/1.1.webp",
-      "/image/tee/1/1.2.webp",
-      "/image/tee/mau.1.webp",
-      "/image/tee/mau.2.webp",
-    ],
-    stars: 4.5,
-    reviews: 10,
-    price: "$25",
     color: ["white", "black"],
     inStock: true,
   };
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.product?.loading);
+  const product = useSelector((state) => state.product?.product?.data?.product);
+
+  useEffect(() => {
+    getProduct(dispatch, id);
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Wrapper>
@@ -29,24 +40,22 @@ function Product() {
         Back to products
       </Link>
       <div className="product_info">
-        <ProductImage imgs={item.imgs} />
+        <ProductImage imgs={product.images} type={product.type} />
         <div>
-          <div className="product_title">{item.title}</div>
-          <ProductStar stars={item.stars} reviews={item.reviews} />
+          <div className="product_title">{product.name}</div>
+          <ProductStar
+            stars={product.ratingsAverage}
+            reviews={product.ratingsQuantity > 0 ? product.ratingsQuantity : 10}
+          />
           <div className="product_price">{item.price}</div>
-          <div className="product_desc">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam
-            tempore consequuntur optio architecto quis expedita, velit nulla
-            nesciunt animi blanditiis similique quidem cumque ab voluptatem
-            ullam aliquid labore ratione voluptatum.
-          </div>
+          <div className="product_desc">{product.description}</div>
           <p className="info">
             <span>Active :</span>
             {item.inStock > 0 ? "In Stock" : "Out of Stock"}
           </p>
           <p className="info">
             <span>Sku :</span>
-            fdvsdgs6363gsbsb
+            {product.id}
           </p>
           <ProductAdd color={item.color} />
           <div className="product_add btn">Add to cart</div>

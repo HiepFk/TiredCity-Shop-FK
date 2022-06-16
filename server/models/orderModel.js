@@ -16,6 +16,10 @@ const orderSchema = new mongoose.Schema(
           type: String,
           enum: ["white , black"],
         },
+        size: {
+          type: String,
+          enum: ["S", "M", "L", "XL", "XXL"],
+        },
       },
     ],
     user: {
