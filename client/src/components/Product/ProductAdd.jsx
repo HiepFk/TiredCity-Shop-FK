@@ -4,7 +4,9 @@ import { FaCheck } from "react-icons/fa";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
 function ProductAdd({ color }) {
+  const size = ["S", "M", "L", "XL", "XL"];
   const [mainColor, setMainColor] = useState(0);
+  const [mainSize, setMainSize] = useState(0);
   return (
     <>
       <Wrapper>
@@ -16,13 +18,32 @@ function ProductAdd({ color }) {
                 <div
                   className={
                     mainColor === index
-                      ? "product_color"
-                      : "product_color active"
+                      ? "product_color active1"
+                      : "product_color "
                   }
                   style={{ background: `${item}` }}
                   onClick={() => setMainColor(index)}
+                  key={index}
                 >
                   {mainColor === index ? <FaCheck /> : null}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="product_colors">
+          <span>Size : </span>
+          <div>
+            {size.map((item, index) => {
+              return (
+                <div
+                  className={
+                    mainSize === index ? "product_size active" : "product_size"
+                  }
+                  onClick={() => setMainSize(index)}
+                  key={index}
+                >
+                  {item}
                 </div>
               );
             })}
@@ -44,6 +65,7 @@ function ProductAdd({ color }) {
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   .product_colors {
     display: grid;
     grid-template-columns: 125px 1fr;
@@ -62,7 +84,6 @@ const Wrapper = styled.div`
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    background: #222;
     margin-right: 0.5rem;
     border: none;
     cursor: pointer;
@@ -75,6 +96,27 @@ const Wrapper = styled.div`
       font-size: 0.75rem;
       color: red;
     }
+  }
+  .active1 {
+    opacity: 1;
+  }
+  .product_size {
+    color: black;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid black;
+    opacity: 0.6;
+  }
+  .active {
+    border: 1.5px solid red;
+    color: red;
+    opacity: 1;
   }
 `;
 

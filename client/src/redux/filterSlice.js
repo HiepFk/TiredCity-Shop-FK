@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const filterSlice = createSlice({
   name: "filter",
   initialState: {
+    all_products: [],
     filtered_products: [],
     sort: "price-lowest",
     filters: {
@@ -19,7 +20,7 @@ export const filterSlice = createSlice({
       const [name, value] = action.payload;
       return { ...state, filters: { ...state.filters, [name]: value } };
     },
-    filteredProduct: (state, action) => {
+    filteredProduct: (state) => {
       const { all_products } = state;
       const { text, company, category, color, price, shipping } = state.filters;
       let tempProducts = [...all_products];
@@ -44,8 +45,6 @@ export const filterSlice = createSlice({
           return product.colors.find((c) => c === color);
         });
       }
-
-      // price
       tempProducts = tempProducts.filter((product) => product.price <= price);
 
       if (shipping) {
@@ -59,7 +58,7 @@ export const filterSlice = createSlice({
     updateSort: (state, action) => {
       return { ...state, sort: action.payload };
     },
-    sortProduct: (state, action) => {
+    sortProduct: (state) => {
       const { sort, filtered_products } = state;
       let temProducts = [...filtered_products];
       if (sort === "price-lowest") {
