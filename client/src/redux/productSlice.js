@@ -17,6 +17,9 @@ export const productSlice = createSlice({
       return { ...state, error: true, loading: false };
     },
     GetProductsSuccess: (state, action) => {
+      // let temProducts = [...action.payload];
+      // temProducts = temProducts.sort((a, b) => a.price - b.price);
+
       return {
         ...state,
         error: false,

@@ -7,8 +7,8 @@ import {
   sortProduct,
   setListView,
   setGridView,
+  filterProduct,
 } from "../Api/filter";
-
 import styled from "styled-components";
 
 function Sort({ length }) {
@@ -16,6 +16,7 @@ function Sort({ length }) {
   const listView = useSelector((state) => state.filter.listView);
   const sort = useSelector((state) => state.filter.sort);
   useEffect(() => {
+    filterProduct(dispatch);
     sortProduct(dispatch);
   }, [dispatch, sort]);
 

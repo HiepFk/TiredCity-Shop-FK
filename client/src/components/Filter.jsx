@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 
-import { updateFilter, clearFilter, filterProduct } from "../Api/filter";
+import {
+  updateFilter,
+  clearFilter,
+  filterProduct,
+  sortProduct,
+} from "../Api/filter";
 const Filters = () => {
   const dispatch = useDispatch();
   const { text, type, min_price, max_price, price, shipping } = useSelector(
@@ -33,6 +38,7 @@ const Filters = () => {
 
   useEffect(() => {
     filterProduct(dispatch);
+    sortProduct(dispatch);
   }, [dispatch, type, text, price, shipping]);
 
   useEffect(() => {
