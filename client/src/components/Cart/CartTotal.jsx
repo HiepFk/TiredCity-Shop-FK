@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 
 function CartTotal() {
   const { totalCost } = useSelector((state) => state.cart);
+  const me = useSelector((state) => state.auth.me);
 
-  const user = false;
   return (
     <Wrapper>
       <div>
@@ -23,7 +23,7 @@ function CartTotal() {
             Order total :<span>${5 + totalCost}</span>
           </h4>
         </article>
-        {user ? (
+        {!me ? (
           <button type="button" className="btn">
             Đặt hàng
           </button>

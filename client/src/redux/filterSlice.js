@@ -20,6 +20,7 @@ export const filterSlice = createSlice({
     SetFilterProduct: (state, action) => {
       let maxPrice = action.payload.map((p) => p.price);
       maxPrice = Math.max(...maxPrice);
+
       return {
         ...state,
         filtered_products: action.payload,
@@ -59,6 +60,7 @@ export const filterSlice = createSlice({
           (product) => product.shipping === true
         );
       }
+
       return { ...state, filtered_products: tempProducts };
     },
     UpdateSort: (state, action) => {
@@ -67,6 +69,7 @@ export const filterSlice = createSlice({
     SortProduct: (state) => {
       const { sort, filtered_products } = state;
       let temProducts = [...filtered_products];
+
       if (sort === "price-lowest") {
         temProducts = temProducts.sort((a, b) => a.price - b.price);
       }

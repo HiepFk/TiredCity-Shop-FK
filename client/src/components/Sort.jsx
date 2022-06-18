@@ -1,28 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BsFillGridFill, BsList } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  updateSort,
-  clearFilter,
-  sortProduct,
-  setListView,
-  setGridView,
-  filterProduct,
-} from "../Api/filter";
+import { updateSort, setListView, setGridView } from "../Api/filter";
 import styled from "styled-components";
 
 function Sort({ length }) {
   const dispatch = useDispatch();
   const listView = useSelector((state) => state.filter.listView);
   const sort = useSelector((state) => state.filter.sort);
-  useEffect(() => {
-    filterProduct(dispatch);
-    sortProduct(dispatch);
-  }, [dispatch, sort]);
 
-  useEffect(() => {
-    clearFilter(dispatch);
-  }, [dispatch]);
   return (
     <SortStyle>
       <div className="sort_wrapper">

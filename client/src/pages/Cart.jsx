@@ -1,17 +1,11 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getTotal } from "../Api/cart";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CartItem from "../components/Cart/CartItem";
 import CartTotal from "../components/Cart/CartTotal";
 function Cart() {
-  const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
-
-  useEffect(() => {
-    getTotal(dispatch);
-  }, [dispatch, products]);
 
   if (products.length === 0) {
     return (

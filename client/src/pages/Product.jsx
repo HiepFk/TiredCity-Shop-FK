@@ -85,7 +85,6 @@ function Product() {
                 amount,
                 color,
               };
-              console.log(data);
               addProduct(dispatch, data);
             }}
           >

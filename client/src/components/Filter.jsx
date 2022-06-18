@@ -1,49 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-
-import {
-  updateFilter,
-  clearFilter,
-  filterProduct,
-  sortProduct,
-} from "../Api/filter";
+import { updateFilter, clearFilter } from "../Api/filter";
 const Filters = () => {
   const dispatch = useDispatch();
   const { text, type, min_price, max_price, price, shipping } = useSelector(
     (state) => state.filter.filters
   );
-  const categories = [
-    {
-      id: 0,
-      type: "all",
-    },
-    {
-      id: 1,
-      type: "tee",
-    },
-    {
-      id: 2,
-      type: "hoodie",
-    },
-    {
-      id: 3,
-      type: "sweater",
-    },
-    {
-      id: 4,
-      type: "bag",
-    },
-  ];
-
-  useEffect(() => {
-    filterProduct(dispatch);
-    sortProduct(dispatch);
-  }, [dispatch, type, text, price, shipping]);
-
-  useEffect(() => {
-    clearFilter(dispatch);
-  }, [dispatch]);
+  const products = useSelector(
+    (state) => state.product?.products?.data?.products
+  );
+  let types = [...new Set(products.map((item) => item.type))];
+  types.push("all");
+  types.reverse();
 
   return (
     <Wrapper>
@@ -63,16 +32,16 @@ const Filters = () => {
           <div className="form-control">
             <h5>Type</h5>
             <div>
-              {categories.map((c, index) => {
+              {types.map((c, index) => {
                 return (
                   <button
                     key={index}
                     type="button"
                     name="type"
-                    className={`${c.type === type ? "active" : null}`}
+                    className={`${c === type ? "active" : null}`}
                     onClick={(e) => updateFilter(dispatch, e)}
                   >
-                    {c.type}
+                    {c}
                   </button>
                 );
               })}

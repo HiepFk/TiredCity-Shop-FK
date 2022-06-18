@@ -1,14 +1,21 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
 import { FiShoppingCart, FiUserPlus, FiUserMinus } from "react-icons/fi";
 import styled from "styled-components";
 import { headerLink } from "../utils/links";
-function Header() {
-  const { totalQty } = useSelector((state) => state.cart);
+import { getTotal } from "../Api/cart";
 
-  const [user, setUser] = useState(false);
+function Header() {
+  const dispatch = useDispatch();
+  const { totalQty } = useSelector((state) => state.cart);
+  const products = useSelector((state) => state.cart.products);
+  const me = useSelector((state) => state.auth.me);
+
+  useEffect(() => {
+    getTotal(dispatch);
+  }, [dispatch, products]);
   return (
     <HeaderStyle className="header">
       <Link to={"/"} className="header_logo">
@@ -33,7 +40,7 @@ function Header() {
             <FiShoppingCart />
           </div>
         </Link>
-        {user ? (
+        {!me ? (
           <>
             <div className="header_icons " style={{ width: "6.5rem" }}>
               Logout

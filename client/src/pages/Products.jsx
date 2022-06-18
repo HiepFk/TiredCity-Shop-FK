@@ -10,6 +10,8 @@ import GridView from "../components/View/GridView";
 import Loading from "../components/Loading";
 import { SetFilterProduct } from "../redux/filterSlice";
 
+import { filterProduct, sortProduct, clearFilter } from "../Api/filter";
+
 function Products() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.product?.loading);
@@ -18,12 +20,23 @@ function Products() {
     (state) => state.product?.products?.data?.products
   );
   const FilterProducts = useSelector((state) => state.filter.filtered_products);
+
+  const { text, type, price, shipping } = useSelector(
+    (state) => state.filter.filters
+  );
+  const sort = useSelector((state) => state.filter.sort);
+
   useEffect(() => {
+    clearFilter(dispatch);
     getAllProduct(dispatch);
-  }, [dispatch]);
-  useEffect(() => {
     dispatch(SetFilterProduct(products));
-  }, [dispatch, products]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  useEffect(() => {
+    filterProduct(dispatch);
+    sortProduct(dispatch);
+  }, [dispatch, sort, type, text, price, shipping]);
 
   if (loading || !products) {
     return <Loading />;
