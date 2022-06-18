@@ -62,6 +62,20 @@ exports.login = async (req, res, next) => {
   }
 };
 
+exports.signup = async (req, res, next) => {
+  try {
+    const newUser = await User.create({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+      passwordConfirm: req.body.passwordConfirm,
+    });
+    createSendToken(newUser, 201, req, res, (msg = "SignUp success"));
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
 exports.logout = (req, res, next) => {
   res.cookie("jwt", "loggedout", {
     expires: new Date(Date.now() + 1000),

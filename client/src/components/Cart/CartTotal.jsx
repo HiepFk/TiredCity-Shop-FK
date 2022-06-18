@@ -15,9 +15,19 @@ function CartTotal() {
           <h5>
             Subtotal :<span>${totalCost}</span>
           </h5>
-          <p>
-            Shipping fee : <span>$5</span>
-          </p>
+          {totalCost >= 100 ? (
+            <>
+              <p>
+                Shipping fee : <span>free</span>
+              </p>
+            </>
+          ) : (
+            <>
+              <p>
+                Shipping fee : <span>$5</span>
+              </p>
+            </>
+          )}
           <hr />
           <h4>
             Order total :<span>${5 + totalCost}</span>
@@ -43,6 +53,9 @@ const Wrapper = styled.section`
   margin-top: 3rem;
   display: flex;
   justify-content: center;
+  div {
+    width: 25rem;
+  }
   article {
     border: 1px solid black;
     border-radius: 5px;

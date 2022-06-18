@@ -30,7 +30,6 @@ const Empty = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 7.3rem;
   .empty_title {
     font-weight: 700;
     font-size: 3rem;
