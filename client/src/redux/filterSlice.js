@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 export const filterSlice = createSlice({
   name: "filter",
@@ -14,15 +14,32 @@ export const filterSlice = createSlice({
       price: 0,
       shipping: false,
     },
+    listView: true,
   },
   reducers: {
-    updateFilter: (state, action) => {
-      const [name, value] = action.payload;
+    SetFilterProduct: (state, action) => {
+      let maxPrice = action.payload.map((p) => p.price);
+      maxPrice = Math.max(...maxPrice);
+      return {
+        ...state,
+        filtered_products: action.payload,
+        all_products: action.payload,
+        filters: { ...state.filters, max_price: maxPrice, price: maxPrice },
+      };
+    },
+    SetListView: (state) => {
+      return { ...state, listView: true };
+    },
+    SetGridView: (state) => {
+      return { ...state, listView: false };
+    },
+    UpdateFilter: (state, action) => {
+      const { name, value } = action.payload;
       return { ...state, filters: { ...state.filters, [name]: value } };
     },
-    filteredProduct: (state) => {
-      const { all_products } = state;
-      const { text, company, category, color, price, shipping } = state.filters;
+    FilteredProduct: (state) => {
+      const { all_products } = current(state);
+      const { text, type, price, shipping } = state.filters;
       let tempProducts = [...all_products];
 
       if (text) {
@@ -30,21 +47,11 @@ export const filterSlice = createSlice({
           return product.name.toLowerCase().startsWith(text.toLowerCase());
         });
       }
-      if (category !== "all") {
-        tempProducts = tempProducts.filter(
-          (product) => product.category === category
-        );
+
+      if (type !== "all") {
+        tempProducts = tempProducts.filter((product) => product.type === type);
       }
-      if (company !== "all") {
-        tempProducts = tempProducts.filter(
-          (product) => product.company === company
-        );
-      }
-      if (color !== "all") {
-        tempProducts = tempProducts.filter((product) => {
-          return product.colors.find((c) => c === color);
-        });
-      }
+
       tempProducts = tempProducts.filter((product) => product.price <= price);
 
       if (shipping) {
@@ -52,13 +59,12 @@ export const filterSlice = createSlice({
           (product) => product.shipping === true
         );
       }
-
       return { ...state, filtered_products: tempProducts };
     },
-    updateSort: (state, action) => {
+    UpdateSort: (state, action) => {
       return { ...state, sort: action.payload };
     },
-    sortProduct: (state) => {
+    SortProduct: (state) => {
       const { sort, filtered_products } = state;
       let temProducts = [...filtered_products];
       if (sort === "price-lowest") {
@@ -79,9 +85,10 @@ export const filterSlice = createSlice({
       }
       return { ...state, filtered_products: temProducts };
     },
-    clearFilter: (state) => {
+    ClearFilter: (state) => {
       return {
         ...state,
+        sort: "price-lowest",
         filters: {
           ...state.filters,
           text: "",
@@ -95,10 +102,13 @@ export const filterSlice = createSlice({
 });
 
 export const {
-  updateFilter,
-  filteredProduct,
-  updateSort,
-  sortProduct,
-  clearFilter,
+  UpdateFilter,
+  FilteredProduct,
+  UpdateSort,
+  SortProduct,
+  ClearFilter,
+  SetListView,
+  SetGridView,
+  SetFilterProduct,
 } = filterSlice.actions;
 export default filterSlice.reducer;

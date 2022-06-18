@@ -1,24 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { BsFillGridFill, BsList } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateSort,
+  clearFilter,
+  sortProduct,
+  setListView,
+  setGridView,
+} from "../Api/filter";
+
 import styled from "styled-components";
 
-function Sort({ setList, list, length }) {
-  const [sort, setSort] = useState("");
-  const updateSort = (e) => {
-    e.preventDefault();
-    setSort(e.target.value);
-  };
+function Sort({ length }) {
+  const dispatch = useDispatch();
+  const listView = useSelector((state) => state.filter.listView);
+  const sort = useSelector((state) => state.filter.sort);
+  useEffect(() => {
+    sortProduct(dispatch);
+  }, [dispatch, sort]);
+
+  useEffect(() => {
+    clearFilter(dispatch);
+  }, [dispatch]);
   return (
     <SortStyle>
       <div className="sort_wrapper">
         <div className="sort_icons">
           <BsFillGridFill
-            className={list ? "sort_icon " : "sort_icon active"}
-            onClick={() => setList(false)}
+            className={listView ? "sort_icon " : "sort_icon active"}
+            onClick={() => setGridView(dispatch)}
           />
           <BsList
-            className={!list ? "sort_icon " : "sort_icon active"}
-            onClick={() => setList(true)}
+            className={!listView ? "sort_icon " : "sort_icon active"}
+            onClick={() => setListView(dispatch)}
           />
         </div>
         <hr />
@@ -31,7 +45,7 @@ function Sort({ setList, list, length }) {
             id="sort"
             className="sort_input"
             value={sort}
-            onChange={updateSort}
+            onChange={(e) => updateSort(dispatch, e.target.value)}
           >
             <option value="price-lowest">price (lowest)</option>
             <option value="price-highest">price (highest)</option>

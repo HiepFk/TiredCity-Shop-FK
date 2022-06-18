@@ -1,26 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
 
+import { updateFilter, clearFilter, filterProduct } from "../Api/filter";
 const Filters = () => {
-  const [type, setType] = useState("All");
+  const dispatch = useDispatch();
+  const { text, type, min_price, max_price, price, shipping } = useSelector(
+    (state) => state.filter.filters
+  );
   const categories = [
     {
       id: 0,
-      type: "All",
+      type: "all",
     },
     {
       id: 1,
-      type: "Tee",
+      type: "tee",
     },
     {
       id: 2,
-      type: "Hoodie",
+      type: "hoodie",
     },
     {
       id: 3,
-      type: "Sweater",
+      type: "sweater",
+    },
+    {
+      id: 4,
+      type: "bag",
     },
   ];
+
+  useEffect(() => {
+    filterProduct(dispatch);
+  }, [dispatch, type, text, price, shipping]);
+
+  useEffect(() => {
+    clearFilter(dispatch);
+  }, [dispatch]);
+
   return (
     <Wrapper>
       <div className="content">
@@ -31,6 +49,8 @@ const Filters = () => {
               name="text"
               placeholder="Search"
               className="search-input"
+              value={text}
+              onChange={(e) => updateFilter(dispatch, e)}
             />
           </div>
 
@@ -42,9 +62,9 @@ const Filters = () => {
                   <button
                     key={index}
                     type="button"
-                    name="category"
+                    name="type"
                     className={`${c.type === type ? "active" : null}`}
-                    onClick={() => setType(c.type)}
+                    onClick={(e) => updateFilter(dispatch, e)}
                   >
                     {c.type}
                   </button>
@@ -55,14 +75,14 @@ const Filters = () => {
 
           <div className="form-control">
             <h5>Price</h5>
-            <p className="price">100</p>
+            <p className="price">${price}</p>
             <input
               type="range"
               name="price"
-              //   onChange={updateFilters}
-              //   min={min_price}
-              //   max={max_price}
-              //   value={price}
+              onChange={(e) => updateFilter(dispatch, e)}
+              min={min_price}
+              max={max_price}
+              value={price}
             />
           </div>
 
@@ -72,13 +92,17 @@ const Filters = () => {
               type="checkbox"
               name="shipping"
               id="shipping"
-              //   onChange={updateFilters}
-              //   checked={shipping}
+              onChange={(e) => updateFilter(dispatch, e)}
+              checked={shipping}
             />
           </div>
         </form>
 
-        <button type="button" className="clear-btn">
+        <button
+          type="button"
+          className="clear-btn"
+          onClick={() => clearFilter(dispatch)}
+        >
           Clear filters
         </button>
       </div>
@@ -116,6 +140,7 @@ const Wrapper = styled.section`
     color: black;
     cursor: pointer;
     font-size: 1rem;
+    text-transform: capitalize;
   }
   .active {
     border-color: rgba(255, 0, 0, 0.7);

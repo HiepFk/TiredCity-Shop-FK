@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import styled from "styled-components";
 
-function GridView({ products }) {
-  if (!products) {
+function GridView({ products = [""] }) {
+  if (products.length === 0) {
     return (
       <NoProduct className="page">
         Sorry , no products can't be found 😥

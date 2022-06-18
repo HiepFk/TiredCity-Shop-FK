@@ -40,22 +40,24 @@ function Product() {
         Back to products
       </Link>
       <div className="product_info">
-        <ProductImage imgs={product.images} type={product.type} />
+        <ProductImage imgs={product?.images} type={product?.type} />
         <div>
-          <div className="product_title">{product.name}</div>
+          <div className="product_title">{product?.name}</div>
           <ProductStar
-            stars={product.ratingsAverage}
-            reviews={product.ratingsQuantity > 0 ? product.ratingsQuantity : 10}
+            stars={product?.ratingsAverage}
+            reviews={
+              product?.ratingsQuantity > 0 ? product?.ratingsQuantity : 10
+            }
           />
           <div className="product_price">{item.price}</div>
-          <div className="product_desc">{product.description}</div>
+          <div className="product_desc">{product?.description}</div>
           <p className="info">
             <span>Active :</span>
             {item.inStock > 0 ? "In Stock" : "Out of Stock"}
           </p>
           <p className="info">
             <span>Sku :</span>
-            {product.id}
+            {product?.id}
           </p>
           <ProductAdd color={item.color} />
           <div className="product_add btn">Add to cart</div>

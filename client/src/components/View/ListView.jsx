@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-function ListView({ products }) {
-  if (!products) {
+function ListView({ products = [""] }) {
+  if (products.length === 0) {
     return (
       <NoProduct className="page">
         Sorry , no products can't be found 😥

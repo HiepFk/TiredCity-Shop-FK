@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
@@ -8,30 +8,33 @@ import Sort from "../components/Sort";
 import ListView from "../components/View/ListView";
 import GridView from "../components/View/GridView";
 import Loading from "../components/Loading";
+import { SetFilterProduct } from "../redux/filterSlice";
 
 function Products() {
-  const [list, setList] = useState(true);
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.product?.loading);
+  const listView = useSelector((state) => state.filter.listView);
   const products = useSelector(
     (state) => state.product?.products?.data?.products
   );
-
+  const FilterProducts = useSelector((state) => state.filter.filtered_products);
   useEffect(() => {
     getAllProduct(dispatch);
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(SetFilterProduct(products));
+  }, [dispatch, products]);
 
-  if (loading) {
+  if (loading || !products) {
     return <Loading />;
   }
-
   return (
     <Wrapper>
       <Filter />
       <Header>
-        <Sort setList={setList} list={list} length={products.length} />
-        {!list && <GridView products={products} />}
-        {list && <ListView products={products} />}
+        <Sort length={FilterProducts.length} />
+        {!listView && <GridView products={FilterProducts} />}
+        {listView && <ListView products={FilterProducts} />}
       </Header>
     </Wrapper>
   );

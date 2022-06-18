@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-function ProductImage({ imgs, type }) {
-  console.log(type);
+function ProductImage({ imgs = [], type = "" }) {
   const [main, setMain] = useState(0);
   const [images, setImages] = useState(imgs);
 
@@ -28,6 +27,7 @@ function ProductImage({ imgs, type }) {
     if (type === "hoodie" && images.length === 2) {
       setImages(images.concat(hoodie));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
   return (
     <Wrapper>
