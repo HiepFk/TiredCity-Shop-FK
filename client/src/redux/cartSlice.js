@@ -9,15 +9,14 @@ const cartSlice = createSlice({
   },
   reducers: {
     AddProduct: (state, action) => {
-      return {
-        ...state,
-        cart: state.products.push(action.payload),
-      };
+      const { id, image, name, price, amount, color, size } = action.payload;
+      const newProduct = { id, image, name, price, amount, color, size };
+      return { ...state, products: [...state.products, newProduct] };
     },
     DeleteProduct: (state, action) => {
       return {
         ...state,
-        cart: state.products.filter((item) => item.id !== action.payload.id),
+        products: state.products.filter((item) => item.id !== action.payload),
       };
     },
     ClearCart: (state) => {
@@ -25,8 +24,8 @@ const cartSlice = createSlice({
     },
     DecreaseProduct: (state, action) => {
       let tempProducts = state.products.map((item) => {
-        if (item.id === action.payload.id) {
-          item = { ...item, amount: item.quantity - 1 };
+        if (item.id === action.payload) {
+          item = { ...item, amount: item.amount - 1 };
         }
         return item;
       });
@@ -34,8 +33,8 @@ const cartSlice = createSlice({
     },
     IncreaseProduct: (state, action) => {
       let tempProducts = state.products.map((item) => {
-        if (item.id === action.payload.id) {
-          item = { ...item, amount: item.quantity + 1 };
+        if (item.id === action.payload) {
+          item = { ...item, amount: item.amount + 1 };
         }
         return item;
       });

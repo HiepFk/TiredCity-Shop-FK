@@ -1,29 +1,13 @@
 import React from "react";
+import { clearCart, deleteProduct, increase, decrease } from "../../Api/cart";
+import { useDispatch } from "react-redux";
+
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import styled from "styled-components";
 
-function CartItem() {
-  const data = [
-    {
-      id: 1,
-      src: "/image/tee/2/ba-trieu-3.1.webp",
-      title: "Áo bà Triệu",
-      color: "black",
-      price: "$30",
-      quantity: 5,
-      total: "$150",
-    },
-    {
-      id: 2,
-      src: "/image/tee/1/3.1.webp",
-      title: "Áo gà trống",
-      color: "black",
-      price: "$30",
-      quantity: 5,
-      total: "$150",
-    },
-  ];
+function CartItem({ data = [] }) {
+  const dispatch = useDispatch();
   return (
     <Wrapper>
       <CartStyle>
@@ -35,31 +19,45 @@ function CartItem() {
             <th>Subtotal</th>
           </tr>
           {data.map((item) => {
-            const { id, src, title, color, price, quantity, total } = item;
+            const { id, image, name, color, price, amount, size } = item;
             return (
               <tr key={id} className="tr">
                 <td>
                   <div className="cart_item">
-                    <img src={src} alt="" className="cart_img" />
+                    <img src={image} alt="" className="cart_img" />
                     <div className="cart_desc">
-                      <div className="cart_title">{title}</div>
+                      <div className="cart_title">{name}</div>
                       <div className="cart_color">Color : {color}</div>
+                      <div className="cart_color">Size : {size}</div>
                     </div>
                   </div>
                 </td>
-                <td className="cart_price">{price}</td>
+                <td className="cart_price">${price}</td>
                 <td>
                   <div className="cart_quantity">
-                    <div className="cart_minus">-</div>
-                    <div className="cart_index">{quantity}</div>
-                    <div className="cart_plus">+</div>
+                    <div
+                      className="cart_minus"
+                      onClick={() => decrease(dispatch, id)}
+                    >
+                      -
+                    </div>
+                    <div className="cart_index">{amount}</div>
+                    <div
+                      className="cart_plus"
+                      onClick={() => increase(dispatch, id)}
+                    >
+                      +
+                    </div>
                   </div>
                 </td>
-                <td className="cart_total">{total}</td>
+                <td className="cart_total">${price * amount}</td>
                 <td>
-                  <div className="cart_trash">
+                  <button
+                    className="cart_trash"
+                    onClick={() => deleteProduct(dispatch, id)}
+                  >
                     <FaTrash />
-                  </div>
+                  </button>
                 </td>
               </tr>
             );
@@ -70,7 +68,9 @@ function CartItem() {
         <Link to={"/products"}>
           <div className="cart_back btn">Continue shopping </div>
         </Link>
-        <div className="cart_clear btn">Clear shopping cart </div>
+        <div className="cart_clear btn" onClick={() => clearCart(dispatch)}>
+          Clear shopping cart{" "}
+        </div>
       </CartButton>
     </Wrapper>
   );
@@ -125,6 +125,9 @@ const CartStyle = styled.div`
     color: brown;
     letter-spacing: 0.2rem;
   }
+  .cart_color {
+    margin-bottom: 0.5rem;
+  }
   .cart_quantity {
     display: flex;
     align-items: center;
@@ -152,6 +155,7 @@ const CartStyle = styled.div`
     justify-content: center;
     font-size: 0.8rem;
     border-radius: 3px;
+    border: none;
   }
 `;
 

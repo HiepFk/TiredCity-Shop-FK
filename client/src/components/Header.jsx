@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
 import { FiShoppingCart, FiUserPlus, FiUserMinus } from "react-icons/fi";
 import styled from "styled-components";
 import { headerLink } from "../utils/links";
 function Header() {
+  const { totalQty } = useSelector((state) => state.cart);
+
   const [user, setUser] = useState(false);
-  const [items, setItems] = useState(10);
   return (
     <HeaderStyle className="header">
       <Link to={"/"} className="header_logo">
@@ -25,7 +28,7 @@ function Header() {
       <div className="header_user">
         <Link to={"/cart"} className="header_icons">
           Cart
-          <span>{items}</span>
+          <span>{totalQty}</span>
           <div className="header_icon">
             <FiShoppingCart />
           </div>

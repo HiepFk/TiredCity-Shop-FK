@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getProduct } from "../Api/product";
 import { useSelector, useDispatch } from "react-redux";
+import { addProduct } from "../Api/cart";
 
 import ProductImage from "../components/Product/ProductImage";
 import ProductStar from "../components/Product/ProductStar";
@@ -21,6 +22,10 @@ function Product() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.product?.loading);
   const product = useSelector((state) => state.product?.product?.data?.product);
+
+  const [amount, setAmount] = useState(1);
+  const [size, setSize] = useState("S");
+  const [color, setColor] = useState("white");
 
   useEffect(() => {
     getProduct(dispatch, id);
@@ -59,8 +64,33 @@ function Product() {
             <span>Sku :</span>
             {product?.id}
           </p>
-          <ProductAdd color={item.color} />
-          <div className="product_add btn">Add to cart</div>
+          <ProductAdd
+            setAmount={setAmount}
+            amount={amount}
+            setSize={setSize}
+            size={size}
+            setColor={setColor}
+            color={color}
+          />
+          <button
+            type="button"
+            className="product_add btn"
+            onClick={() => {
+              const data = {
+                id: product.id,
+                image: product.imageCover,
+                name: product.name,
+                price: product.price,
+                size,
+                amount,
+                color,
+              };
+              console.log(data);
+              addProduct(dispatch, data);
+            }}
+          >
+            Add to cart
+          </button>
           <hr />
           <Review />
         </div>

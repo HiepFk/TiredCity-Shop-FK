@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getTotal } from "../Api/cart";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CartItem from "../components/Cart/CartItem";
 import CartTotal from "../components/Cart/CartTotal";
 function Cart() {
-  const index = 1;
-  if (index === 0) {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.cart.products);
+
+  useEffect(() => {
+    getTotal(dispatch);
+  }, [dispatch, products]);
+
+  if (products.length === 0) {
     return (
       <Empty className="page">
         <div className="empty_title">Your cart is empty</div>
@@ -18,7 +26,7 @@ function Cart() {
 
   return (
     <div className="page">
-      <CartItem />
+      <CartItem data={products} />
       <CartTotal />
     </div>
   );

@@ -1,31 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { FaCheck } from "react-icons/fa";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
-function ProductAdd({ color }) {
-  const size = ["S", "M", "L", "XL", "XXL"];
-  const [mainColor, setMainColor] = useState(0);
-  const [mainSize, setMainSize] = useState(0);
+function ProductAdd({ setColor, color, setAmount, amount, setSize, size }) {
+  const Size = ["S", "M", "L", "XL", "XXL"];
+  const Color = ["white", "black"];
   return (
     <>
       <Wrapper>
         <div className="product_colors">
           <span>Color : </span>
           <div>
-            {color.map((item, index) => {
+            {Color.map((item, index) => {
               return (
                 <div
                   className={
-                    mainColor === index
-                      ? "product_color active1"
-                      : "product_color "
+                    color === item ? "product_color active1" : "product_color "
                   }
                   style={{ background: `${item}` }}
-                  onClick={() => setMainColor(index)}
+                  onClick={() => setColor(item)}
                   key={index}
                 >
-                  {mainColor === index ? <FaCheck /> : null}
+                  {color === item ? <FaCheck /> : null}
                 </div>
               );
             })}
@@ -34,13 +31,13 @@ function ProductAdd({ color }) {
         <div className="product_colors">
           <span>Size : </span>
           <div>
-            {size.map((item, index) => {
+            {Size.map((item, index) => {
               return (
                 <div
                   className={
-                    mainSize === index ? "product_size active" : "product_size"
+                    size === item ? "product_size active" : "product_size"
                   }
-                  onClick={() => setMainSize(index)}
+                  onClick={() => setSize(item)}
                   key={index}
                 >
                   {item}
@@ -52,11 +49,23 @@ function ProductAdd({ color }) {
       </Wrapper>
       <Amount className="amount-btns">
         <button className="amount-btn" type="button">
-          <FaMinus />
+          <FaMinus
+            onClick={() =>
+              setAmount((amount) => {
+                return amount - 1;
+              })
+            }
+          />
         </button>
-        <h2 className="amount">1</h2>
+        <h2 className="amount">{amount}</h2>
         <button className="amount-btn" type="button">
-          <FaPlus />
+          <FaPlus
+            onClick={() =>
+              setAmount((amount) => {
+                return amount + 1;
+              })
+            }
+          />
         </button>
       </Amount>
     </>

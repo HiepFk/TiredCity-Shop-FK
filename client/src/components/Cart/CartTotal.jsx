@@ -1,22 +1,26 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 function CartTotal() {
+  const { totalCost } = useSelector((state) => state.cart);
+
   const user = false;
   return (
     <Wrapper>
       <div>
         <article>
           <h5>
-            Subtotal :<span>$100</span>
+            Subtotal :<span>${totalCost}</span>
           </h5>
           <p>
             Shipping fee : <span>$5</span>
           </p>
           <hr />
           <h4>
-            Order total :<span>$105</span>
+            Order total :<span>${5 + totalCost}</span>
           </h4>
         </article>
         {user ? (
