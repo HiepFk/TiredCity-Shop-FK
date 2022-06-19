@@ -1,9 +1,11 @@
 import axios from "axios";
-
 import {
   LoginStart,
   LoginFailed,
   LoginSuccess,
+  SignUpStart,
+  SignUpFailed,
+  SignUpSuccess,
   LogOutStart,
   LogOutSuccess,
   LogOutFailed,
@@ -14,7 +16,7 @@ import {
 import { ShowAlert, HideAlert } from "../redux/alertSlice";
 
 axios.defaults.withCredentials = true;
-const link = "http://localhost:8000";
+const link = "http://localhost:3000";
 
 const ErrorMessage = (dispatch, error) => {
   dispatch(ShowAlert(error.response.data));
@@ -24,6 +26,22 @@ const ErrorMessage = (dispatch, error) => {
   return () => window.clearTimeout(timeoutID);
 };
 
+export const signUp = async (user, dispatch, navigate) => {
+  dispatch(SignUpStart());
+  try {
+    const res = await axios.post(`${link}/v1/user/signup`, user);
+    dispatch(SignUpSuccess(res.data));
+    dispatch(ShowAlert(res.data));
+    navigate("/");
+    const timeoutID = window.setTimeout(() => {
+      dispatch(HideAlert());
+    }, 3000);
+    return () => window.clearTimeout(timeoutID);
+  } catch (error) {
+    dispatch(SignUpFailed());
+    ErrorMessage(dispatch, error);
+  }
+};
 export const loginUser = async (user, dispatch, navigate) => {
   dispatch(LoginStart());
   try {
@@ -67,7 +85,7 @@ export const GetMe = async (dispatch) => {
   }
 };
 
-export const UpdateMe = async (dispatch, data, type, navigate) => {
+export const UpdateMe = async (dispatch, data, type) => {
   dispatch(GetMeStart());
   try {
     const url =

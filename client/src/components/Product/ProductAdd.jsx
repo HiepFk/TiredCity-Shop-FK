@@ -52,6 +52,9 @@ function ProductAdd({ setColor, color, setAmount, amount, setSize, size }) {
           <FaMinus
             onClick={() =>
               setAmount((amount) => {
+                if (amount < 2) {
+                  return 1;
+                }
                 return amount - 1;
               })
             }

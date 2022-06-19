@@ -1,12 +1,33 @@
 import React from "react";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-
-function CartTotal() {
-  const { totalCost } = useSelector((state) => state.cart);
-  const me = useSelector((state) => state.auth.me);
+import { Link, useNavigate } from "react-router-dom";
+import { addOrder, clearCart } from "../../Api/cart";
+function CartTotal({ products }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { totalCost, totalQty } = useSelector((state) => state.cart);
+  const me = useSelector((state) => state.auth.user);
+  const Order = (e) => {
+    e.preventDefault();
+    const orders = [];
+    products.forEach((item) => {
+      let order = { id: "", amount: "", size: "", color: "" };
+      let id = item.id;
+      id = id.replace(item.color, "");
+      id = id.replace(item.size, "");
+      order = { id, amount: item.amount, size: item.size, color: item.color };
+      orders.push(order);
+    });
+    const data = {
+      products: orders,
+      totalQty,
+      totalCost,
+      address: me?.data?.user?.adress,
+    };
+    addOrder(dispatch, navigate, data);
+    clearCart(dispatch);
+  };
 
   return (
     <Wrapper>
@@ -33,8 +54,8 @@ function CartTotal() {
             Order total :<span>${5 + totalCost}</span>
           </h4>
         </article>
-        {!me ? (
-          <button type="button" className="btn">
+        {me ? (
+          <button type="button" className="btn" onClick={Order}>
             Đặt hàng
           </button>
         ) : (

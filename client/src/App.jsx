@@ -4,7 +4,17 @@ import { Routes, Route } from "react-router-dom";
 // import Alert from "./components/Alert";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import { About, Cart, Home, Products, Product, Error, Login } from "./pages";
+import {
+  About,
+  Cart,
+  Home,
+  Products,
+  Product,
+  Error,
+  Login,
+  MyInfo,
+  MyOrder,
+} from "./pages";
 function App() {
   return (
     <>
@@ -17,6 +27,8 @@ function App() {
           <Route exact path="Products" element={<Products />} />
           <Route exact path="Products/:id" element={<Product />} />
           <Route exact path="Login" element={<Login />} />
+          <Route exact path="Me" element={<MyInfo />} />
+          <Route exact path="Myorder" element={<MyOrder />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>

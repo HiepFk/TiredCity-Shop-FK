@@ -9,12 +9,12 @@ const orderSchema = new mongoose.Schema(
           ref: "Prodcut",
           require: true,
         },
-        quantity: {
+        amount: {
           type: Number,
         },
         color: {
           type: String,
-          enum: ["white , black"],
+          enum: ["white", "black"],
         },
         size: {
           type: String,
@@ -37,8 +37,12 @@ const orderSchema = new mongoose.Schema(
       default: 0,
       required: true,
     },
-    address: { type: Object, required: true },
+    address: { type: String, required: true },
     status: { type: String, default: "pending" },
+    time: {
+      type: Date,
+      default: Date.now(),
+    },
   },
   {
     toJSON: { virtuals: true },

@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   AddProduct,
   DeleteProduct,
@@ -5,7 +6,37 @@ import {
   DecreaseProduct,
   IncreaseProduct,
   GetToTal,
+  GetOrderStart,
+  GetOrderError,
+  GetOrderSuccess,
 } from "../redux/cartSlice";
+import { ShowAlert, HideAlert } from "../redux/alertSlice";
+
+axios.defaults.withCredentials = true;
+const link = "http://localhost:3000";
+
+const ErrorMessage = (dispatch, error) => {
+  dispatch(ShowAlert(error.response.data));
+  const timeoutID = window.setTimeout(() => {
+    dispatch(HideAlert());
+  }, 3000);
+  return () => window.clearTimeout(timeoutID);
+};
+
+export const addOrder = async (dispatch, navigate, data) => {
+  try {
+    console.log(data);
+    const res = await axios.post(`${link}/v1/order/user`, data);
+    dispatch(ShowAlert(res.data));
+    navigate("/myorder");
+    const timeoutID = window.setTimeout(() => {
+      dispatch(HideAlert());
+    }, 3000);
+    return () => window.clearTimeout(timeoutID);
+  } catch (error) {
+    ErrorMessage(dispatch, error);
+  }
+};
 
 export const addProduct = (dispatch, data) => {
   dispatch(AddProduct(data));

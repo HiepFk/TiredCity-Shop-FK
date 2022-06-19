@@ -34,10 +34,10 @@ function Sort({ length }) {
             value={sort}
             onChange={(e) => updateSort(dispatch, e.target.value)}
           >
-            <option value="price-lowest">price (lowest)</option>
-            <option value="price-highest">price (highest)</option>
-            <option value="name-a">name (a-z)</option>
-            <option value="name-z">name (z-a)</option>
+            <option value="price-lowest">price ( lowest )</option>
+            <option value="price-highest">price ( highest )</option>
+            <option value="name-a">name ( a-z )</option>
+            <option value="name-z">name ( z-a )</option>
           </select>
         </form>
       </div>
@@ -47,8 +47,8 @@ function Sort({ length }) {
 
 const SortStyle = styled.div`
   margin-bottom: 1rem;
-  width: 55rem;
-  min-width: 50rem;
+  width: 60rem;
+  min-width: 53rem;
   .sort_wrapper {
     display: flex;
     justify-content: space-between;
@@ -59,6 +59,11 @@ const SortStyle = styled.div`
     margin-right: 0.5rem;
     width: 4rem;
     transform: translateY(0.25rem);
+  }
+  select {
+    font-size: 1.25rem;
+    font-weight: 550;
+    text-transform: capitalize;
   }
   p {
     max-width: 10rem;

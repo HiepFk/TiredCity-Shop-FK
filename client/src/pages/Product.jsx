@@ -77,7 +77,7 @@ function Product() {
             className="product_add btn"
             onClick={() => {
               const data = {
-                id: product.id,
+                id: product.id + size + color,
                 image: product.imageCover,
                 name: product.name,
                 price: product.price,

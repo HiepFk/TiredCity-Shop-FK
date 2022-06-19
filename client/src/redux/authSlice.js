@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    me: null,
+    user: null,
     loading: false,
     error: false,
   },
@@ -13,16 +13,28 @@ const authSlice = createSlice({
     },
     LoginSuccess: (state, action) => {
       state.loading = false;
-      state.me = action.payload;
+      state.user = action.payload;
       state.error = false;
     },
     LoginFailed: (state) => {
       state.loading = false;
       state.error = true;
     },
+    SignUpStart: (state) => {
+      state.loading = true;
+    },
+    SignUpSuccess: (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+      state.error = false;
+    },
+    SignUpFailed: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
     LogOutSuccess: (state) => {
       state.loading = false;
-      state.me = null;
+      state.user = null;
       state.error = false;
     },
     LogOutFailed: (state) => {
@@ -42,7 +54,7 @@ const authSlice = createSlice({
     GetMeSuccess: (state, action) => {
       state.loading = false;
       state.error = false;
-      state.me = action.payload;
+      state.user = action.payload;
     },
   },
 });
@@ -51,6 +63,9 @@ export const {
   LoginStart,
   LoginFailed,
   LoginSuccess,
+  SignUpStart,
+  SignUpFailed,
+  SignUpSuccess,
   LogOutStart,
   LogOutSuccess,
   LogOutFailed,

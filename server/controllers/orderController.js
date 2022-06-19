@@ -89,6 +89,7 @@ const orderController = {
         data: { saveOrder },
       });
     } catch (error) {
+      console.log(error);
       res.status(404).json(error);
     }
   },

@@ -9,7 +9,7 @@ function Cart() {
 
   if (products.length === 0) {
     return (
-      <Empty className="page">
+      <Empty>
         <div className="empty_title">Your cart is empty</div>
         <Link to={"/products"}>
           <button className="empty_btn">Fill it</button>
@@ -21,7 +21,7 @@ function Cart() {
   return (
     <div className="page">
       <CartItem data={products} />
-      <CartTotal />
+      <CartTotal products={products} />
     </div>
   );
 }
@@ -30,6 +30,7 @@ const Empty = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 10rem;
   .empty_title {
     font-weight: 700;
     font-size: 3rem;

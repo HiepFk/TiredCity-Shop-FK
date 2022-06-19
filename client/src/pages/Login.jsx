@@ -1,9 +1,45 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { signUp, loginUser } from "../Api/auth";
+
 import styled from "styled-components";
 import { FaArrowRight } from "react-icons/fa";
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [login, setLogin] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [newName, setNewName] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const Login = (e) => {
+    e.preventDefault();
+    const data = {
+      email,
+      password,
+    };
+    loginUser(data, dispatch, navigate);
+    setEmail("");
+    setPassword("");
+  };
+  const Sinup = (e) => {
+    e.preventDefault();
+    const newUser = {
+      name: newName,
+      email: newEmail,
+      password: newPassword,
+      passwordConfirm,
+    };
+    signUp(newUser, dispatch, navigate);
+  };
+
   return (
     <Wrapper class="login_page page">
       <div className="login_wrapper">
@@ -20,12 +56,36 @@ function Login() {
       </div>
       <div class="form">
         {login ? (
-          <form class="register_form ">
+          <form class="register_form" onSubmit={Sinup}>
             <div className="title">Sign Up</div>
-            <input type="text" required placeholder="Name" />
-            <input type="email" required placeholder="Email" />
-            <input type="password" required placeholder="Password" />
-            <input type="password" required placeholder="Password Confirm" />
+            <input
+              type="text"
+              required
+              placeholder="Name"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+            />
+            <input
+              type="email"
+              required
+              placeholder="Email"
+              value={newEmail}
+              onChange={(e) => setNewEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              required
+              placeholder="Password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              required
+              placeholder="Password Confirm"
+              value={passwordConfirm}
+              onChange={(e) => setPasswordConfirm(e.target.value)}
+            />
             <button>
               <FaArrowRight />
             </button>
@@ -34,10 +94,22 @@ function Login() {
             </p>
           </form>
         ) : (
-          <form class="login_form">
+          <form class="login_form" onSubmit={Login}>
             <div class="title">Sign In</div>
-            <input type="text" required placeholder="Username" />
-            <input type="password" required placeholder="Password" />
+            <input
+              type="email"
+              required
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              required
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <button>
               <FaArrowRight />
             </button>

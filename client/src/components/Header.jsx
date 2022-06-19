@@ -1,21 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
-import { FiShoppingCart, FiUserPlus, FiUserMinus } from "react-icons/fi";
+import { FiShoppingCart, FiUserPlus, FiUser } from "react-icons/fi";
 import styled from "styled-components";
 import { headerLink } from "../utils/links";
 import { getTotal } from "../Api/cart";
+import User from "./User";
 
 function Header() {
   const dispatch = useDispatch();
   const { totalQty } = useSelector((state) => state.cart);
   const products = useSelector((state) => state.cart.products);
-  const me = useSelector((state) => state.auth.me);
+  const user = useSelector((state) => state.auth.user);
+
+  const [hide, setHide] = useState(false);
 
   useEffect(() => {
     getTotal(dispatch);
   }, [dispatch, products]);
+
   return (
     <HeaderStyle className="header">
       <Link to={"/"} className="header_logo">
@@ -40,28 +44,30 @@ function Header() {
             <FiShoppingCart />
           </div>
         </Link>
-        {!me ? (
-          <>
-            <div className="header_icons " style={{ width: "6.5rem" }}>
-              Logout
-              <div className="header_icon">
-                <FiUserMinus />
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <Link
-              to={"/login"}
-              className="header_icons"
-              style={{ width: "6.5rem" }}
+        {hide && <User setHide={setHide} />}
+
+        {user ? (
+          <div className="header_icons " style={{ width: "6.5rem" }}>
+            <div
+              className="header_icon"
+              onClick={() => {
+                setHide(!hide);
+              }}
             >
-              Login
-              <div className="header_icon">
-                <FiUserPlus />
-              </div>
-            </Link>
-          </>
+              <FiUser />
+            </div>
+          </div>
+        ) : (
+          <Link
+            to={"/login"}
+            className="header_icons"
+            style={{ width: "6.5rem" }}
+          >
+            Login
+            <div className="header_icon">
+              <FiUserPlus />
+            </div>
+          </Link>
         )}
       </div>
     </HeaderStyle>
