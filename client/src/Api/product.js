@@ -9,7 +9,7 @@ import {
 } from "../redux/productSlice";
 
 axios.defaults.withCredentials = true;
-const link = "http://localhost:3000";
+const link = process.env.REACT_APP_API_LINK;
 
 export const getAllProduct = async (dispatch) => {
   dispatch(GetProductsStart());

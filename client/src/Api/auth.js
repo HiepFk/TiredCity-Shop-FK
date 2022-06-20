@@ -16,7 +16,7 @@ import {
 import { ShowAlert, HideAlert } from "../redux/alertSlice";
 
 axios.defaults.withCredentials = true;
-const link = "http://localhost:3000";
+const link = process.env.REACT_APP_API_LINK;
 
 const ErrorMessage = (dispatch, error) => {
   dispatch(ShowAlert(error.response.data));
@@ -65,7 +65,6 @@ export const logOutUser = async (dispatch, navigate) => {
     const res = await axios.get(`${link}/v1/user/logout`);
     dispatch(LogOutSuccess());
     dispatch(ShowAlert(res.data));
-    navigate("/");
     const timeoutID = window.setTimeout(() => {
       dispatch(HideAlert());
     }, 3000);

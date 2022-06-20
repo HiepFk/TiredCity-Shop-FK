@@ -1,7 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-// import Alert from "./components/Alert";
+import Alert from "./components/Alert";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import {
@@ -16,9 +17,12 @@ import {
   MyOrder,
 } from "./pages";
 function App() {
+  const alert = useSelector((state) => state.alert);
+
   return (
     <>
       <div className="app page">
+        {alert.show && <Alert type={`alert--${alert.type}`} msg={alert.msg} />}
         <Header />
         <Routes>
           <Route exact path="/" element={<Home />} />

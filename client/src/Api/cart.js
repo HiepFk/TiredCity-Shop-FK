@@ -13,7 +13,7 @@ import {
 import { ShowAlert, HideAlert } from "../redux/alertSlice";
 
 axios.defaults.withCredentials = true;
-const link = "http://localhost:3000";
+const link = process.env.REACT_APP_API_LINK;
 
 const ErrorMessage = (dispatch, error) => {
   dispatch(ShowAlert(error.response.data));
@@ -28,20 +28,13 @@ export const getMyOrder = async (dispatch) => {
   try {
     const res = await axios.get(`${link}/v1/order/myorder`);
     dispatch(GetOrderSuccess(res.data));
-    dispatch(ShowAlert(res.data));
-    const timeoutID = window.setTimeout(() => {
-      dispatch(HideAlert());
-    }, 3000);
-    return () => window.clearTimeout(timeoutID);
   } catch (error) {
     dispatch(GetOrderError());
-    ErrorMessage(dispatch, error);
   }
 };
 
 export const addOrder = async (dispatch, navigate, data) => {
   try {
-    console.log(data);
     const res = await axios.post(`${link}/v1/order/user`, data);
     dispatch(ShowAlert(res.data));
     navigate("/myorder");
@@ -56,10 +49,28 @@ export const addOrder = async (dispatch, navigate, data) => {
 
 export const addProduct = (dispatch, data) => {
   dispatch(AddProduct(data));
+  const msg = {
+    status: "success",
+    message: "Sản phẩm đã được thêm vào giỏ hàng",
+  };
+  dispatch(ShowAlert(msg));
+  const timeoutID = window.setTimeout(() => {
+    dispatch(HideAlert());
+  }, 2000);
+  return () => window.clearTimeout(timeoutID);
 };
 
 export const deleteProduct = (dispatch, id) => {
   dispatch(DeleteProduct(id));
+  const msg = {
+    status: "success",
+    message: "Sản phẩm đã được xóa khỏi giỏ hàng",
+  };
+  dispatch(ShowAlert(msg));
+  const timeoutID = window.setTimeout(() => {
+    dispatch(HideAlert());
+  }, 2000);
+  return () => window.clearTimeout(timeoutID);
 };
 
 export const clearCart = (dispatch) => {
