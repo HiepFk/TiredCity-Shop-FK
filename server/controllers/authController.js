@@ -16,8 +16,8 @@ const createSendToken = (user, statusCode, req, res, msg) => {
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: req.secure || req.headers["x-forwarded-proto"] == "https",
-    sameSite: "none",
+    // secure: req.secure || req.headers["x-forwarded-proto"] == "https",
+    // sameSite: "none",
   });
   user.password = undefined;
   res.status(statusCode).json({
@@ -80,8 +80,8 @@ exports.logout = (req, res, next) => {
   res.cookie("jwt", "loggedout", {
     expires: new Date(Date.now() + 1000),
     httpOnly: true,
-    secure: req.secure || req.headers["x-forwarded-proto"] == "https",
-    sameSite: "none",
+    // secure: req.secure || req.headers["x-forwarded-proto"] == "https",
+    // sameSite: "none",
   });
   res.status(200).json({ status: "success", message: "You are loggedout" });
 };
