@@ -4,9 +4,8 @@ const router = require("express").Router();
 
 router.use(authController.protect);
 
-// Thiếu của người dùng
-
 router.route("/user").post(orderController.userAddOrder);
+router.route("/myorder").get(orderController.getMyOrder);
 
 router.use(authController.isAdmin);
 router.route("/").post(orderController.addOrder);

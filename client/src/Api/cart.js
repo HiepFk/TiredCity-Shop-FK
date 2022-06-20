@@ -23,6 +23,22 @@ const ErrorMessage = (dispatch, error) => {
   return () => window.clearTimeout(timeoutID);
 };
 
+export const getMyOrder = async (dispatch) => {
+  dispatch(GetOrderStart());
+  try {
+    const res = await axios.get(`${link}/v1/order/myorder`);
+    dispatch(GetOrderSuccess(res.data));
+    dispatch(ShowAlert(res.data));
+    const timeoutID = window.setTimeout(() => {
+      dispatch(HideAlert());
+    }, 3000);
+    return () => window.clearTimeout(timeoutID);
+  } catch (error) {
+    dispatch(GetOrderError());
+    ErrorMessage(dispatch, error);
+  }
+};
+
 export const addOrder = async (dispatch, navigate, data) => {
   try {
     console.log(data);

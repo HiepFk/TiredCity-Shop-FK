@@ -10,21 +10,28 @@ function CartTotal({ products }) {
   const me = useSelector((state) => state.auth.user);
   const Order = (e) => {
     e.preventDefault();
-    const orders = [];
-    products.forEach((item) => {
-      let order = { id: "", amount: "", size: "", color: "" };
-      let id = item.id;
-      id = id.replace(item.color, "");
-      id = id.replace(item.size, "");
-      order = { id, amount: item.amount, size: item.size, color: item.color };
-      orders.push(order);
-    });
+    // const orders = [];
+    // products.forEach((item) => {
+    //   let order = { id: "", amount: "", size: "", color: "" };
+    //   let _id = item.id;
+    //   _id = _id.replace(item.color, "");
+    //   _id = _id.replace(item.size, "");
+    //   order = {
+    //     product: _id,
+    //     amount: item.amount,
+    //     size: item.size,
+    //     color: item.color,
+    //   };
+    //   orders.push(order);
+    // });
+    // console.log(orders);
     const data = {
-      products: orders,
+      products,
       totalQty,
       totalCost,
       address: me?.data?.user?.adress,
     };
+    // console.log(data);
     addOrder(dispatch, navigate, data);
     clearCart(dispatch);
   };

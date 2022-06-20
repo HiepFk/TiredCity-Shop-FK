@@ -4,11 +4,14 @@ const orderSchema = new mongoose.Schema(
   {
     products: [
       {
-        product: {
-          type: mongoose.Schema.ObjectId,
-          ref: "Prodcut",
-          require: true,
-        },
+        // product: {
+        //   type: mongoose.Schema.ObjectId,
+        //   ref: "Product",
+        //   require: true,
+        // },
+        name: String,
+        price: Number,
+        image: String,
         amount: {
           type: Number,
         },
@@ -41,7 +44,7 @@ const orderSchema = new mongoose.Schema(
     status: { type: String, default: "pending" },
     time: {
       type: Date,
-      default: Date.now(),
+      default: new Date(),
     },
   },
   {

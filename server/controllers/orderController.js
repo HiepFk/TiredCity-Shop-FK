@@ -93,6 +93,20 @@ const orderController = {
       res.status(404).json(error);
     }
   },
+  getMyOrder: async (req, res) => {
+    try {
+      const order = await Order.find({ user: req.user.id }).populate({
+        path: "products",
+      });
+      res.status(200).json({
+        status: "success",
+        data: { order },
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(404).json(error);
+    }
+  },
 };
 
 module.exports = orderController;
