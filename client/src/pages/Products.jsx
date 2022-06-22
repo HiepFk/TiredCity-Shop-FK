@@ -3,55 +3,33 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { getAllProduct } from "../Api/product";
+import { clearFilter } from "../Api/filter";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
-import ListView from "../components/View/ListView";
-import GridView from "../components/View/GridView";
+import ProductList from "../components/ProductList";
 import Loading from "../components/Loading";
-
-import {
-  filterProduct,
-  sortProduct,
-  clearFilter,
-  setFilterProduct,
-} from "../Api/filter";
 
 function Products() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.product?.loading);
-  const listView = useSelector((state) => state.filter.listView);
   const products = useSelector(
     (state) => state.product?.products?.data?.products
   );
-  const FilterProducts = useSelector((state) => state.filter.filtered_products);
-
-  const { text, type, price, shipping } = useSelector(
-    (state) => state.filter.filters
-  );
-  const sort = useSelector((state) => state.filter.sort);
 
   useEffect(() => {
     clearFilter(dispatch);
     getAllProduct(dispatch);
-    setFilterProduct(dispatch, products);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  useEffect(() => {
-    filterProduct(dispatch);
-    sortProduct(dispatch);
-  }, [dispatch, sort, type, text, price, shipping]);
-
-  if (loading || !products || !FilterProducts) {
+  if (loading || !products) {
     return <Loading />;
   }
   return (
     <Wrapper>
       <Filter />
       <Header>
-        <Sort length={FilterProducts.length} />
-        {!listView && <GridView products={FilterProducts} />}
-        {listView && <ListView products={FilterProducts} />}
+        <Sort />
+        <ProductList products={products} />
       </Header>
     </Wrapper>
   );

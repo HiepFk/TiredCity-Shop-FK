@@ -3,13 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 function ListView({ products = [""] }) {
-  if (products.length === 0) {
-    return (
-      <NoProduct className="page">
-        Sorry , no products can't be found 😥
-      </NoProduct>
-    );
-  }
   return (
     <ListStyle className="list">
       {products.map((item) => {
@@ -70,11 +63,6 @@ const ListStyle = styled.div`
   .list_btn:hover {
     opacity: 0.6;
   }
-`;
-const NoProduct = styled.div`
-  font-weight: 600;
-  font-size: 1.4rem;
-  margin-top: 1rem;
 `;
 
 export default ListView;

@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSort, setListView, setGridView } from "../Api/filter";
 import styled from "styled-components";
 
-function Sort({ length }) {
+function Sort() {
   const dispatch = useDispatch();
+  const FilterProducts = useSelector((state) => state.filter.filtered_products);
+
   const listView = useSelector((state) => state.filter.listView);
   const sort = useSelector((state) => state.filter.sort);
 
@@ -23,7 +25,7 @@ function Sort({ length }) {
           />
         </div>
         <hr />
-        <p>{length} products found.</p>
+        <p>{FilterProducts.length} products found.</p>
         <hr />
         <form className="sort_form">
           <label htmlFor="sort">Sort by</label>

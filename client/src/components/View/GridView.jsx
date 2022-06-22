@@ -4,13 +4,6 @@ import { FaSearch } from "react-icons/fa";
 import styled from "styled-components";
 
 function GridView({ products = [""] }) {
-  if (products.length === 0) {
-    return (
-      <NoProduct className="page">
-        Sorry , no products can't be found 😥
-      </NoProduct>
-    );
-  }
   return (
     <GridStyle className="page">
       {products.map((item) => {
@@ -107,11 +100,6 @@ const GridStyle = styled.div`
     display: none;
     cursor: pointer;
   }
-`;
-const NoProduct = styled.div`
-  font-weight: 600;
-  font-size: 1.4rem;
-  margin-top: 1rem;
 `;
 
 export default GridView;

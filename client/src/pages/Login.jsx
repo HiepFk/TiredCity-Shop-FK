@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signUp, loginUser } from "../Api/auth";
@@ -9,6 +9,7 @@ import { FaArrowRight } from "react-icons/fa";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user?.data?.user);
 
   const [login, setLogin] = useState(false);
   const [email, setEmail] = useState("");
@@ -39,6 +40,12 @@ function Login() {
     };
     signUp(newUser, dispatch, navigate);
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [navigate, user]);
 
   return (
     <Wrapper class="login_page page">
