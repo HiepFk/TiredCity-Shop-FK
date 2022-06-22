@@ -36,6 +36,7 @@ export const getMyOrder = async (dispatch) => {
 export const addOrder = async (dispatch, navigate, data) => {
   try {
     const res = await axios.post(`${link}/v1/order/user`, data);
+
     dispatch(ShowAlert(res.data));
     navigate("/myorder");
     const timeoutID = window.setTimeout(() => {

@@ -42,6 +42,8 @@ const orderSchema = new mongoose.Schema(
     },
     address: { type: String, required: true },
     status: { type: String, default: "pending" },
+    number: { type: Number, required: true },
+    name: { type: String, required: true },
     time: {
       type: Date,
       default: new Date(),

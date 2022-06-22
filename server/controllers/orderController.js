@@ -81,6 +81,7 @@ const orderController = {
     try {
       const data = { ...req.body };
       data.user = req.user.id;
+      data.time = new Date();
       const newOrder = new Order(data);
       const saveOrder = await newOrder.save();
       res.status(200).json({

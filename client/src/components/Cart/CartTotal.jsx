@@ -1,79 +1,60 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import { addOrder, clearCart } from "../../Api/cart";
+import { Link } from "react-router-dom";
+import Address from "../Address";
 function CartTotal({ products }) {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { totalCost, totalQty } = useSelector((state) => state.cart);
+  const { totalCost } = useSelector((state) => state.cart);
   const me = useSelector((state) => state.auth.user);
-  const Order = (e) => {
-    e.preventDefault();
-    // const orders = [];
-    // products.forEach((item) => {
-    //   let order = { id: "", amount: "", size: "", color: "" };
-    //   let _id = item.id;
-    //   _id = _id.replace(item.color, "");
-    //   _id = _id.replace(item.size, "");
-    //   order = {
-    //     product: _id,
-    //     amount: item.amount,
-    //     size: item.size,
-    //     color: item.color,
-    //   };
-    //   orders.push(order);
-    // });
-    // console.log(orders);
-    const data = {
-      products,
-      totalQty,
-      totalCost,
-      address: me?.data?.user?.adress,
-    };
-    // console.log(data);
-    addOrder(dispatch, navigate, data);
-    clearCart(dispatch);
-  };
+  const [hideAddress, setHideAddress] = useState(false);
 
   return (
-    <Wrapper>
-      <div>
-        <article>
-          <h5>
-            Subtotal :<span>${totalCost}</span>
-          </h5>
-          {totalCost >= 100 ? (
-            <>
-              <p>
-                Shipping fee : <span>free</span>
-              </p>
-            </>
-          ) : (
-            <>
-              <p>
-                Shipping fee : <span>$5</span>
-              </p>
-            </>
-          )}
-          <hr />
-          <h4>
-            Order total :<span>${5 + totalCost}</span>
-          </h4>
-        </article>
-        {me ? (
-          <button type="button" className="btn" onClick={Order}>
-            Đặt hàng
-          </button>
-        ) : (
-          <Link to={"/login"}>
-            <button className="btn" type="button">
-              Login
+    <>
+      {hideAddress && (
+        <Address setHideAddress={setHideAddress} products={products} />
+      )}
+      <Wrapper>
+        <div>
+          <article>
+            <h5>
+              Subtotal :<span>${totalCost}</span>
+            </h5>
+            {totalCost >= 100 ? (
+              <>
+                <p>
+                  Shipping fee : <span>free</span>
+                </p>
+              </>
+            ) : (
+              <>
+                <p>
+                  Shipping fee : <span>$5</span>
+                </p>
+              </>
+            )}
+            <hr />
+            <h4>
+              Order total :<span>${5 + totalCost}</span>
+            </h4>
+          </article>
+          {me ? (
+            <button
+              type="button"
+              className="btn"
+              onClick={() => setHideAddress(true)}
+            >
+              Check out
             </button>
-          </Link>
-        )}
-      </div>
-    </Wrapper>
+          ) : (
+            <Link to={"/login"}>
+              <button className="btn" type="button">
+                Login
+              </button>
+            </Link>
+          )}
+        </div>
+      </Wrapper>
+    </>
   );
 }
 

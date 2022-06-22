@@ -20,7 +20,6 @@ function MyOrder() {
   useEffect(() => {
     getMyOrder(dispatch);
   }, [dispatch]);
-  console.log(order);
   if (!order || order.length === 0) {
     return (
       <Empty>
