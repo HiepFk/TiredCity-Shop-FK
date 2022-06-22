@@ -133,6 +133,7 @@ function MyInfo() {
 const Wrapper = styled.div`
   margin-top: 3rem;
   display: flex;
+  /* flex-direction: column; */
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   form {
     display: flex;
@@ -140,13 +141,13 @@ const Wrapper = styled.div`
   }
   .form_title {
     margin-top: 1rem;
-    margin-left: 3rem;
+    margin-left: 2.5rem;
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
   .form_wrapper {
     display: flex;
-    margin-left: 8rem;
+    margin-left: 3.5rem;
     margin-bottom: 1.5rem;
     align-items: center;
   }
@@ -164,7 +165,6 @@ const Wrapper = styled.div`
     border: none;
     border: 3px solid transparent;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
     transition: all 0.3s;
     border-radius: 4px;
     box-sizing: border-box;
@@ -179,7 +179,7 @@ const Wrapper = styled.div`
   }
   button {
     margin-bottom: 1.5rem;
-    width: 35%;
+    width: 40%;
     margin-left: 8rem;
     padding: 0.5rem 1rem;
     height: 3rem;

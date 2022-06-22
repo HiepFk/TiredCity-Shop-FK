@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyOrder } from "../Api/cart";
-function MyOrder({ data = [] }) {
+function MyOrder() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,13 +20,11 @@ function MyOrder({ data = [] }) {
   useEffect(() => {
     getMyOrder(dispatch);
   }, [dispatch]);
-
-  console.log(order[0]);
-
-  if (order === null) {
+  console.log(order);
+  if (!order || order.length === 0) {
     return (
       <Empty>
-        <div className="empty_title">You never order before</div>
+        <div className="empty_title">You have never ordered</div>
         <Link to={"/products"}>
           <button className="empty_btn">Fill it</button>
         </Link>

@@ -5,16 +5,16 @@ function ProductImage({ imgs = [], type = "" }) {
   const [images, setImages] = useState(imgs);
 
   const tee = [
-    "https://res.cloudinary.com/hieptlu/image/upload/v1655365573/Ao_FK/mau.1_wz2cqb.webp",
-    "https://res.cloudinary.com/hieptlu/image/upload/v1655365572/Ao_FK/mau.2_ualogc.webp",
+    "https://firebasestorage.googleapis.com/v0/b/tired-city-shop-2d704.appspot.com/o/Tee%2Fmau.1.webp?alt=media&token=36548af6-8b47-4608-ace1-2599e626bc35",
+    "https://firebasestorage.googleapis.com/v0/b/tired-city-shop-2d704.appspot.com/o/Tee%2Fmau.2.webp?alt=media&token=6a878e1b-70b0-4c92-8c01-0b403c493f45",
   ];
   const sweater = [
-    "https://res.cloudinary.com/hieptlu/image/upload/v1655365588/Ao_FK/mau.1_vxhjyt.webp",
-    "https://res.cloudinary.com/hieptlu/image/upload/v1655365587/Ao_FK/mau.2_unfy8o.webp",
+    "https://firebasestorage.googleapis.com/v0/b/tired-city-shop-2d704.appspot.com/o/Sweater%2Fmau.1.webp?alt=media&token=d96fa9fc-64af-4d2c-87db-d62f9a578c2e",
+    "https://firebasestorage.googleapis.com/v0/b/tired-city-shop-2d704.appspot.com/o/Sweater%2Fmau.2.webp?alt=media&token=bd0197c5-2700-4e2b-b14a-441cb3c30b3a",
   ];
   const hoodie = [
-    "https://res.cloudinary.com/hieptlu/image/upload/v1655365553/Ao_FK/mau.1_fw3hzi.webp",
-    "https://res.cloudinary.com/hieptlu/image/upload/v1655365552/Ao_FK/mau.2_pmjmj5.webp",
+    "https://firebasestorage.googleapis.com/v0/b/tired-city-shop-2d704.appspot.com/o/Hoodie%2Fmau.1.webp?alt=media&token=2e5f4dd4-bef9-407f-95e8-d441d716079d",
+    "https://firebasestorage.googleapis.com/v0/b/tired-city-shop-2d704.appspot.com/o/Hoodie%2Fmau.2.webp?alt=media&token=7e984963-276e-4d30-b3cd-f72ff83b6501",
   ];
 
   useEffect(() => {

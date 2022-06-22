@@ -18,19 +18,35 @@ const orderRoute = require("./routes/orderRoute");
 
 // app.use(cors());
 
+const corsOptions = {
+  origin: process.env.REACT_URL,
+  credentials: true, //included credentials as true
+};
+app.use(cors(corsOptions));
+
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", process.env.REACT_URL);
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
+  res.header("Content-Type", "application/json;charset=UTF-8");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header(
     "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
-  res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
+
+// app.use(function (req, res, next) {
+//   res.setHeader("Access-Control-Allow-Origin", process.env.REACT_URL);
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "X-Requested-With,content-type"
+//   );
+//   res.setHeader("Access-Control-Allow-Credentials", true);
+//   next();
+// });
 
 app.options("/*", (_, res) => {
   res.sendStatus(200);

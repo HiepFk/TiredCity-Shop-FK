@@ -16,6 +16,7 @@ function ListView({ products = [""] }) {
         return (
           <div className="list_wrapper" key={item.id}>
             <img src={item.imageCover} alt="" className="list_img" />
+
             <div className="list_container">
               <div className="list_title">{item.name}</div>
               <div className="list_price">${item.price}</div>

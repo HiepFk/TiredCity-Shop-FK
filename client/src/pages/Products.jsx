@@ -8,9 +8,13 @@ import Sort from "../components/Sort";
 import ListView from "../components/View/ListView";
 import GridView from "../components/View/GridView";
 import Loading from "../components/Loading";
-import { SetFilterProduct } from "../redux/filterSlice";
 
-import { filterProduct, sortProduct, clearFilter } from "../Api/filter";
+import {
+  filterProduct,
+  sortProduct,
+  clearFilter,
+  setFilterProduct,
+} from "../Api/filter";
 
 function Products() {
   const dispatch = useDispatch();
@@ -29,7 +33,7 @@ function Products() {
   useEffect(() => {
     clearFilter(dispatch);
     getAllProduct(dispatch);
-    dispatch(SetFilterProduct(products));
+    setFilterProduct(dispatch, products);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
@@ -38,7 +42,7 @@ function Products() {
     sortProduct(dispatch);
   }, [dispatch, sort, type, text, price, shipping]);
 
-  if (loading || !products) {
+  if (loading || !products || !FilterProducts) {
     return <Loading />;
   }
   return (

@@ -6,6 +6,7 @@ import {
   ClearFilter,
   SetListView,
   SetGridView,
+  SetFilterProduct,
 } from "../redux/filterSlice";
 
 export const updateFilter = (dispatch, e) => {
@@ -48,4 +49,8 @@ export const setListView = (dispatch) => {
 
 export const setGridView = (dispatch) => {
   dispatch(SetGridView());
+};
+
+export const setFilterProduct = (dispatch, data) => {
+  dispatch(SetFilterProduct(data));
 };

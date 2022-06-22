@@ -7,9 +7,11 @@ const Filters = () => {
   const { text, type, min_price, max_price, price, shipping } = useSelector(
     (state) => state.filter.filters
   );
+
   const products = useSelector(
     (state) => state.product?.products?.data?.products
   );
+
   let types = [...new Set(products.map((item) => item.type))];
   types.push("all");
   types.reverse();
