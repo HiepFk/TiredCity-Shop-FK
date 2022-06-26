@@ -139,6 +139,9 @@ const Wrapper = styled.div`
     font-size: 1rem;
     letter-spacing: 0.1rem;
     transition: opacity 0.25s linear;
+    margin: 0 auto;
+    width: 20%;
+    margin-bottom: 0.5rem;
     cursor: pointer;
     :hover {
       opacity: 0.7;

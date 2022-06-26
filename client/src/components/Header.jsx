@@ -37,17 +37,17 @@ function Header() {
         })}
       </ul>
       <div className="header_user">
-        <Link to={"/cart"} className="header_icons">
+        <Link to={"/cart"} className="header_icons ">
           Cart
-          <span>{totalQty}</span>
-          <div className="header_icon">
+          {/* <span>{totalQty}</span> */}
+          <div className="header_icon header_cart" totalQty={totalQty}>
             <FiShoppingCart />
           </div>
         </Link>
         {hide && <User setHide={setHide} />}
 
         {user ? (
-          <div className="header_icons " style={{ width: "6.5rem" }}>
+          <div className="header_icons" style={{ width: "6.5rem" }}>
             <div
               className="header_icon"
               onClick={() => {
@@ -77,20 +77,33 @@ function Header() {
 const HeaderStyle = styled.div`
   display: flex;
   justify-content: space-between;
-  /* position: sticky; */
-  /* top: 1rem; */
-  /* background-color: black; */
-  /* z-index: 1000; */
+
   .header_links {
     display: flex;
   }
-
+  .header_cart {
+    position: relative;
+  }
+  .header_cart::before {
+    content: attr(totalQty);
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 0.85rem;
+    font-weight: normal;
+    background-color: #ff4c4c;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1.25rem;
+  }
   .header_link {
     font-size: 1rem;
     margin-right: 2rem;
     color: black;
-    /* border-bottom: 0px solid #ff4c4c; */
-    /* transition: all 0.25s linear; */
     &:hover {
       border-bottom: 3px solid #ff4c4c;
     }
@@ -104,21 +117,6 @@ const HeaderStyle = styled.div`
     font-size: 1.5rem;
     cursor: pointer;
     color: black;
-    span {
-      background-color: #ff4c4c;
-      color: #fff;
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      top: 1.5rem;
-      right: 21rem;
-      text-align: center;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 100%;
-    }
   }
   .header_icon {
     font-weight: bold;
