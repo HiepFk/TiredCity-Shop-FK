@@ -29,6 +29,16 @@ a {
   height: 100vh;
 }
 .left {
+  padding: 2rem;
   padding-top: 1rem;
-  margin-left: 2rem;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.right {
+  min-width: 15rem;
+}
+.check {
+  min-height: 100vh;
 }

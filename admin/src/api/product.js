@@ -50,3 +50,15 @@ export const deleteProduct = async (id, navigate) => {
     alert(error.message);
   }
 };
+export const addProduct = async (data, navigate) => {
+  try {
+    await axios({
+      method: "POST",
+      url: `${link}/v1/product`,
+      data,
+    });
+    navigate("/products");
+  } catch (error) {
+    alert(error.message);
+  }
+};

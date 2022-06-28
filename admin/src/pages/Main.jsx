@@ -14,6 +14,7 @@ import {
 } from "./index";
 import Navbar from "../components/Navbar";
 import Error from "../components/Error";
+import Add from "../components/Product/Add";
 
 function Main() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ function Main() {
         <Route exact path="/Users/:id" element={<User />} />
         <Route exact path="/Products" element={<Products />} />
         <Route exact path="/Products/:id" element={<Product />} />
+        <Route exact path="/AddProduct" element={<Add />} />
         <Route exact path="/Orders" element={<Orders />} />
         <Route exact path="/Orders/:id" element={<Order />} />
         <Route exact path="/" element={<CheckOut />} />

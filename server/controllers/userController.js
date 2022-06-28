@@ -63,7 +63,7 @@ const userController = {
 
   getUser: async (req, res) => {
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findOne({ name: req.params.id });
       if (user) {
         res.status(200).json({
           status: "success",
@@ -77,6 +77,28 @@ const userController = {
       }
     } catch (err) {
       res.status(500).json(err);
+    }
+  },
+
+  deleteUser: async (req, res) => {
+    try {
+      const doc = await User.findByIdAndDelete(req.params.id);
+
+      if (!doc) {
+        res.status(404).json({
+          status: "error",
+          message: "Không tìm thấy với id ",
+        });
+        return;
+      }
+      res.status(204).json({
+        status: "success",
+        message: "Xóa thành công",
+      });
+    } catch (error) {
+      res.status(404).json({
+        error,
+      });
     }
   },
 

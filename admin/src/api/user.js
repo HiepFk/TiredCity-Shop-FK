@@ -49,6 +49,16 @@ export const updateUser = async (dispatch, id, data) => {
 export const addUser = async (data, navigate) => {
   try {
     await axios.post(`${link}/v1/user/`, data);
+    window.location.reload();
+    navigate("/Users");
+  } catch (error) {
+    alert("error");
+  }
+};
+
+export const deleteUser = async (id, navigate) => {
+  try {
+    await axios.delete(`${link}/v1/user/${id}`);
     navigate("/Users");
   } catch (error) {
     alert("error");

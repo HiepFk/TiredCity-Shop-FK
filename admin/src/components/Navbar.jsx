@@ -9,7 +9,7 @@ function Navbar() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth?.user?.data?.user);
   return (
-    <Wrapper>
+    <Wrapper className="right">
       <img
         src="https://bizweb.dktcdn.net/100/396/591/themes/822056/assets/logo.png?1652709865315"
         alt=""

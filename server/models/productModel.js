@@ -38,6 +38,10 @@ const productSchema = new mongoose.Schema(
       enum: ["bag", "hoodie", "sweater", "tee"],
       required: [true, "A product must have a type"],
     },
+    shipping: {
+      type: Boolean,
+      default: false,
+    },
     imageCover: {
       type: String,
       required: [true, "A product must have a cover image"],

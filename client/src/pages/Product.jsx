@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { getProduct } from "../Api/product";
 import { useSelector, useDispatch } from "react-redux";
 import { addProduct } from "../Api/cart";
-
 import ProductImage from "../components/Product/ProductImage";
 import ProductStar from "../components/Product/ProductStar";
 import ProductAdd from "../components/Product/ProductAdd";

@@ -83,6 +83,11 @@ app.use("/v1/cart", cartRoute);
 app.use("/v1/order", orderRoute);
 
 app.all("*", (req, res, next) => {
+  res.status(404).json({
+    status: "error",
+    message: "Can't find this on this server! ",
+  });
+  return;
   next(new AppError(`Can't find this on this server!`, 404));
 });
 
