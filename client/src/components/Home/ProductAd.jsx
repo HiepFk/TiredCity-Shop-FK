@@ -94,6 +94,7 @@ const Wrapper = styled.div`
     font-size: 1rem;
     padding: 0.5rem;
     display: flex;
+    text-align: center;
     align-items: center;
     justify-content: center;
     transition: all 0.25s linear;
@@ -119,6 +120,14 @@ const Wrapper = styled.div`
     justify-content: center;
     display: none;
     cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    .productAd_wrapper {
+      flex-direction: column;
+    }
+    .productAd_title {
+      font-size: 1.5rem;
+    }
   }
 `;
 

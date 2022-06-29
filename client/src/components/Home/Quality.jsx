@@ -90,6 +90,29 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    .quality_container,
+    .quality {
+      flex-direction: column;
+    }
+
+    .quality_desc {
+      display: none;
+    }
+    .quality_title {
+      font-size: 1rem !important;
+    }
+    .img_wapper,
+    .quality_wrapper {
+      margin-bottom: 0.5rem;
+    }
+    .title_big {
+      font-size: 1.5rem !important;
+    }
+    .quality_container {
+      margin-top: 2rem !important;
+    }
+  }
   .quality {
     padding-top: 5rem;
     display: flex;
@@ -140,7 +163,6 @@ const Wrapper = styled.div`
     max-width: 16rem;
     margin-left: 1.5rem;
     margin-right: 1.5rem;
-
     overflow: hidden;
   }
   .title_big {

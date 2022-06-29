@@ -27,7 +27,11 @@ a {
 .app {
   padding: 2rem 12rem;
 }
-
+@media (max-width: 768px) {
+  .app {
+    padding: 1rem 2rem;
+  }
+}
 .page {
   min-height: 91.5vh;
 }

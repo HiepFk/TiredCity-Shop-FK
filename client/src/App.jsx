@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Alert from "./components/Alert";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Choise from "./components/Choise";
 import {
   About,
   Cart,
@@ -24,6 +25,7 @@ function App() {
       <div className="app page">
         {alert.show && <Alert type={`alert--${alert.type}`} msg={alert.msg} />}
         <Header />
+        <Choise />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="About" element={<About />} />

@@ -5,7 +5,7 @@ import styled from "styled-components";
 function Title() {
   return (
     <Wrapper className="title">
-      <div className="title_right">
+      <div className="title_left">
         <div className="title_title">Design Your Comfort Zone</div>
         <div className="title_desc">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto, at
@@ -30,11 +30,12 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 4rem;
-  .title_right {
-    // width: 100rem;
+  .title_right,
+  .title_left {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 30rem;
   }
   .title_title {
     font-weight: bold;
@@ -57,6 +58,7 @@ const Wrapper = styled.div`
     font-size: 1.5rem;
     padding: 0.8rem;
     display: flex;
+    text-align: center;
     align-items: center;
     justify-content: center;
     transition: all 0.25s linear;
@@ -64,9 +66,6 @@ const Wrapper = styled.div`
       opacity: 0.5;
       color: black;
     }
-  }
-  .title_right {
-    width: 30rem;
   }
   .title_img {
     border-radius: 5px;
@@ -92,6 +91,11 @@ const Wrapper = styled.div`
     width: 25rem;
     height: 30rem;
     z-index: 1;
+  }
+  @media (max-width: 768px) {
+    .title_right {
+      display: none;
+    }
   }
 `;
 

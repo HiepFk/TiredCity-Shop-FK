@@ -26,6 +26,11 @@ function Cart() {
   );
 }
 const Empty = styled.div`
+  @media (max-width: 768px) {
+    .empty_title {
+      font-size: 2rem !important;
+    }
+  }
   display: flex;
   justify-content: center;
   align-items: center;

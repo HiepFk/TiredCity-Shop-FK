@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export default function Form() {
   return (
-    <FormStyle>
+    <FormStyle className="form">
       <div className="form_left">
         <div className="left_title">Newsletter</div>
         <div className="left_desc">
@@ -24,19 +24,30 @@ export default function Form() {
 }
 
 const FormStyle = styled.div`
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 2rem;
+    .form_right {
+      display: flex;
+      align-items: center;
+      margin-top: 0.75rem;
+    }
+    .form_input {
+      width: 15rem;
+    }
+  }
   margin-top: 4rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
   background-color: aliceblue;
-  height: 10rem;
-  width: 100%;
+  padding: 0.5rem 1rem;
   .left_title {
     font-size: 2rem;
     width: 50%;
   }
   .form_input {
-    width: 18rem;
+    max-width: 18rem;
     font-size: 1rem;
     padding: 0.5rem 1rem;
     border: none;

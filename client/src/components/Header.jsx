@@ -75,6 +75,9 @@ function Header() {
 }
 
 const HeaderStyle = styled.div`
+  @media (max-width: 768px) {
+    display: none;
+  }
   display: flex;
   justify-content: space-between;
 
