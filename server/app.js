@@ -19,7 +19,7 @@ const orderRoute = require("./routes/orderRoute");
 // app.use(cors());
 
 const corsOptions = {
-  origin: process.env.REACT_URL,
+  origin: [process.env.REACT_CLIENT_URL, process.env.REACT_ADMIN_URL],
   credentials: true, //included credentials as true
 };
 app.use(cors(corsOptions));

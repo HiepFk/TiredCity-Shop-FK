@@ -99,7 +99,11 @@ const productController = {
 
   getProduct: async (req, res) => {
     try {
-      const product = await Product.findOne({ slug: req.params.id });
+      let product =
+        (await Product.findOne({ slug: req.params.id })) ||
+        (await Product.findById(req.params.id));
+
+      product = await product.populate("reviews");
       if (product) {
         res.status(200).json({
           status: "success",

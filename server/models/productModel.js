@@ -88,6 +88,11 @@ const removeAccents = (str) => {
 
 productSchema.index({ price: 1, ratingsAverage: -1 });
 productSchema.index({ slug: 1 });
+productSchema.virtual("reviews", {
+  ref: "Review",
+  foreignField: "product",
+  localField: "_id",
+});
 
 productSchema.pre("save", function (next) {
   const name = removeAccents(this.name);

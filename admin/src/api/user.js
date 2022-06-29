@@ -25,6 +25,7 @@ export const getAllUser = async (dispatch) => {
 export const getUser = async (dispatch, id) => {
   dispatch(GetUserStart());
   try {
+    console.log(id);
     const res = await axios.get(`${link}/v1/user/${id}`);
     dispatch(GetUserSuccess(res.data));
   } catch (error) {

@@ -6,7 +6,7 @@ import {
   GetOrderStart,
   GetOrderSuccess,
   GetOrderError,
-} from "../redux/productSlice";
+} from "../redux/orderSlice";
 
 axios.defaults.withCredentials = true;
 const link = process.env.REACT_APP_API_LINK;
@@ -41,5 +41,14 @@ export const updateOrder = async (dispatch, id, data) => {
     dispatch(GetOrderSuccess(res.data));
   } catch (error) {
     dispatch(GetOrderError());
+  }
+};
+export const deleteOrder = async (id, navigate) => {
+  try {
+    console.log("DM");
+    await axios.delete(`${link}/v1/order/${id}`);
+    navigate("/products");
+  } catch (error) {
+    alert(error.message);
   }
 };

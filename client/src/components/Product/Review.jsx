@@ -1,10 +1,25 @@
 import React, { useState } from "react";
 import { BsFillStarFill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { createReivew } from "../../Api/auth";
 import styled from "styled-components";
 
-function Review() {
+function Review({ id }) {
+  const dispatch = useDispatch();
   const arr = [1, 2, 3, 4, 5];
-  const [index, setIndex] = useState(0);
+  const [rating, setRating] = useState(4.5);
+  const [review, setReview] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      rating,
+      review,
+      product: id,
+    };
+    createReivew(data, dispatch);
+    setReview("");
+    setRating(0);
+  };
   return (
     <ReviewStyle className="review">
       <div className="review_title">Create reivew</div>
@@ -13,19 +28,20 @@ function Review() {
           return (
             <BsFillStarFill
               key={item}
-              className={index < item ? "star" : "star active"}
-              onMouseEnter={() => setIndex(item)}
-              //   onMouseOut={() => setIndex(0)}
-              //   onMouseLeave={() => setIndex(0)}
-              //   onClick={() => {
-              //     setIndex(item);
-              //     window.removeEventListener("onMouseLeave");
-              //   }}
+              className={rating < item ? "star" : "star active"}
+              onMouseEnter={() => setRating(item)}
             />
           );
         })}
       </div>
-      <button className="review_btn">Send</button>
+      <textarea
+        className="input"
+        value={review}
+        onChange={(e) => setReview(e.target.value)}
+      />
+      <button className="review_btn" onClick={handleSubmit}>
+        Send
+      </button>
     </ReviewStyle>
   );
 }
@@ -33,7 +49,32 @@ function Review() {
 const ReviewStyle = styled.div`
   margin-top: 1rem;
   display: flex;
+  align-items: center;
   flex-direction: column;
+  padding: 0.5rem 1rem;
+  textarea {
+    width: 40rem;
+    height: 10rem;
+    margin-top: 1rem;
+  }
+  .input {
+    font-family: inherit;
+    font-size: 1.25rem;
+    color: inherit;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #eee;
+    margin-right: 1rem;
+    :focus {
+      outline: none;
+      border-bottom: 3px solid #55c57a;
+    }
+  }
   .review_title {
     font-weight: 600;
     font-size: 1.2rem;

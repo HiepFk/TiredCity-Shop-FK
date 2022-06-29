@@ -29,8 +29,8 @@ a {
   height: 100vh;
 }
 .left {
-  padding: 2rem;
-  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;

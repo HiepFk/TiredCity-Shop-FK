@@ -12,6 +12,9 @@ router.route("/").post(orderController.addOrder);
 router.route("/:id").patch(orderController.updateOrder);
 
 router.route("/").get(orderController.getAllOrders);
-router.route("/:id").get(orderController.getOrder);
+router
+  .route("/:id")
+  .get(orderController.getOrder)
+  .delete(orderController.deleteOrder);
 
 module.exports = router;

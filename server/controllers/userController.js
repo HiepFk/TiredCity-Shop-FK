@@ -63,7 +63,10 @@ const userController = {
 
   getUser: async (req, res) => {
     try {
-      const user = await User.findOne({ name: req.params.id });
+      let user =
+        (await User.findOne({ name: req.params.id })) ||
+        (await User.findById(req.params.id));
+      user = await user.populate("reviews");
       if (user) {
         res.status(200).json({
           status: "success",
@@ -76,6 +79,7 @@ const userController = {
         });
       }
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },

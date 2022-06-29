@@ -7,7 +7,6 @@ import ProductImage from "../components/Product/ProductImage";
 import ProductStar from "../components/Product/ProductStar";
 import ProductAdd from "../components/Product/ProductAdd";
 import Review from "../components/Product/Review";
-import ProductAd from "../components/Home/ProductAd";
 import Loading from "../components/Loading";
 
 import styled from "styled-components";
@@ -90,10 +89,9 @@ function Product() {
             Add to cart
           </button>
           <hr />
-          <Review />
         </div>
       </div>
-      <ProductAd />
+      <Review id={product?.id} />
     </Wrapper>
   );
 }

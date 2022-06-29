@@ -34,7 +34,10 @@ const orderController = {
   },
   getAllOrders: async (req, res) => {
     try {
-      const orders = await Order.find();
+      const orders = await Order.find().populate({
+        path: "user",
+        select: "name email ",
+      });
       res.status(200).json({
         status: "success",
         results: orders.length,
@@ -47,7 +50,10 @@ const orderController = {
 
   getOrder: async (req, res) => {
     try {
-      const order = await Order.findById(req.params.id);
+      const order = await Order.findById(req.params.id).populate({
+        path: "user",
+        select: "name email ",
+      });
       res.status(200).json({
         status: "success",
         data: { order },

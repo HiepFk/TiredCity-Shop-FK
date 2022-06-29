@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-
+import Review from "./Review";
 import { deleteProduct, updateProduct } from "../../api/product";
 import { useNavigate } from "react-router-dom";
 function Detail({ product }) {
@@ -29,140 +29,165 @@ function Detail({ product }) {
   };
 
   return (
-    <Wrapper className="left">
-      <div className="name">
-        Thông tin sản phẩm <span>{name}</span>
-      </div>
-      <form action="" className="form">
-        <div className="container">
-          <label htmlFor="" className="title">
-            Tên sản phẩm
-          </label>
-          <input
-            type="text"
-            className="input"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+    <div className="left">
+      <Wrapper>
+        <div className="name">
+          Thông tin sản phẩm <span>{name}</span>
         </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Mô tả
-          </label>
-          <textarea
-            // type="area"
-            className="input"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Giá thành
-          </label>
-          <input
-            type="text"
-            className="input"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Giảm giá
-          </label>
-          <input
-            type="text"
-            className="input"
-            value={priceDiscount}
-            onChange={(e) => sePriceDiscount(e.target.value)}
-          />
-        </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Slug
-          </label>
-          <input
-            type="text"
-            className="input"
-            value={slug}
-            onChange={(e) => setSlug(e.target.value)}
-          />
-        </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Loại sản phẩm
-          </label>
-          <input
-            type="text"
-            className="input"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          />
-        </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Vận chuyển
-          </label>
-          <p>
+        <form action="" className="form">
+          <div className="container">
+            <label htmlFor="" className="title">
+              Tên sản phẩm
+            </label>
             <input
-              type="radio"
-              id="test1"
-              name="radio-group"
-              className="radio"
-              checked={shipping === true ? true : false}
-              onClick={() => setShipping(true)}
+              type="text"
+              className="input"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
-            <label for="test1">Free</label>
-          </p>
-          <p>
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Mô tả
+            </label>
+            <textarea
+              // type="area"
+              className="input"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Giá thành
+            </label>
             <input
-              type="radio"
-              id="test2"
-              name="radio-group"
-              className="radio"
-              checked={shipping === false ? true : false}
-              onClick={() => setShipping(false)}
+              type="text"
+              className="input"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
             />
-            <label for="test2">Not Free</label>
-          </p>
-        </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Ảnh cover
-          </label>
-          <img src={imageCover} alt="" className="img" />
-        </div>
-        {images.map((item, i) => {
-          return (
-            <div className="container" key={i}>
-              <label htmlFor="" className="title">
-                Ảnh thứ {i + 1}
-              </label>
-              {/* <input
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Giảm giá
+            </label>
+            <input
+              type="text"
+              className="input"
+              value={priceDiscount}
+              onChange={(e) => sePriceDiscount(e.target.value)}
+            />
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Slug
+            </label>
+            <input
+              type="text"
+              className="input"
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+            />
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Loại sản phẩm
+            </label>
+            <input
+              type="text"
+              className="input"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+            />
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Rating Average
+            </label>
+            <input
+              type="text"
+              className="input"
+              value={
+                product?.ratingsQuantity ? product?.ratingsAverage : "None"
+              }
+            />
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Rating Quality
+            </label>
+            <input
+              type="text"
+              className="input"
+              value={product?.ratingsQuantity}
+            />
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Vận chuyển
+            </label>
+            <p>
+              <input
+                type="radio"
+                id="test1"
+                name="radio-group"
+                className="radio"
+                checked={shipping === true ? true : false}
+                onClick={() => setShipping(true)}
+              />
+              <label for="test1">Free</label>
+            </p>
+            <p>
+              <input
+                type="radio"
+                id="test2"
+                name="radio-group"
+                className="radio"
+                checked={shipping === false ? true : false}
+                onClick={() => setShipping(false)}
+              />
+              <label for="test2">Not Free</label>
+            </p>
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Ảnh cover
+            </label>
+            <img src={imageCover} alt="" className="img" />
+          </div>
+          {images.map((item, i) => {
+            return (
+              <div className="container" key={i}>
+                <label htmlFor="" className="title">
+                  Ảnh thứ {i + 1}
+                </label>
+                {/* <input
                 type="file"
                 className="input"
                 // value={type}
                 // onChange={(e) => setType(e.target.value)}
               /> */}
-              <img src={item} alt="" className="img" />
-            </div>
-          );
-        })}
-      </form>
-      <div className="btn_wrapper">
-        <button type="submit" className="btn" onClick={handleUpdateProduct}>
-          Cập nhật
-        </button>
-        <button
-          type="submit"
-          className="btn"
-          onClick={() => deleteProduct(product.id, navigate)}
-        >
-          Xóa
-        </button>
-      </div>
-    </Wrapper>
+                <img src={item} alt="" className="img" />
+              </div>
+            );
+          })}
+        </form>
+        <div className="btn_wrapper">
+          <button type="submit" className="btn" onClick={handleUpdateProduct}>
+            Cập nhật
+          </button>
+          <button
+            type="submit"
+            className="btn"
+            onClick={() => deleteProduct(product.id, navigate)}
+          >
+            Xóa
+          </button>
+        </div>
+      </Wrapper>
+      <Review reviews={product?.reviews} />
+    </div>
   );
 }
 
@@ -174,9 +199,6 @@ const Wrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
   flex-direction: column;
-  /* .radio {
-    margin-right: 1.5rem;
-  } */
   .name {
     font-weight: 600;
     font-size: 1.5rem;

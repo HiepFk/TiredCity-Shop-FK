@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import Review from "./Review";
 
 import { deleteUser, updateUser } from "../../api/user";
 import { useNavigate } from "react-router-dom";
@@ -28,121 +29,123 @@ function Detail({ user }) {
     };
     updateUser(dispatch, user._id, data);
   };
-
   return (
-    <Wrapper className="left">
-      <div className="name">
-        Thông tin sản phẩm <span>{name}</span>
-      </div>
-      <form action="" className="form">
-        <div className="container">
-          <label htmlFor="" className="title">
-            Họ và tên
-          </label>
-          <input
-            type="text"
-            className="input"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+    <div className="left">
+      <Wrapper>
+        <div className="name">
+          Thông tin người dùng <span>{name}</span>
         </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Email
-          </label>
-          <input
-            type="email"
-            className="input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Nummber
-          </label>
-          <input
-            type="text"
-            className="input"
-            value={number}
-            onChange={(e) => setNumber(e.target.value)}
-          />
-        </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Address
-          </label>
-          <input
-            type="text"
-            className="input"
-            value={adres}
-            onChange={(e) => setAdress(e.target.value)}
-          />
-        </div>
+        <form action="" className="form">
+          <div className="container">
+            <label htmlFor="" className="title">
+              Họ và tên
+            </label>
+            <input
+              type="text"
+              className="input"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Email
+            </label>
+            <input
+              type="email"
+              className="input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Nummber
+            </label>
+            <input
+              type="text"
+              className="input"
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
+            />
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Address
+            </label>
+            <input
+              type="text"
+              className="input"
+              value={adres}
+              onChange={(e) => setAdress(e.target.value)}
+            />
+          </div>
 
-        <div className="container">
-          <label htmlFor="" className="title">
-            Role
-          </label>
-          <p>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Role
+            </label>
+            <p>
+              <input
+                type="radio"
+                id="test1"
+                name="radio-group"
+                className="radio"
+                checked={isAdmin === true ? true : false}
+                onClick={() => setIsAdmin(true)}
+              />
+              <label for="test1">Admin</label>
+            </p>
+            <p>
+              <input
+                type="radio"
+                id="test2"
+                name="radio-group"
+                className="radio"
+                checked={isAdmin === false ? true : false}
+                onClick={() => setIsAdmin(false)}
+              />
+              <label for="test2">User</label>
+            </p>
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Password
+            </label>
             <input
-              type="radio"
-              id="test1"
-              name="radio-group"
-              className="radio"
-              checked={isAdmin === true ? true : false}
-              onClick={() => setIsAdmin(true)}
+              type="password"
+              className="input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <label for="test1">Admin</label>
-          </p>
-          <p>
+          </div>
+          <div className="container">
+            <label htmlFor="" className="title">
+              Password Confirm
+            </label>
             <input
-              type="radio"
-              id="test2"
-              name="radio-group"
-              className="radio"
-              checked={isAdmin === false ? true : false}
-              onClick={() => setIsAdmin(false)}
+              type="password"
+              className="input"
+              value={passwordConfirm}
+              onChange={(e) => setPasswordConfirm(e.target.value)}
             />
-            <label for="test2">User</label>
-          </p>
+          </div>
+        </form>
+        <div className="btn_wrapper">
+          <button type="submit" className="btn" onClick={handleUpdateUser}>
+            Cập nhật
+          </button>
+          <button
+            type="submit"
+            className="btn"
+            onClick={() => deleteUser(user._id, navigate)}
+          >
+            Xóa
+          </button>
         </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Password
-          </label>
-          <input
-            type="password"
-            className="input"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="container">
-          <label htmlFor="" className="title">
-            Password Confirm
-          </label>
-          <input
-            type="password"
-            className="input"
-            value={passwordConfirm}
-            onChange={(e) => setPasswordConfirm(e.target.value)}
-          />
-        </div>
-      </form>
-      <div className="btn_wrapper">
-        <button type="submit" className="btn" onClick={handleUpdateUser}>
-          Cập nhật
-        </button>
-        <button
-          type="submit"
-          className="btn"
-          onClick={() => deleteUser(user._id, navigate)}
-        >
-          Xóa
-        </button>
-      </div>
-    </Wrapper>
+      </Wrapper>
+      <Review reviews={user?.reviews} />
+    </div>
   );
 }
 
@@ -154,9 +157,6 @@ const Wrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
   flex-direction: column;
-  /* .radio {
-    margin-right: 1.5rem;
-  } */
   .name {
     font-weight: 600;
     font-size: 1.5rem;

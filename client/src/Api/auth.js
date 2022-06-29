@@ -108,3 +108,16 @@ export const UpdateMe = async (dispatch, data, type) => {
     ErrorMessage(dispatch, error);
   }
 };
+
+export const createReivew = async (data, dispatch) => {
+  try {
+    const res = await axios.post(`${link}/v1/review/user`, data);
+    dispatch(ShowAlert(res.data));
+    const timeoutID = window.setTimeout(() => {
+      dispatch(HideAlert());
+    }, 3000);
+    return () => window.clearTimeout(timeoutID);
+  } catch (error) {
+    ErrorMessage(dispatch, error);
+  }
+};

@@ -10,7 +10,7 @@ import Add from "../components/User/Add";
 function Users() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.user?.loading);
-  const users = useSelector((state) => state.user?.users.data.users);
+  const users = useSelector((state) => state.user?.users?.data?.users);
   useEffect(() => {
     getAllUser(dispatch);
   }, [dispatch]);
