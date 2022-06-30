@@ -13,10 +13,10 @@ function CartItem({ data = [] }) {
       <CartStyle>
         <table>
           <tr>
-            <th>Item</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
+            <th className="hiden">Item</th>
+            <th className="hiden">Price</th>
+            <th className="hiden">Quantity</th>
+            <th className="hiden">Subtotal</th>
           </tr>
           {data.map((item) => {
             const { id, image, name, color, price, amount, size } = item;
@@ -29,10 +29,11 @@ function CartItem({ data = [] }) {
                       <div className="cart_title">{name}</div>
                       <div className="cart_color">Color : {color}</div>
                       <div className="cart_color">Size : {size}</div>
+                      <div className="cart_price small">${price}</div>
                     </div>
                   </div>
                 </td>
-                <td className="cart_price">${price}</td>
+                <td className="cart_price hiden">${price}</td>
                 <td>
                   <div className="cart_quantity">
                     <div
@@ -50,7 +51,7 @@ function CartItem({ data = [] }) {
                     </div>
                   </div>
                 </td>
-                <td className="cart_total">${price * amount}</td>
+                <td className="cart_total hiden">${price * amount}</td>
                 <td>
                   <button
                     className="cart_trash"
@@ -82,6 +83,27 @@ const Wrapper = styled.div`
 `;
 
 const CartStyle = styled.div`
+  @media (max-width: 768px) {
+    td:first-child {
+      transform: translateX(1.5rem) !important;
+    }
+    .small {
+      display: block !important;
+    }
+    .cart_img {
+      width: 5rem !important;
+      transform: translateX(1rem) !important;
+    }
+    .cart_desc {
+      font-size: 0.75rem;
+    }
+    .cart_title {
+      font-size: 0.75rem !important;
+    }
+    .hiden {
+      display: none;
+    }
+  }
   margin-top: 4rem;
   margin-bottom: 2rem;
   table {
@@ -100,6 +122,9 @@ const CartStyle = styled.div`
   }
   td:last-child {
     width: 5rem;
+  }
+  .small {
+    display: none;
   }
   .cart {
     margin-top: 4rem;
@@ -160,6 +185,11 @@ const CartStyle = styled.div`
 `;
 
 const CartButton = styled.div`
+  @media (max-width: 768px) {
+    .btn {
+      font-size: 0.75rem;
+    }
+  }
   display: flex;
   justify-content: space-between;
   margin-bottom: 3rem;

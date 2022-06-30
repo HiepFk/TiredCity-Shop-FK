@@ -50,6 +50,24 @@ function ProductImage({ imgs = [], type = "" }) {
 }
 
 const Wrapper = styled.div`
+  @media (max-width: 768px) {
+    margin-right: 0rem;
+    align-items: center;
+    justify-content: center;
+    .img_main {
+      min-width: 23rem !important;
+      width: 15rem !important;
+    }
+    .img_wrapper {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 0.5rem;
+      justify-content: center !important;
+    }
+    .img_item {
+      width: calc(23.5rem / 4 - 0.5rem) !important;
+    }
+  }
   display: flex;
   flex-direction: column;
   max-width: 35rem;

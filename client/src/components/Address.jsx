@@ -72,6 +72,14 @@ function Address({ setHideAddress, products }) {
 }
 
 const Wrapper = styled.div`
+  @media (max-width: 768px) {
+    .form_item {
+      flex-direction: column;
+    }
+    input {
+      width: 20rem !important;
+    }
+  }
   background: #ccc;
   display: flex;
   flex-direction: column;

@@ -131,9 +131,20 @@ function MyInfo() {
   );
 }
 const Wrapper = styled.div`
+  @media (max-width: 768px) {
+    flex-direction: column;
+    .form_wrapper {
+      margin-left: 1rem !important;
+      align-items: center;
+      justify-content: center;
+    }
+    .form_input {
+      margin-right: 0.5rem !important;
+      width: 15rem !important;
+    }
+  }
   margin-top: 3rem;
   display: flex;
-  /* flex-direction: column; */
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   form {
     display: flex;
@@ -182,7 +193,6 @@ const Wrapper = styled.div`
     width: 40%;
     margin-left: 8rem;
     padding: 0.5rem 1rem;
-    height: 3rem;
     border: 0;
     border-radius: 0.5rem;
     background-color: rgba(255, 0, 0, 0.7);

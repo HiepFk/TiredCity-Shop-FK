@@ -47,6 +47,11 @@ function Review({ id }) {
 }
 
 const ReviewStyle = styled.div`
+  @media (max-width: 768px) {
+    textarea {
+      width: 20rem !important;
+    }
+  }
   margin-top: 1rem;
   display: flex;
   align-items: center;

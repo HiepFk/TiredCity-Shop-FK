@@ -96,6 +96,11 @@ function Product() {
   );
 }
 const Wrapper = styled.div`
+  @media (max-width: 768px) {
+    .product_info {
+      flex-direction: column;
+    }
+  }
   display: flex;
   flex-direction: column;
   margin-top: 4rem;

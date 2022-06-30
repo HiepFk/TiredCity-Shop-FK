@@ -43,10 +43,10 @@ function MyOrder() {
             </div>
             <table>
               <tr>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
+                <th className="hiden">Item</th>
+                <th className="hiden">Price</th>
+                <th className="hiden">Quantity</th>
+                <th className="hiden">Subtotal</th>
               </tr>
               {item?.products.map((item) => {
                 const { id, image, name, color, price, amount, size } = item;
@@ -59,10 +59,11 @@ function MyOrder() {
                           <div className="cart_title">{name}</div>
                           <div className="cart_color">Color : {color}</div>
                           <div className="cart_color">Size : {size}</div>
+                          <div className="cart_price small">${price}</div>
                         </div>
                       </div>
                     </td>
-                    <td className="cart_price">${price}</td>
+                    <td className="cart_price hiden">${price}</td>
                     <td>
                       <div className="cart_quantity">
                         <div className="cart_index">{amount}</div>
@@ -86,6 +87,11 @@ function MyOrder() {
   );
 }
 const Empty = styled.div`
+  @media (max-width: 768px) {
+    .empty_title {
+      font-size: 2rem !important;
+    }
+  }
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,6 +126,30 @@ const Wrapper = styled.div`
 `;
 
 const CartStyle = styled.div`
+  @media (max-width: 768px) {
+    td:first-child {
+      transform: translateX(1.5rem) !important;
+    }
+    .small {
+      display: block !important;
+    }
+    .cart_img {
+      width: 5rem !important;
+      transform: translateX(1rem) !important;
+    }
+    .cart_desc {
+      font-size: 0.75rem;
+    }
+    .cart_title {
+      font-size: 0.75rem !important;
+    }
+    .hiden {
+      display: none;
+    }
+    .cart_info {
+      flex-direction: column;
+    }
+  }
   margin-top: 4rem;
   margin-bottom: 2rem;
   hr {
@@ -206,6 +236,9 @@ const CartStyle = styled.div`
     font-size: 0.8rem;
     border-radius: 3px;
     border: none;
+  }
+  .small {
+    display: none;
   }
 `;
 
