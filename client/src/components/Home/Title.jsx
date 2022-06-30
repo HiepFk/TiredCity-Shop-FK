@@ -96,6 +96,16 @@ const Wrapper = styled.div`
     .title_right {
       display: none;
     }
+    .title_title {
+      font-size: 2.5rem;
+    }
+    .title_desc {
+      font-size: 1rem;
+    }
+    .title_btn {
+      font-size: 1rem;
+      width: 7rem;
+    }
   }
 `;
 

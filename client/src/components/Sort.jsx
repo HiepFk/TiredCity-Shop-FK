@@ -51,6 +51,25 @@ const SortStyle = styled.div`
   margin-bottom: 1rem;
   width: 60rem;
   min-width: 53rem;
+  @media (max-width: 768px) {
+    margin-top: 2rem;
+    width: 10rem !important;
+    min-width: 5rem !important;
+    hr {
+      display: none;
+    }
+    .sort_wrapper {
+      flex-direction: column;
+      align-items: start !important;
+    }
+    .sort_icons,
+    p {
+      margin-bottom: 1rem;
+    }
+    .sort_icon {
+      display: none;
+    }
+  }
   .sort_wrapper {
     display: flex;
     justify-content: space-between;

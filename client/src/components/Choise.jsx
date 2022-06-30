@@ -97,6 +97,7 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    align-items: center;
   }
   .header_links {
     display: flex;

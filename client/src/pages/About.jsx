@@ -66,6 +66,26 @@ const AboutStyle = styled.div`
   .about_desc {
     margin-bottom: 2rem;
   }
+  @media (max-width: 768px) {
+    align-items: center;
+    justify-content: center;
+    .about_wrapper {
+      flex-direction: column;
+      margin-bottom: 2rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .about_title {
+      margin-bottom: 0.5rem;
+    }
+    .about_img {
+      width: 20rem;
+    }
+    .phai,
+    .trai {
+      margin: 0;
+    }
+  }
 `;
 
 export default About;

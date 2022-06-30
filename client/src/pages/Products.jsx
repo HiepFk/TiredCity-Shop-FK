@@ -37,11 +37,17 @@ function Products() {
 const Wrapper = styled.div`
   padding-top: 4rem;
   display: flex;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 const Header = styled.div`
   flex-direction: column;
   display: flex;
   margin-left: 5rem;
+  @media (max-width: 768px) {
+    margin-left: 0rem;
+  }
 `;
 
 export default Products;
