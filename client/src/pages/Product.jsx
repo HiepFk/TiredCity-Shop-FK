@@ -100,6 +100,9 @@ const Wrapper = styled.div`
     .product_info {
       flex-direction: column;
     }
+    .btn {
+      font-size: 1rem !important;
+    }
   }
   display: flex;
   flex-direction: column;
@@ -119,7 +122,6 @@ const Wrapper = styled.div`
     }
   }
   .btn {
-    width: 10rem;
     height: 3rem;
     background-color: brown;
     color: white;
@@ -142,7 +144,7 @@ const Wrapper = styled.div`
   }
   .product_back {
     margin-bottom: 2rem;
-    width: 12.5rem;
+    max-width: 12.5rem;
   }
   .product_info {
     display: flex;
@@ -167,6 +169,8 @@ const Wrapper = styled.div`
   }
   .product_add {
     margin-top: 1rem;
+    border: none;
+    padding: 0.5rem;
   }
 `;
 export default Product;

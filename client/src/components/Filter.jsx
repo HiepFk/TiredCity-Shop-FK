@@ -147,8 +147,7 @@ const Wrapper = styled.section`
     font-size: 1rem;
   }
   .clear-btn {
-    width: 7rem;
-    height: 2rem;
+    padding: 0.5rem 1rem;
     border: 0;
     border-radius: 3px;
     background-color: rgba(255, 0, 0, 0.7);

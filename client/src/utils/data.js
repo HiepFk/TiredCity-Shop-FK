@@ -130,27 +130,27 @@ export const AboutImage = [
 
 export const ProductMini = [
   {
-    id: 1,
-    src: "/image/hoodie/1/thin-2.1.webp",
-    title: "Áo thiên long",
-    price: "$40",
+    id: "62aafa74a8e40436e21f06cb",
+    src: "https://firebasestorage.googleapis.com/v0/b/tired-city-shop-2d704.appspot.com/o/Hoodie%2Fthin-2.2.webp?alt=media&token=80d09274-ad9a-4cf4-9204-c2a2c59996ec",
+    title: "Áo thìn",
+    price: "$55",
   },
   {
-    id: 2,
-    src: "/image/sweater/4.1.webp",
+    id: "62aaf93ba8e40436e21f06ad",
+    src: "https://firebasestorage.googleapis.com/v0/b/tired-city-shop-2d704.appspot.com/o/Sweater%2F4.1.webp?alt=media&token=d63b0fc0-891f-406d-b5d6-90bab897f71a",
     title: "Áo cơm xì dầu",
+    price: "$45",
+  },
+  {
+    id: "62aaf76ca8e40436e21f068c",
+    src: "https://firebasestorage.googleapis.com/v0/b/tired-city-shop-2d704.appspot.com/o/Tee%2Fba-trieu-3.2.webp?alt=media&token=5880c86f-631c-4f57-b698-c4dbd093effa",
+    title: "Áo Bà Triệu",
     price: "$35",
   },
   {
-    id: 3,
-    src: "/image/tee/2/ba-trieu-3.2.webp",
-    title: "Áo Bà Triệu",
-    price: "$22.5",
-  },
-  {
-    id: 4,
-    src: "/image/bag/1.1.webp",
+    id: "62aafb64bd20fdf777201a66",
+    src: "https://firebasestorage.googleapis.com/v0/b/tired-city-shop-2d704.appspot.com/o/1.1.webp?alt=media&token=c6fa763b-3ad9-47db-908c-85e061959374",
     title: "Túi TiredCity",
-    price: "$10.5",
+    price: "$20",
   },
 ];

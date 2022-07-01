@@ -24,18 +24,19 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.use(function (req, res, next) {
-  res.header("Content-Type", "application/json;charset=UTF-8");
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+// app.use(function (req, res, next) {
+//   // res.header("Access-Control-Allow-Origin", cors.origin);
+//   res.header("Content-Type", "application/json;charset=UTF-8");
+//   res.header("Access-Control-Allow-Credentials", true);
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 // app.use(function (req, res, next) {
-//   res.setHeader("Access-Control-Allow-Origin", process.env.REACT_URL);
+//   res.setHeader("Access-Control-Allow-Origin", corsOptions.origin[0]);
 //   res.setHeader(
 //     "Access-Control-Allow-Methods",
 //     "GET, POST, OPTIONS, PUT, PATCH, DELETE"

@@ -15,7 +15,7 @@ function ProductAd() {
             <div className="productAd_mini" key={item.id}>
               <div className="productAd_container">
                 <img src={item.src} alt="" className="productAd_img" />
-                <Link to={"/products/hihi"} className="productAd_wap">
+                <Link to={`/products/${item.id}`} className="productAd_wap">
                   <FaSearch className="productAd_icon" />
                 </Link>
               </div>
