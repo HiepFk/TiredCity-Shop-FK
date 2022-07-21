@@ -25,15 +25,6 @@ function ListView({ products = [""] }) {
   );
 }
 const ListStyle = styled.div`
-  @media (max-width: 768px) {
-    .list_wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      margin: 2rem;
-    }
-  }
   display: flex;
   flex-direction: column;
   .list_wrapper {
@@ -71,6 +62,15 @@ const ListStyle = styled.div`
   }
   .list_btn:hover {
     opacity: 0.6;
+  }
+  @media (max-width: 992px) {
+    .list_wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      margin: 2rem;
+    }
   }
 `;
 

@@ -46,10 +46,13 @@ const AboutStyle = styled.div`
   }
   .about_wrapper {
     display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 4rem;
   }
   .about_img {
-    width: 35rem;
+    width: 25rem;
+    height: auto;
   }
   .phai {
     margin-left: 5rem;
@@ -66,7 +69,7 @@ const AboutStyle = styled.div`
   .about_desc {
     margin-bottom: 2rem;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     align-items: center;
     justify-content: center;
     .about_wrapper {
@@ -79,7 +82,7 @@ const AboutStyle = styled.div`
       margin-bottom: 0.5rem;
     }
     .about_img {
-      width: 20rem;
+    width: 100%;
     }
     .phai,
     .trai {

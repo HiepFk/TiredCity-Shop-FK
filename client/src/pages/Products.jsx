@@ -45,6 +45,7 @@ const Header = styled.div`
   flex-direction: column;
   display: flex;
   margin-left: 5rem;
+  width: 100%;
   @media (max-width: 768px) {
     margin-left: 0rem;
   }

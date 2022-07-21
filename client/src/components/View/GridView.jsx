@@ -27,12 +27,9 @@ function GridView({ products = [""] }) {
 }
 
 const GridStyle = styled.div`
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-row-gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-gap: 2rem;
   .product_wrapper {
     display: flex;
     justify-content: space-around;

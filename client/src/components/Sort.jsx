@@ -49,27 +49,7 @@ function Sort() {
 
 const SortStyle = styled.div`
   margin-bottom: 1rem;
-  width: 60rem;
-  min-width: 53rem;
-  @media (max-width: 768px) {
-    margin-top: 2rem;
-    width: 10rem !important;
-    min-width: 5rem !important;
-    hr {
-      display: none;
-    }
-    .sort_wrapper {
-      flex-direction: column;
-      align-items: start !important;
-    }
-    .sort_icons,
-    p {
-      margin-bottom: 1rem;
-    }
-    .sort_icon {
-      display: none;
-    }
-  }
+  width: 100%;
   .sort_wrapper {
     display: flex;
     justify-content: space-between;
@@ -92,7 +72,6 @@ const SortStyle = styled.div`
   }
   hr {
     height: 0.1rem;
-    /* max-width: 20rem; */
     width: 7rem;
     margin-right: 2.25rem;
     margin-left: 2.25rem;
@@ -122,6 +101,27 @@ const SortStyle = styled.div`
   .active {
     color: white;
     background-color: black;
+  }
+  @media (max-width: 992px) {
+    hr {
+      display: none;
+    }
+  }
+  @media (max-width: 768px) {
+    margin-top: 2rem;
+    width: 10rem;
+    min-width: 5rem;
+    .sort_wrapper {
+      flex-direction: column;
+      align-items: start;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+    .sort_icon {
+      display: none;
+    }
   }
 `;
 

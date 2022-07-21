@@ -89,6 +89,7 @@ const Wrapper = styled.div`
   transform: translateX(-50%);
   border: 3px solid transparent;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  z-index: 1000;
   .address_form {
     display: flex;
     flex-direction: column;

@@ -18,7 +18,6 @@ function Title() {
         </Link>
       </div>
       <div className="title_right">
-        <div className="title_mo"></div>
         <img src="/image/about/4.webp" alt="" className="title_img small" />
         <img src="/image/about/5.webp" alt="" className="title_img big" />
       </div>
@@ -27,15 +26,18 @@ function Title() {
 }
 
 const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15rem;
   padding-top: 4rem;
+  /* height: calc(100vh - 5rem); */
+
   .title_right,
   .title_left {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 30rem;
+    /* max-width: 30rem; */
   }
   .title_title {
     font-weight: bold;
@@ -49,6 +51,7 @@ const Wrapper = styled.div`
     line-height: 2;
     font-size: 1.25rem;
     opacity: 0.7;
+    max-width: 45rem;
   }
   .title_btn {
     background-color: brown;
@@ -67,40 +70,48 @@ const Wrapper = styled.div`
       color: black;
     }
   }
-  .title_img {
-    border-radius: 5px;
+  .title_right {
+    position: relative;
   }
-  .title_mo {
+  .title_right:before {
+    content: "";
     position: absolute;
-    top: 15rem;
-    right: 34.5rem;
-    width: 10rem;
-    height: 20rem;
+    bottom: 0%;
+    left: -8%;
+    width: 10%;
+    height: 80%;
     background-color: brown;
     z-index: 0;
+    border-radius: 5px;
+  }
+  .title_img {
     border-radius: 5px;
   }
   .small {
     position: absolute;
     z-index: 2;
     width: 15rem;
-    top: 28.7rem;
-    right: 35rem;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-50%);
   }
   .big {
     width: 25rem;
     height: 30rem;
     z-index: 1;
+    position: relative;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     .title_right {
       display: none;
     }
     .title_title {
       font-size: 2.5rem;
     }
+
     .title_desc {
       font-size: 1rem;
+      max-width: 35rem;
     }
     .title_btn {
       font-size: 1rem;

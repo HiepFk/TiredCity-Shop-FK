@@ -87,9 +87,7 @@ function Choise() {
   );
 }
 const Wrapper = styled.div`
-  @media (min-width: 768px) {
-    display: none;
-  }
+  width: 90vw;
   li {
     margin-bottom: 1.5rem;
   }
@@ -98,6 +96,7 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
   }
   .header_links {
     display: flex;
@@ -172,6 +171,9 @@ const Wrapper = styled.div`
   .show {
     transform: translate(0);
     z-index: 999;
+  }
+  @media (min-width: 992px) {
+    display: none;
   }
 `;
 export default Choise;

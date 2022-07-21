@@ -70,7 +70,7 @@ function Quality() {
       <div className="quality_container">
         {img.map((item) => {
           return (
-            <div className="img_wapper">
+            <div className="img_wapper" key={item.id}>
               <img
                 src={item.src}
                 alt=""
@@ -90,32 +90,15 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  @media (max-width: 768px) {
-    .quality_container,
-    .quality {
-      flex-direction: column;
-    }
+  width: 100%;
 
-    .quality_desc {
-      display: none;
-    }
-    .quality_title {
-      font-size: 1rem !important;
-    }
-    .img_wapper,
-    .quality_wrapper {
-      margin-bottom: 0.5rem;
-    }
-    .title_big {
-      font-size: 1.5rem !important;
-    }
-    .quality_container {
-      margin-top: 2rem !important;
-    }
-  }
   .quality {
+    width: 100%;
     padding-top: 5rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-gap: 2rem;
+    text-align: center;
   }
   .quality_wrapper {
     display: flex;
@@ -142,16 +125,19 @@ const Wrapper = styled.div`
   }
   .quality_container {
     margin-top: 5rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  }
+  .img_wapper {
     display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .quality_img {
-    width: 20rem;
-    transition: all 0.25s linear;
-    cursor: pointer;
-    transform: scale(1.1);
-    &:hover {
-      transform: scale(1);
-    }
+    width: 15rem;
+    height: 18rem;
+    margin-bottom: 2rem;
   }
   .quality_hr {
     width: 8rem;
@@ -159,17 +145,30 @@ const Wrapper = styled.div`
     background-color: brown;
     margin-top: 1rem;
   }
-  .img_wapper {
-    max-width: 16rem;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-    overflow: hidden;
-  }
+
   .title_big {
     margin-top: 4rem;
     font-size: 3rem;
     text-align: center;
     font-weight: bold;
+  }
+  @media (max-width: 768px) {
+    .quality_desc {
+      display: none;
+    }
+    .quality_title {
+      font-size: 1rem;
+    }
+    .img_wapper,
+    .quality_wrapper {
+      margin-bottom: 0.5rem;
+    }
+    .title_big {
+      font-size: 1.5rem;
+    }
+    .quality_container {
+      margin-top: 2rem;
+    }
   }
 `;
 

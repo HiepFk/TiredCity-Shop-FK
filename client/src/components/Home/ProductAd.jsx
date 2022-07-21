@@ -39,6 +39,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   padding-top: 7rem;
   align-items: center;
+  width: 100%;
   .productAd_title {
     text-align: center;
     font-weight: bold;
@@ -51,8 +52,10 @@ const Wrapper = styled.div`
     margin-top: 0.5rem;
   }
   .productAd_wrapper {
-    display: flex;
-    justify-content: space-around;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-gap: 2rem;
     margin-top: 3rem;
   }
   .productAd_mini {
@@ -122,9 +125,6 @@ const Wrapper = styled.div`
     cursor: pointer;
   }
   @media (max-width: 768px) {
-    .productAd_wrapper {
-      flex-direction: column;
-    }
     .productAd_title {
       font-size: 1.5rem;
     }
