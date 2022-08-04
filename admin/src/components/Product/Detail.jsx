@@ -9,7 +9,9 @@ function Detail({ product }) {
   const dispatch = useDispatch();
   const [name, setName] = useState(product?.name);
   const [description, setDescription] = useState(product?.description);
+  // eslint-disable-next-line no-unused-vars
   const [imageCover, setImageCover] = useState(product?.imageCover);
+  // eslint-disable-next-line no-unused-vars
   const [images, setImages] = useState(product?.images);
   const [price, setPrice] = useState(product?.price);
   const [priceDiscount, sePriceDiscount] = useState(product?.priceDiscount);

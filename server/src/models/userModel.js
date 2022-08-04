@@ -6,14 +6,11 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please tell us your name"],
     },
     email: {
       type: String,
-      required: [true, "Please tell us your email"],
       unique: true,
       lowcase: true,
-      validate: [validator.isEmail, "Please provide a valid email"],
     },
     number: {
       type: String,
@@ -29,13 +26,13 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please tell us your password"],
+
       minLength: 8,
       select: false,
     },
     passwordConfirm: {
       type: String,
-      required: [true, "Please tell us your password confrim"],
+
       validate: {
         validator: function (el) {
           return el === this.password;

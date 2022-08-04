@@ -10,7 +10,7 @@ export default function Login() {
   const navigate = useNavigate();
   const userLogin = useSelector((state) => state.auth?.user);
   useEffect(() => {
-    if (userLogin && userLogin?.data?.user?.isAdmin) {
+    if (userLogin && userLogin?.user?.isAdmin) {
       navigate("/");
     }
   }, [userLogin, navigate]);

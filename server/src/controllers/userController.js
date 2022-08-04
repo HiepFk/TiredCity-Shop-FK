@@ -57,8 +57,8 @@ const userController = {
     user = await user.populate("reviews");
 
     res.status(200).json({
-      status: "error",
-      message: "Không có người dùng",
+      status: "success",
+      data: { user },
     });
   }),
 

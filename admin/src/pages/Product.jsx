@@ -4,7 +4,6 @@ import { getProduct } from "../api/product";
 import { useSelector, useDispatch } from "react-redux";
 import Loading from "../components/Loading";
 import Detail from "../components/Product/Detail";
-import Review from "../components/Product/Review";
 function Product() {
   const { id } = useParams();
   const dispatch = useDispatch();
