@@ -6,52 +6,23 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const cookieParser = require("cookie-parser");
-const fileupload = require("express-fileupload");
+
+const corsOptions = require("./src/config/corsOptions");
+const credentials = require("./src/middleware/credentials");
+
+const globalErrorHandler = require("./src/middleware/errorHandle");
+
+const userRoute = require("./src/routes/userRoute");
+const productRoute = require("./src/routes/productRoute");
+const reviewRoute = require("./src/routes/reviewRoute");
+const cartRoute = require("./src/routes/cartRoute");
+const orderRoute = require("./src/routes/orderRoute");
 
 const app = express();
 
-const userRoute = require("./routes/userRoute");
-const productRoute = require("./routes/productRoute");
-const reviewRoute = require("./routes/reviewRoute");
-const cartRoute = require("./routes/cartRoute");
-const orderRoute = require("./routes/orderRoute");
-
-// app.use(cors());
-
-const corsOptions = {
-  origin: [process.env.REACT_CLIENT_URL, process.env.REACT_ADMIN_URL],
-  credentials: true, //included credentials as true
-};
+app.use(credentials);
 app.use(cors(corsOptions));
 
-// app.use(function (req, res, next) {
-//   // res.header("Access-Control-Allow-Origin", cors.origin);
-//   res.header("Content-Type", "application/json;charset=UTF-8");
-//   res.header("Access-Control-Allow-Credentials", true);
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
-
-// app.use(function (req, res, next) {
-//   res.setHeader("Access-Control-Allow-Origin", corsOptions.origin[0]);
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-//   );
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "X-Requested-With,content-type"
-//   );
-//   res.setHeader("Access-Control-Allow-Credentials", true);
-//   next();
-// });
-
-app.options("/*", (_, res) => {
-  res.sendStatus(200);
-});
 app.use(cookieParser());
 
 app.use(morgan("common"));
@@ -67,7 +38,7 @@ const limiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   message: "Too many requests from this IP, please try again in an hour.",
 });
-app.use("/api", limiter);
+app.use("/", limiter);
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -84,12 +55,9 @@ app.use("/v1/cart", cartRoute);
 app.use("/v1/order", orderRoute);
 
 app.all("*", (req, res, next) => {
-  res.status(404).json({
-    status: "error",
-    message: "Can't find this on this server! ",
-  });
-  return;
-  next(new AppError(`Can't find this on this server!`, 404));
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
+
+app.use(globalErrorHandler);
 
 module.exports = app;

@@ -1,8 +1,8 @@
 const cartController = require("../controllers/cartController");
-const authController = require("../controllers/authController");
+const { isAuthenticatedUser, isAdmin } = require("../middleware/auth");
 const router = require("express").Router();
 
-router.use(authController.protect);
+router.use(isAuthenticatedUser);
 
 router
   .route("/user")
@@ -13,7 +13,7 @@ router
   .patch(cartController.userUpdateCart)
   .delete(cartController.userDeleteCart);
 
-router.use(authController.isAdmin);
+router.use(isAdmin);
 router.route("/").post(cartController.addCart);
 router.route("/:id").patch(cartController.updateCart);
 

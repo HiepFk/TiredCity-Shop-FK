@@ -1,12 +1,12 @@
 const productController = require("../controllers/productController");
-const authController = require("../controllers/authController");
+const { isAuthenticatedUser, isAdmin } = require("../middleware/auth");
 const router = require("express").Router();
 
 router.route("/").get(productController.getAllProducts);
 router.route("/:id").get(productController.getProduct);
 
-router.use(authController.protect);
-router.use(authController.isAdmin);
+router.use(isAuthenticatedUser);
+router.use(isAdmin);
 
 router.route("/").post(
   // productController.uploadImages,

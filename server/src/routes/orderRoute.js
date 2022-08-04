@@ -1,13 +1,13 @@
 const orderController = require("../controllers/orderController");
-const authController = require("../controllers/authController");
+const { isAuthenticatedUser, isAdmin } = require("../middleware/auth");
 const router = require("express").Router();
 
-router.use(authController.protect);
+router.use(isAuthenticatedUser);
 
 router.route("/user").post(orderController.userAddOrder);
 router.route("/myorder").get(orderController.getMyOrder);
 
-router.use(authController.isAdmin);
+router.use(isAdmin);
 router.route("/").post(orderController.addOrder);
 router.route("/:id").patch(orderController.updateOrder);
 
