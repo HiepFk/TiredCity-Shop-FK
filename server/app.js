@@ -26,6 +26,9 @@ require("./src/utils/passport");
 const passport = require("passport");
 
 const app = express();
+// app.use(
+//   cookieSession({ name: "session", keys: ["hiep"], maxAge: 24 * 60 * 60 * 100 })
+// );
 
 app.use(
   expressSession({
@@ -35,9 +38,7 @@ app.use(
     cookie: { secure: true },
   })
 );
-// app.use(
-//   cookieSession({ name: "session", keys: ["hiep"], maxAge: 24 * 60 * 60 * 100 })
-// );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -75,7 +76,7 @@ app.use("/v1/review", reviewRoute);
 app.use("/v1/cart", cartRoute);
 app.use("/v1/order", orderRoute);
 
-// app.use("/auth", passportRoute);
+app.use("/auth", passportRoute);
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });

@@ -6,7 +6,7 @@ const signToken = (id) => {
   });
 };
 
-const createSendToken = (user, statusCode, req, res, msg) => {
+const createSendToken = (user, statusCode, req = "", res, msg) => {
   const token = signToken(user._id);
   res.cookie("jwt", token, {
     expires: new Date(
