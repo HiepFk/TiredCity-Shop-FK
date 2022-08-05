@@ -1,7 +1,4 @@
 const express = require("express");
-const cookieSession = require("cookie-session");
-const expressSession = require("express-session");
-
 const morgan = require("morgan");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
@@ -21,26 +18,7 @@ const reviewRoute = require("./src/routes/reviewRoute");
 const cartRoute = require("./src/routes/cartRoute");
 const orderRoute = require("./src/routes/orderRoute");
 
-const passportRoute = require("./src/routes/passportRoute");
-require("./src/utils/passport");
-const passport = require("passport");
-
 const app = express();
-// app.use(
-//   cookieSession({ name: "session", keys: ["hiep"], maxAge: 24 * 60 * 60 * 100 })
-// );
-
-app.use(
-  expressSession({
-    secret: "somethingsecretgoeshere",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true },
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(credentials);
 app.use(cors(corsOptions));
@@ -76,7 +54,6 @@ app.use("/v1/review", reviewRoute);
 app.use("/v1/cart", cartRoute);
 app.use("/v1/order", orderRoute);
 
-app.use("/auth", passportRoute);
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });

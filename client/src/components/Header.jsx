@@ -40,7 +40,7 @@ function Header() {
         <Link to={"/cart"} className="header_icons ">
           Cart
           {/* <span>{totalQty}</span> */}
-          <div className="header_icon header_cart" totalQty={totalQty}>
+          <div className="header_icon header_cart" totalqty={totalQty}>
             <FiShoppingCart />
           </div>
         </Link>
@@ -86,7 +86,7 @@ const HeaderStyle = styled.div`
     position: relative;
   }
   .header_cart::before {
-    content: attr(totalQty);
+    content: attr(totalqty);
     position: absolute;
     top: -0.5rem;
     right: -0.5rem;

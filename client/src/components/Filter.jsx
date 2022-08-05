@@ -145,6 +145,7 @@ const Wrapper = styled.section`
     text-transform: capitalize;
     column-gap: 0.5rem;
     font-size: 1rem;
+    width: 10rem;
   }
   .clear-btn {
     padding: 0.5rem 1rem;

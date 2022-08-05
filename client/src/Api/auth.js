@@ -1,4 +1,6 @@
 import axios from "axios";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../utils/firebase";
 import {
   LoginStart,
   LoginFailed,
@@ -24,6 +26,31 @@ const ErrorMessage = (dispatch, error) => {
     dispatch(HideAlert());
   }, 3000);
   return () => window.clearTimeout(timeoutID);
+};
+
+export const signInWithGoogle = async (dispatch, navigate) => {
+  dispatch(LoginStart());
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      axios
+        .post(`${link}/v1/user/sign-google`, {
+          name: result.user.displayName,
+          email: result.user.email,
+        })
+        .then((res) => {
+          dispatch(LoginSuccess(res.data));
+          dispatch(ShowAlert(res.data));
+          navigate("/");
+          const timeoutID = window.setTimeout(() => {
+            dispatch(HideAlert());
+          }, 3000);
+          return () => window.clearTimeout(timeoutID);
+        });
+    })
+    .catch((error) => {
+      dispatch(LoginFailed());
+      ErrorMessage(dispatch, error);
+    });
 };
 
 export const signUp = async (user, dispatch, navigate) => {
@@ -78,7 +105,7 @@ export const GetMe = async (dispatch) => {
   dispatch(GetMeStart());
   try {
     const res = await axios.get(`${link}/v1/user/me`);
-    dispatch(GetMeSuccess(res.data));
+    dispatch(GetMeSuccess(res.data?.data));
   } catch (error) {
     dispatch(GetMeError());
   }
@@ -97,7 +124,10 @@ export const UpdateMe = async (dispatch, data, type) => {
       url,
       data,
     });
-    dispatch(GetMeSuccess(res.data));
+    console.log(res.data);
+    type === "password"
+      ? dispatch(GetMeSuccess(res.data))
+      : dispatch(GetMeSuccess(res.data?.data));
     dispatch(ShowAlert(res.data));
     const timeoutID = window.setTimeout(() => {
       dispatch(HideAlert());

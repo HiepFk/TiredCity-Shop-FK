@@ -30,6 +30,19 @@ const authController = {
     createSendToken(newUser, 201, req, res, (msg = "SignUp success"));
   }),
 
+  googleAuth: catchAsync(async (req, res, next) => {
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      createSendToken(user, 200, req, res, (msg = "Login success"));
+    } else {
+      const newUser = new User({
+        ...req.body,
+      });
+      const savedUser = await newUser.save();
+      createSendToken(savedUser, 201, req, res, (msg = "SignUp success"));
+    }
+  }),
+
   logout: (req, res, next) => {
     res.cookie("jwt", "loggedout", {
       expires: new Date(Date.now() + 1000),

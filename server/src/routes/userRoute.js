@@ -3,6 +3,7 @@ const authController = require("../controllers/authController");
 const { isAuthenticatedUser, isAdmin } = require("../middleware/auth");
 const router = require("express").Router();
 
+router.post("/sign-google", authController.googleAuth);
 router.post("/login", authController.login);
 router.post("/signup", authController.signup);
 router.get("/logout", authController.logout);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signUp, loginUser } from "../Api/auth";
-
+import Google from "../components/Google";
 import styled from "styled-components";
 import { FaArrowRight } from "react-icons/fa";
 
@@ -99,10 +99,11 @@ function Login() {
             <p class="message" onClick={() => setLogin(!login)}>
               Already registered? Sign In
             </p>
+            <Google title="Sign up with" />
           </form>
         ) : (
           <form class="login_form" onSubmit={Login}>
-            <div class="title">Sign In</div>
+            <div class="title">Login</div>
             <input
               type="email"
               required
@@ -123,6 +124,7 @@ function Login() {
             <p class="message" onClick={() => setLogin(!login)}>
               Not registered? Create an account
             </p>
+            <Google title="Login with" />
           </form>
         )}
       </div>
@@ -137,6 +139,7 @@ const Wrapper = styled.div`
   margin-top: 4rem;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
+  overflow: hidden;
   .login_wrapper {
     overflow: hidden;
     width: calc(100% - 25rem);
@@ -144,7 +147,7 @@ const Wrapper = styled.div`
   }
   .login_img {
     width: 100%;
-    height: 35rem;
+    height: 100%;
     transition: transform 0.25s linear;
     cursor: pointer;
     transition: all 0.25s linear;
@@ -156,27 +159,29 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
     overflow: hidden;
+    width: 25rem;
+    height: 35rem;
   }
   .none {
     display: none;
   }
   form {
     align-items: center;
-    width: 25rem;
+    width: 100%;
+    height: 100%;
     background-color: rgba(255, 255, 255, 0.7);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 35rem;
   }
 
   input {
     margin-top: 1.5rem;
     display: block;
     font-family: inherit;
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: inherit;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.75rem;
     border: none;
     border-top: 3px solid transparent;
     border-bottom: 3px solid transparent;
@@ -193,14 +198,14 @@ const Wrapper = styled.div`
     border-bottom: 3px solid #ff7730;
   }
   button {
-    margin-top: 1.5rem;
-    width: 5rem;
-    height: 4rem;
+    margin-top: 1.25rem;
+    width: 4rem;
+    height: 3rem;
     border: 0;
     border-radius: 1rem;
     background-color: rgba(255, 0, 0, 0.7);
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     cursor: pointer;
     box-shadow: 0 10px 10px 0px rgba(255, 0, 0, 0.5);
     transition: all 0.5s linear;
@@ -214,9 +219,17 @@ const Wrapper = styled.div`
     cursor: pointer;
   }
   .title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 600;
-    margin-top: 1.5rem;
+    /* margin-top: 1.5rem; */
+  }
+  @media (max-width: 768px) {
+    .login_wrapper {
+      display: none;
+    }
+    .form {
+      width: 100%;
+    }
   }
 `;
 

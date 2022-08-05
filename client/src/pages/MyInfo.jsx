@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { UpdateMe } from "../Api/auth";
+import { UpdateMe, GetMe } from "../Api/auth";
 
 function MyInfo() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth.user);
-  const currentUser = user?.data?.user;
+  const currentUser = user?.user;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,11 +38,8 @@ function MyInfo() {
       password,
       passwordConfirm,
     };
-    console.log(data);
     UpdateMe(dispatch, data, "password", navigate);
-    setPassword("");
-    setPasswordConfirm("");
-    setPasswordCurrent("");
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -57,6 +54,11 @@ function MyInfo() {
     setNumber(currentUser?.number);
     setAdress(currentUser?.adress);
   }, [currentUser]);
+
+  useEffect(() => {
+    GetMe(dispatch);
+  }, [dispatch]);
+
   return (
     <Wrapper>
       <form action="" onSubmit={handeUpdateInfo}>
@@ -131,18 +133,8 @@ function MyInfo() {
   );
 }
 const Wrapper = styled.div`
-  @media (max-width: 768px) {
-    flex-direction: column;
-    .form_wrapper {
-      margin-left: 1rem !important;
-      align-items: center;
-      justify-content: center;
-    }
-    .form_input {
-      margin-right: 0.5rem !important;
-      width: 15rem !important;
-    }
-  }
+  display: flex;
+  justify-content: space-around;
   margin-top: 3rem;
   display: flex;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -152,13 +144,12 @@ const Wrapper = styled.div`
   }
   .form_title {
     margin-top: 1rem;
-    margin-left: 2.5rem;
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
   .form_wrapper {
     display: flex;
-    margin-left: 3.5rem;
+
     margin-bottom: 1.5rem;
     align-items: center;
   }
@@ -179,7 +170,7 @@ const Wrapper = styled.div`
     transition: all 0.3s;
     border-radius: 4px;
     box-sizing: border-box;
-    width: 20rem;
+    width: 18.5rem;
     :focus {
       outline: none;
       border: 3px solid #55c57a;
@@ -190,7 +181,7 @@ const Wrapper = styled.div`
   }
   button {
     margin-bottom: 1.5rem;
-    width: 40%;
+    width: 15rem;
     margin-left: 8rem;
     padding: 0.5rem 1rem;
     border: 0;
@@ -204,6 +195,11 @@ const Wrapper = styled.div`
   }
   button:hover {
     transform: translateX(1rem);
+  }
+  @media (max-width: 968px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 `;
 export default MyInfo;
