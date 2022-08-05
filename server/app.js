@@ -26,7 +26,6 @@ require("./src/utils/passport");
 const passport = require("passport");
 
 const app = express();
-// require("./src/utils/passport")(passport);
 
 app.use(
   expressSession({
@@ -76,7 +75,7 @@ app.use("/v1/review", reviewRoute);
 app.use("/v1/cart", cartRoute);
 app.use("/v1/order", orderRoute);
 
-app.use("/auth", passportRoute);
+// app.use("/auth", passportRoute);
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
