@@ -24,24 +24,12 @@ export default function Form() {
 }
 
 const FormStyle = styled.div`
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 2rem;
-    .form_right {
-      display: flex;
-      align-items: center;
-      margin-top: 0.75rem;
-    }
-    .form_input {
-      width: 15rem;
-    }
-  }
   margin-top: 4rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
   background-color: aliceblue;
-  padding: 0.5rem 1rem;
+  padding: 2rem 1rem;
   .left_title {
     font-size: 2rem;
     width: 50%;
@@ -78,6 +66,18 @@ const FormStyle = styled.div`
     transition: all 0.5s linear;
     &:hover {
       transform: translateX(0.5rem);
+    }
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 2rem;
+    .form_right {
+      display: flex;
+      align-items: center;
+      margin-top: 0.75rem;
+    }
+    .form_input {
+      width: 15rem;
     }
   }
 `;

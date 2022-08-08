@@ -15,7 +15,6 @@ const globalErrorHandler = require("./src/middleware/errorHandle");
 const userRoute = require("./src/routes/userRoute");
 const productRoute = require("./src/routes/productRoute");
 const reviewRoute = require("./src/routes/reviewRoute");
-const cartRoute = require("./src/routes/cartRoute");
 const orderRoute = require("./src/routes/orderRoute");
 
 const app = express();
@@ -51,7 +50,6 @@ app.use(xss());
 app.use("/v1/user", userRoute);
 app.use("/v1/product", productRoute);
 app.use("/v1/review", reviewRoute);
-app.use("/v1/cart", cartRoute);
 app.use("/v1/order", orderRoute);
 
 app.all("*", (req, res, next) => {

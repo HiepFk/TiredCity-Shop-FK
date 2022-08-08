@@ -50,6 +50,14 @@ function Quality() {
       id: 4,
       src: "/image/about/9.webp",
     },
+    {
+      id: 5,
+      src: "/image/about/6.webp",
+    },
+    {
+      id: 6,
+      src: "/image/about/7.webp",
+    },
   ];
 
   return (
@@ -127,7 +135,7 @@ const Wrapper = styled.div`
     margin-top: 5rem;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   }
   .img_wapper {
     display: flex;
@@ -135,9 +143,10 @@ const Wrapper = styled.div`
     justify-content: center;
   }
   .quality_img {
-    width: 15rem;
-    height: 18rem;
+    width: 20rem;
+    height: 23rem;
     margin-bottom: 2rem;
+    border-radius: 0.5rem;
   }
   .quality_hr {
     width: 8rem;

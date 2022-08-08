@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { UpdateMe, GetMe } from "../Api/auth";
+import { UpdateMe } from "../Api/auth";
+import { createAxios } from "../Api/createInstance";
+import { LoginSuccess } from "../redux/authSlice";
 
 function MyInfo() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth.user);
-  const currentUser = user?.user;
+  const currentUser = user;
+
+  let axiosJWT = createAxios(user, dispatch, LoginSuccess);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -27,8 +31,8 @@ function MyInfo() {
       adress,
       number,
     };
-    console.log(user);
-    UpdateMe(dispatch, user, "info");
+
+    UpdateMe(dispatch, user, "info", axiosJWT, user?.accessToken);
   };
 
   const handeUpdatePassword = (e) => {
@@ -38,8 +42,8 @@ function MyInfo() {
       password,
       passwordConfirm,
     };
-    UpdateMe(dispatch, data, "password", navigate);
-    window.location.reload();
+    UpdateMe(dispatch, data, "password", axiosJWT, user?.accessToken);
+    // window.location.reload();
   };
 
   useEffect(() => {
@@ -54,10 +58,6 @@ function MyInfo() {
     setNumber(currentUser?.number);
     setAdress(currentUser?.adress);
   }, [currentUser]);
-
-  useEffect(() => {
-    GetMe(dispatch);
-  }, [dispatch]);
 
   return (
     <Wrapper>

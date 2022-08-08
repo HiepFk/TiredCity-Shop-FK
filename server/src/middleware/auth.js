@@ -15,20 +15,18 @@ exports.isAdmin = (req, res, next) => {
 
 exports.isAuthenticatedUser = catchAsync(async (req, res, next) => {
   let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  } else if (req.cookies.jwt) {
-    token = req.cookies.jwt;
+  if (req.headers.token && req.headers.token.startsWith("Bearer")) {
+    token = req.headers.token?.split(" ")?.[1];
   }
   if (!token) {
     return next(
       new AppError("You are not logged in! Please log in to get access", 401)
     );
   }
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  const decoded = await promisify(jwt.verify)(
+    token,
+    process.env.JWT_ACCESS_KEY
+  );
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
     return next(
@@ -46,26 +44,3 @@ exports.isAuthenticatedUser = catchAsync(async (req, res, next) => {
   req.user = currentUser;
   next();
 });
-
-exports.isLoggedIn = async (req, res, next) => {
-  if (req.cookies.jwt) {
-    try {
-      const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.JWT_SECRET
-      );
-      const currentUser = await User.findById(decoded.id);
-      if (!currentUser) {
-        return next();
-      }
-      if (currentUser.changesPasswordAfter(decoded.iat)) {
-        return next();
-      }
-      req.user = currentUser;
-      return next();
-    } catch (err) {
-      return next();
-    }
-  }
-  next();
-};

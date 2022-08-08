@@ -5,12 +5,16 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyOrder } from "../Api/cart";
+import { createAxios } from "../Api/createInstance";
+import { LoginSuccess } from "../redux/authSlice";
+
 function MyOrder() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth.user);
   const order = useSelector((state) => state.cart.order?.data?.order);
+  let axiosJWT = createAxios(user, dispatch, LoginSuccess);
   useEffect(() => {
     if (!user) {
       navigate("/");
@@ -18,7 +22,7 @@ function MyOrder() {
   }, [user, navigate]);
 
   useEffect(() => {
-    getMyOrder(dispatch);
+    getMyOrder(dispatch, axiosJWT, user?.accessToken);
   }, [dispatch]);
   if (!order || order.length === 0) {
     return (

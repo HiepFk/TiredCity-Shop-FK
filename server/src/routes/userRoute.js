@@ -3,10 +3,16 @@ const authController = require("../controllers/authController");
 const { isAuthenticatedUser, isAdmin } = require("../middleware/auth");
 const router = require("express").Router();
 
-router.post("/sign-google", authController.googleAuth);
-router.post("/login", authController.login);
 router.post("/signup", authController.signup);
+router.post("/sign-google", authController.googleAuth);
+router.post("/activation", authController.activateEmail);
+router.post("/forgot", authController.forgotPassword);
+router.post("/reset", authController.resetPassword);
+
+router.post("/login", authController.login);
 router.get("/logout", authController.logout);
+
+router.post("/refresh", authController.requestRefreshToken);
 
 router.use(isAuthenticatedUser);
 router.get("/me", userController.getMe);

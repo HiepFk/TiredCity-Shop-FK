@@ -96,14 +96,6 @@ function Product() {
   );
 }
 const Wrapper = styled.div`
-  @media (max-width: 768px) {
-    .product_info {
-      flex-direction: column;
-    }
-    .btn {
-      font-size: 1rem !important;
-    }
-  }
   display: flex;
   flex-direction: column;
   margin-top: 4rem;
@@ -171,6 +163,14 @@ const Wrapper = styled.div`
     margin-top: 1rem;
     border: none;
     padding: 0.5rem;
+  }
+  @media (max-width: 992px) {
+    .product_info {
+      flex-direction: column;
+    }
+    .btn {
+      font-size: 1rem;
+    }
   }
 `;
 export default Product;

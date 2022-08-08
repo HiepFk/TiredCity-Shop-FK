@@ -16,26 +16,38 @@ axios.defaults.withCredentials = true;
 const link = process.env.REACT_APP_API_LINK;
 
 const ErrorMessage = (dispatch, error) => {
-  dispatch(ShowAlert(error.response.data));
-  const timeoutID = window.setTimeout(() => {
-    dispatch(HideAlert());
-  }, 3000);
-  return () => window.clearTimeout(timeoutID);
+  if (error.response.data) {
+    dispatch(ShowAlert(error.response.data));
+    const timeoutID = window.setTimeout(() => {
+      dispatch(HideAlert());
+    }, 3000);
+    return () => window.clearTimeout(timeoutID);
+  }
 };
 
-export const getMyOrder = async (dispatch) => {
+export const getMyOrder = async (dispatch, axiosJWT, accessToken) => {
   dispatch(GetOrderStart());
   try {
-    const res = await axios.get(`${link}/v1/order/myorder`);
+    const res = await axiosJWT.get(`${link}/v1/order/myorder`, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
     dispatch(GetOrderSuccess(res.data));
   } catch (error) {
     dispatch(GetOrderError());
   }
 };
 
-export const addOrder = async (dispatch, navigate, data) => {
+export const addOrder = async (
+  dispatch,
+  navigate,
+  data,
+  axiosJWT,
+  accessToken
+) => {
   try {
-    const res = await axios.post(`${link}/v1/order/user`, data);
+    const res = await axiosJWT.post(`${link}/v1/order/user`, data, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
 
     dispatch(ShowAlert(res.data));
     navigate("/myorder");

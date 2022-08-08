@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { signUp, loginUser } from "../Api/auth";
 import Google from "../components/Google";
 import styled from "styled-components";
@@ -125,6 +125,10 @@ function Login() {
               Not registered? Create an account
             </p>
             <Google title="Login with" />
+
+            <Link to="/forgot">
+              <p class="message">Forgot password? Click here</p>
+            </Link>
           </form>
         )}
       </div>
@@ -222,6 +226,9 @@ const Wrapper = styled.div`
     font-size: 2rem;
     font-weight: 600;
     /* margin-top: 1.5rem; */
+  }
+  .message {
+    color: black;
   }
   @media (max-width: 768px) {
     .login_wrapper {

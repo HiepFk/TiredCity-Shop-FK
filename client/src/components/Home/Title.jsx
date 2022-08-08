@@ -26,18 +26,18 @@ function Title() {
 }
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   padding-top: 4rem;
-  /* height: calc(100vh - 5rem); */
-
   .title_right,
   .title_left {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* max-width: 30rem; */
+  }
+  .title_left {
+    margin-right: 10rem;
   }
   .title_title {
     font-weight: bold;
@@ -51,7 +51,7 @@ const Wrapper = styled.div`
     line-height: 2;
     font-size: 1.25rem;
     opacity: 0.7;
-    max-width: 45rem;
+    /* max-width: 45rem; */
   }
   .title_btn {
     background-color: brown;

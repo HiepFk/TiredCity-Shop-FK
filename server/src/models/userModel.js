@@ -12,10 +12,7 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowcase: true,
     },
-    googleId: {
-      type: String,
-      default: new Date().getTime(),
-    },
+
     number: {
       type: String,
       default: "0123456789",
@@ -45,8 +42,8 @@ const userSchema = new mongoose.Schema(
       },
     },
     passwordChangedAt: Date,
-    passwordResetToken: String,
-    passwordResetExpires: Date,
+    // passwordResetToken: String,
+    // passwordResetExpires: Date,
   },
   {
     toJSON: { virtuals: true },
@@ -95,18 +92,18 @@ userSchema.methods.changesPasswordAfter = function (JWTTimestamp) {
   return false;
 };
 
-userSchema.methods.createPasswordResetToken = function () {
-  const resetToken = crypto.randomBytes(32).toString("hex");
+// userSchema.methods.createPasswordResetToken = function () {
+//   const resetToken = crypto.randomBytes(32).toString("hex");
 
-  this.passwordResetToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+//   this.passwordResetToken = crypto
+//     .createHash("sha256")
+//     .update(resetToken)
+//     .digest("hex");
 
-  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+//   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 
-  return resetToken;
-};
+//   return resetToken;
+// };
 
 const User = mongoose.model("User", userSchema);
 

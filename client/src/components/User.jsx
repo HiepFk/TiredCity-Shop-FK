@@ -23,9 +23,6 @@ function User({ setHide }) {
 }
 
 const Wrapper = styled.div`
-  position: absolute;
-  top: 5rem;
-  right: 15rem;
   background-color: rgba(255, 255, 255);
   z-index: 1000;
   display: flex;

@@ -1,7 +1,22 @@
 const catchAsync = require("../middleware/catchAsync");
 const AppError = require("../utils/appError");
-const createSendToken = require("../utils/jwtToken");
+const { promisify } = require("util");
+
+const {
+  createSendToken,
+  generateAccessToken,
+  generateRefreshToken,
+  generateActivationToken,
+} = require("../utils/jwtToken");
 const User = require("./../models/userModel");
+
+const jwt = require("jsonwebtoken");
+
+const sendMail = require("../utils/sendEmail");
+
+let refreshTokens = [];
+
+const CLIENT_URL = "http://localhost:3000";
 
 const authController = {
   login: catchAsync(async (req, res, next) => {
@@ -18,38 +33,117 @@ const authController = {
     if (!(await user.correctPassword(password, user.password))) {
       return next(new AppError("Incorrect password", 401));
     }
-    createSendToken(user, 200, req, res, (msg = "Login success"));
+    createSendToken(
+      user,
+      200,
+      req,
+      res,
+      (msg = "Login success"),
+      refreshTokens
+    );
   }),
   signup: catchAsync(async (req, res, next) => {
-    const newUser = await User.create({
+    const { email } = req.body;
+    const newUser = {
       email: req.body.email,
-      name: "User",
+      name: req.body.name,
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
+    };
+    const activation_token = generateActivationToken(newUser);
+    const url = `${CLIENT_URL}/user/activate/${activation_token}`;
+    sendMail(res, email, url, "Verify your email address");
+  }),
+
+  activateEmail: catchAsync(async (req, res, next) => {
+    const { activation_token } = req.body;
+    const user = jwt.verify(activation_token, process.env.JWT_ACTIVATION_KEY);
+    const { name, email, password, passwordConfirm } = user;
+
+    const check = await User.findOne({ email });
+    if (check) {
+      return next(new AppError("This email already exists", 400));
+    }
+
+    const newUser = new User({
+      name,
+      email,
+      password,
+      passwordConfirm,
     });
-    createSendToken(newUser, 201, req, res, (msg = "SignUp success"));
+    await newUser.save();
+    createSendToken(
+      newUser,
+      201,
+      req,
+      res,
+      (msg = "Account has been activated!. Enjoy ❤️."),
+      refreshTokens
+    );
   }),
 
   googleAuth: catchAsync(async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
-      createSendToken(user, 200, req, res, (msg = "Login success"));
+      createSendToken(
+        user,
+        200,
+        req,
+        res,
+        (msg = "Login success"),
+        refreshTokens
+      );
     } else {
       const newUser = new User({
         ...req.body,
       });
       const savedUser = await newUser.save();
-      createSendToken(savedUser, 201, req, res, (msg = "SignUp success"));
+      createSendToken(
+        savedUser,
+        201,
+        req,
+        res,
+        (msg = "SignUp success"),
+        refreshTokens
+      );
     }
   }),
+  requestRefreshToken: catchAsync(async (req, res, next) => {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) {
+      return next(
+        new AppError("You're not authenticated, Please login again!", 401)
+      );
+    }
+    if (!refreshTokens.includes(refreshToken)) {
+      return next(
+        new AppError("Refresh token is not valid,Please login again!", 403)
+      );
+    }
+    jwt.verify(refreshToken, process.env.JWT_REFRESH_KEY, (err, user) => {
+      if (err) {
+        console.log(err);
+      }
+      refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
 
-  logout: (req, res, next) => {
-    res.cookie("jwt", "loggedout", {
-      expires: new Date(Date.now() + 1000),
-      httpOnly: true,
-      // secure: req.secure || req.headers["x-forwarded-proto"] == "https",
-      // sameSite: "none",
+      const newAccessToken = generateAccessToken(user);
+      const newRefreshToken = generateRefreshToken(user);
+      refreshTokens.push(newRefreshToken);
+      res.cookie("refreshToken", newRefreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        // secure: req.secure || req.headers["x-forwarded-proto"] == "https",
+        // sameSite: "none",
+      });
+      res.status(200).json({ accessToken: newAccessToken });
     });
+  }),
+  logout: (req, res, next) => {
+    res.clearCookie("refreshToken");
+    refreshTokens = refreshTokens.filter(
+      (token) => token !== req.cookies.refreshToken
+    );
+
     res.status(200).json({ status: "success", message: "You are loggedout" });
   },
   updatePassword: catchAsync(async (req, res, next) => {
@@ -65,61 +159,79 @@ const authController = {
     user.passwordConfirm = req.body.passwordConfirm;
     await user.save();
 
-    createSendToken(user, 200, req, res, (msg = "Update password success"));
+    createSendToken(
+      user,
+      200,
+      req,
+      res,
+      (msg = "Update password success"),
+      refreshTokens
+    );
   }),
 
+  // Chưa làm
+
   forgotPassword: catchAsync(async (req, res, next) => {
-    const user = await User.findOne({ email: req.body.email });
-
-    const resetToken = user.createPasswordResetToken();
-    await user.save({ validateBeforeSave: false });
-
-    const resetURL = `${req.protocol}://${req.get(
-      "host"
-    )}/api/v1/users/resetPassword/${resetToken}`;
-
-    try {
-      await new Email(user, resetURL).sendPasswordReset();
-
-      res.status(200).json({
-        status: "success",
-        message: "Token sent to email!",
-      });
-    } catch (err) {
-      user.passwordResetToken = undefined;
-      user.passwordResetExpires = undefined;
-      await user.save({ validateBeforeSave: false });
-
+    const user = await User.findOne({ email: req.body.email }).select(
+      "+password"
+    );
+    if (!user) {
+      return next(new AppError("No user found with that ID", 404));
+    }
+    if (!user.password) {
       return next(
-        new AppError(
-          "There was an error sending the email.Try again later",
-          500
-        )
+        new AppError("Just login by button google login in login page ", 404)
       );
     }
+    await user.save({ validateBeforeSave: false });
+
+    const activation_token = generateActivationToken({ id: user._id });
+    const url = `${CLIENT_URL}/user/reset/${activation_token}`;
+
+    sendMail(res, req.body.email, url, "Check your email to reset");
+
+    // try {
+    //   await new Email(user, resetURL).sendPasswordReset();
+
+    //   res.status(200).json({
+    //     status: "success",
+    //     message: "Token sent to email!",
+    //   });
+    // } catch (err) {
+    //   user.passwordResetToken = undefined;
+    //   user.passwordResetExpires = undefined;
+    //   await user.save({ validateBeforeSave: false });
+
+    //   return next(
+    //     new AppError(
+    //       "There was an error sending the email.Try again later",
+    //       500
+    //     )
+    //   );
+    // }
   }),
 
   resetPassword: catchAsync(async (req, res, next) => {
-    const hashedToken = crypto
-      .createHash("sha256")
-      .update(req.params.token)
-      .digest("hex");
+    const { activation_token } = req.body;
+    const id = jwt.verify(activation_token, process.env.JWT_ACTIVATION_KEY);
 
-    const user = await User.findOne({
-      passwordResetToken: hashedToken,
-      passwordResetExpires: { $gt: Date.now() },
-    });
+    const user = await User.findById(id);
 
     if (!user) {
       return next(new AppError("Token is invaild or has expired", 400));
     }
     user.password = req.body.password;
     user.passwordConfirm = req.body.passwordConfirm;
-    user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined;
-    await user.save();
 
-    createSendToken(user, 200, req, res, (msg = "Login success"));
+    await user.save();
+    createSendToken(
+      user,
+      200,
+      req,
+      res,
+      (msg = "Password successfully changed!"),
+      refreshTokens
+    );
   }),
 };
 

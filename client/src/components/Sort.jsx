@@ -25,7 +25,7 @@ function Sort() {
           />
         </div>
         <hr />
-        <p>{FilterProducts.length} products found.</p>
+        <p>{FilterProducts.length} products</p>
         <hr />
         <form className="sort_form">
           <label htmlFor="sort">Sort by</label>
@@ -72,9 +72,9 @@ const SortStyle = styled.div`
   }
   hr {
     height: 0.1rem;
-    width: 7rem;
-    margin-right: 2.25rem;
-    margin-left: 2.25rem;
+    width: 5rem;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
   }
   .sort_icons {
     display: flex;
@@ -120,7 +120,8 @@ const SortStyle = styled.div`
       margin-bottom: 1rem;
     }
     .sort_icon {
-      display: none;
+      margin-bottom: 1rem;
+      /* display: none; */
     }
   }
 `;

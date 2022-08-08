@@ -7,5 +7,21 @@ import Product from "./Product";
 import Login from "./Login";
 import MyInfo from "./MyInfo";
 import MyOrder from "./MyOrder";
+import ActivationEmail from "./auth/ActivationEmail";
+import ForgotPassword from "./auth/ForgotPassword";
+import ResetPassword from "./auth/ResetPassword";
 
-export { About, Cart, Home, Products, Product, Error, Login, MyInfo, MyOrder };
+export {
+  About,
+  Cart,
+  Home,
+  Products,
+  Product,
+  Error,
+  Login,
+  MyInfo,
+  MyOrder,
+  ActivationEmail,
+  ForgotPassword,
+  ResetPassword,
+};

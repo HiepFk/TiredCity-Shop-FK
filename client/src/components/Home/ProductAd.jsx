@@ -35,11 +35,11 @@ function ProductAd() {
 }
 
 const Wrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding-top: 7rem;
   align-items: center;
-  width: 100%;
   .productAd_title {
     text-align: center;
     font-weight: bold;
@@ -127,6 +127,9 @@ const Wrapper = styled.div`
   @media (max-width: 768px) {
     .productAd_title {
       font-size: 1.5rem;
+    }
+    hr {
+      height: 0.15rem;
     }
   }
 `;

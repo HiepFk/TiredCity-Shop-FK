@@ -1,7 +1,6 @@
 const User = require("../models/userModel");
 const catchAsync = require("./../middleware/catchAsync");
 const AppError = require("./../utils/appError");
-
 const filterObj = (obj, ...notallowed) => {
   const newObj = {};
   Object.keys(obj).forEach((key) => {
@@ -84,21 +83,28 @@ const userController = {
       );
     }
     const filterBody = filterObj(req.body, "role", "password");
+    console.log(filterBody);
     const user = await User.findByIdAndUpdate(req.user.id, filterBody, {
       new: true,
       runValidators: true,
     });
+    token = req.headers.token?.split(" ")?.[1];
+    const { password, ...others } = user._doc;
     res.status(200).json({
+      ...others,
+      accessToken: token,
       status: "success",
       message: "Cập nhật thành công",
-      data: { user },
     });
   }),
   getMe: catchAsync(async (req, res) => {
     const user = await User.findById(req.user.id);
+    token = req.headers.token?.split(" ")?.[1];
+    const { password, ...others } = user._doc;
     res.status(200).json({
+      ...others,
+      accessToken,
       status: "success",
-      data: { user },
     });
   }),
 };

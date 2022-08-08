@@ -1,28 +1,44 @@
 const jwt = require("jsonwebtoken");
 
-const signToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
+const generateActivationToken = (payload) => {
+  return jwt.sign(payload, process.env.JWT_ACTIVATION_KEY, {
+    expiresIn: "15m",
   });
 };
 
-const createSendToken = (user, statusCode, req = "", res, msg) => {
-  const token = signToken(user._id);
-  res.cookie("jwt", token, {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
+const generateAccessToken = (user) => {
+  return jwt.sign({ id: user.id }, process.env.JWT_ACCESS_KEY, {
+    expiresIn: "10s",
+  });
+};
+
+const generateRefreshToken = (user) => {
+  return jwt.sign({ id: user.id }, process.env.JWT_REFRESH_KEY, {
+    expiresIn: "30d",
+  });
+};
+
+const createSendToken = (user, statusCode, req, res, msg, refreshTokens) => {
+  const accessToken = generateAccessToken(user);
+  const refreshToken = generateRefreshToken(user);
+  refreshTokens.push(refreshToken);
+
+  res.cookie("refreshToken", refreshToken, {
+    maxAge: 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
     // secure: req.secure || req.headers["x-forwarded-proto"] == "https",
     // sameSite: "none",
   });
   user.password = undefined;
-  res.status(statusCode).json({
-    status: "success",
-    message: msg,
-    token,
-    user,
-  });
+  const { password, ...others } = user._doc;
+  res
+    .status(statusCode)
+    .json({ ...others, accessToken, status: "success", message: msg });
 };
 
-module.exports = createSendToken;
+module.exports = {
+  createSendToken,
+  generateRefreshToken,
+  generateAccessToken,
+  generateActivationToken,
+};

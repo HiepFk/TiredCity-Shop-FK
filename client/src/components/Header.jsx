@@ -39,34 +39,25 @@ function Header() {
       <div className="header_user">
         <Link to={"/cart"} className="header_icons ">
           Cart
-          {/* <span>{totalQty}</span> */}
           <div className="header_icon header_cart" totalqty={totalQty}>
             <FiShoppingCart />
           </div>
         </Link>
-        {hide && <User setHide={setHide} />}
+        <div className="user">{hide && <User setHide={setHide} />}</div>
 
         {user ? (
-          <div className="header_icons" style={{ width: "6.5rem" }}>
-            <div
+          <div className="header_icons">
+            <FiUser
               className="header_icon"
-              onClick={() => {
+              onMouseEnter={() => {
                 setHide(!hide);
               }}
-            >
-              <FiUser />
-            </div>
+            />
           </div>
         ) : (
-          <Link
-            to={"/login"}
-            className="header_icons"
-            style={{ width: "6.5rem" }}
-          >
+          <Link to={"/login"} className="header_icons">
             Login
-            <div className="header_icon">
-              <FiUserPlus />
-            </div>
+            <FiUserPlus className="header_icon" />
           </Link>
         )}
       </div>
@@ -78,12 +69,33 @@ const HeaderStyle = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-
   .header_links {
     display: flex;
   }
+
+  .header_link {
+    font-size: 1.25rem;
+    margin-right: 2rem;
+    color: black;
+    &:hover {
+      border-bottom: 3px solid #ff4c4c;
+    }
+  }
+
+  .header_icons {
+    display: flex;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: black;
+  }
+  .header_icon {
+    font-weight: bold;
+  }
+
   .header_cart {
     position: relative;
+    margin-right: 2rem;
+    margin-left: 0.5rem;
   }
   .header_cart::before {
     content: attr(totalqty);
@@ -101,29 +113,20 @@ const HeaderStyle = styled.div`
     justify-content: center;
     border-radius: 1.25rem;
   }
-  .header_link {
-    font-size: 1rem;
-    margin-right: 2rem;
-    color: black;
-    &:hover {
-      border-bottom: 3px solid #ff4c4c;
-    }
-  }
+
   .header_user {
     display: flex;
+    position: relative;
   }
-  .header_icons {
-    display: flex;
-    margin-right: 1.5rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: black;
+  .user {
+    position: absolute;
+    top: 3rem;
+    /* left: 1rem; */
+    z-index: 1000;
+    /* width: 10rem; */
   }
-  .header_icon {
-    font-weight: bold;
-    margin-left: 0.3rem;
-  }
-  @media (max-width: 992px) {
+
+  @media (max-width: 768px) {
     display: none;
   }
 `;

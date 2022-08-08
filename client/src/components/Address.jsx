@@ -5,16 +5,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { addOrder, clearCart } from "../Api/cart";
-
+import { createAxios } from "../Api/createInstance";
+import { LoginSuccess } from "../redux/authSlice";
 function Address({ setHideAddress, products }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { totalCost, totalQty } = useSelector((state) => state.cart);
   const me = useSelector((state) => state.auth.user);
-
-  const [name, setName] = useState(me?.data?.user?.name);
-  const [number, setNumber] = useState(me?.data?.user?.number);
-  const [address, setAddress] = useState(me?.data?.user?.adress);
+  let axiosJWT = createAxios(me, dispatch, LoginSuccess);
+  const [name, setName] = useState(me?.name);
+  const [number, setNumber] = useState(me?.number);
+  const [address, setAddress] = useState(me?.adress);
 
   const Order = (e) => {
     e.preventDefault();
@@ -26,7 +27,7 @@ function Address({ setHideAddress, products }) {
       name,
       number,
     };
-    addOrder(dispatch, navigate, data);
+    addOrder(dispatch, navigate, data, axiosJWT, me?.accessToken);
     clearCart(dispatch);
   };
   return (

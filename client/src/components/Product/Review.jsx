@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { BsFillStarFill } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createReivew } from "../../Api/auth";
 import styled from "styled-components";
-
+import { createAxios } from "../../Api/createInstance";
+import { LoginSuccess } from "../../redux/authSlice";
 function Review({ id }) {
   const dispatch = useDispatch();
+  const me = useSelector((state) => state.auth.user);
+  let axiosJWT = createAxios(me, dispatch, LoginSuccess);
   const arr = [1, 2, 3, 4, 5];
   const [rating, setRating] = useState(4.5);
   const [review, setReview] = useState("");
@@ -16,7 +19,7 @@ function Review({ id }) {
       review,
       product: id,
     };
-    createReivew(data, dispatch);
+    createReivew(data, dispatch, axiosJWT, me?.accessToken);
     setReview("");
     setRating(0);
   };
@@ -47,11 +50,6 @@ function Review({ id }) {
 }
 
 const ReviewStyle = styled.div`
-  @media (max-width: 768px) {
-    textarea {
-      width: 20rem !important;
-    }
-  }
   margin-top: 1rem;
   display: flex;
   align-items: center;
@@ -114,6 +112,11 @@ const ReviewStyle = styled.div`
     transition: opacity 0.25s linear;
     :hover {
       opacity: 0.6;
+    }
+  }
+  @media (max-width: 768px) {
+    textarea {
+      width: 20rem !important;
     }
   }
 `;

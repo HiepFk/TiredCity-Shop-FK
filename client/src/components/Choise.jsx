@@ -172,7 +172,7 @@ const Wrapper = styled.div`
     transform: translate(0);
     z-index: 999;
   }
-  @media (min-width: 992px) {
+  @media (min-width: 768px) {
     display: none;
   }
 `;

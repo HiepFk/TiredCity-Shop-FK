@@ -16,6 +16,9 @@ import {
   Login,
   MyInfo,
   MyOrder,
+  ActivationEmail,
+  ForgotPassword,
+  ResetPassword,
 } from "./pages";
 function App() {
   const alert = useSelector((state) => state.alert);
@@ -35,6 +38,17 @@ function App() {
           <Route exact path="Login" element={<Login />} />
           <Route exact path="Me" element={<MyInfo />} />
           <Route exact path="Myorder" element={<MyOrder />} />
+          <Route
+            exact
+            path="user/activate/:activation_token"
+            element={<ActivationEmail />}
+          />
+          <Route
+            exact
+            path="user/reset/:activation_token"
+            element={<ResetPassword />}
+          />
+          <Route exact path="forgot" element={<ForgotPassword />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>
