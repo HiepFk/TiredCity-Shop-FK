@@ -15,7 +15,7 @@ const sendMail = require("../utils/sendEmail");
 
 let refreshTokens = [];
 
-const CLIENT_URL = "http://localhost:3000";
+const CLIENT_URL = process.env.CLIENT_URL;
 
 const authController = {
   login: catchAsync(async (req, res, next) => {
@@ -131,8 +131,8 @@ const authController = {
       res.cookie("refreshToken", newRefreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        // secure: req.secure || req.headers["x-forwarded-proto"] == "https",
-        // sameSite: "none",
+        secure: req.secure || req.headers["x-forwarded-proto"] == "https",
+        sameSite: "none",
       });
       res.status(200).json({ accessToken: newAccessToken });
     });
