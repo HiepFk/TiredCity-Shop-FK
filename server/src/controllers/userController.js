@@ -83,7 +83,6 @@ const userController = {
       );
     }
     const filterBody = filterObj(req.body, "role", "password");
-    console.log(filterBody);
     const user = await User.findByIdAndUpdate(req.user.id, filterBody, {
       new: true,
       runValidators: true,

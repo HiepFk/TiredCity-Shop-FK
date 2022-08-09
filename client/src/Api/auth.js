@@ -22,7 +22,6 @@ const link = process.env.REACT_APP_API_LINK;
 
 const ErrorMessage = (dispatch, error) => {
   if (error.response.data) {
-    console.log(error.response);
     dispatch(ShowAlert(error.response.data));
     const timeoutID = window.setTimeout(() => {
       dispatch(HideAlert());

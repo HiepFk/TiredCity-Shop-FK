@@ -4,12 +4,13 @@ import { ShowAlert, HideAlert } from "../redux/alertSlice";
 const link = process.env.REACT_APP_API_LINK;
 
 const ErrorMessage = (dispatch, error) => {
-  console.log(error.response);
-  dispatch(ShowAlert(error.response.data));
-  const timeoutID = window.setTimeout(() => {
-    dispatch(HideAlert());
-  }, 3000);
-  return () => window.clearTimeout(timeoutID);
+  if (error.response.data) {
+    dispatch(ShowAlert(error.response.data));
+    const timeoutID = window.setTimeout(() => {
+      dispatch(HideAlert());
+    }, 3000);
+    return () => window.clearTimeout(timeoutID);
+  }
 };
 
 const refreshToken = async (dispatch) => {
@@ -45,7 +46,6 @@ export const createAxios = (user, dispatch, stateSuccess) => {
       return config;
     },
     (err) => {
-      console.log(err);
       return Promise.reject(err);
     }
   );

@@ -16,6 +16,7 @@ const sendMail = require("../utils/sendEmail");
 let refreshTokens = [];
 
 const CLIENT_URL = process.env.CLIENT_URL;
+// const CLIENT_URL = "http://localhost:3000";
 
 const authController = {
   login: catchAsync(async (req, res, next) => {
