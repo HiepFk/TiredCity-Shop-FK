@@ -23,10 +23,7 @@ exports.isAuthenticatedUser = catchAsync(async (req, res, next) => {
       new AppError("You are not logged in! Please log in to get access", 401)
     );
   }
-  const decoded = await promisify(jwt.verify)(
-    token,
-    process.env.JWT_ACCESS_KEY
-  );
+  const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
     return next(

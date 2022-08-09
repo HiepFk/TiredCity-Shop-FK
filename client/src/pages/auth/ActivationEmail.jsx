@@ -23,7 +23,6 @@ function ActivationEmail() {
 }
 
 const Wrapper = styled.div`
-  /* margin: 0 auto; */
   margin-top: 10rem;
   display: flex;
   align-items: center;

@@ -1,6 +1,5 @@
 const catchAsync = require("../middleware/catchAsync");
 const AppError = require("../utils/appError");
-const { promisify } = require("util");
 
 const {
   createSendToken,
@@ -169,8 +168,6 @@ const authController = {
     );
   }),
 
-  // Chưa làm
-
   forgotPassword: catchAsync(async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email }).select(
       "+password"
@@ -189,33 +186,16 @@ const authController = {
     const url = `${CLIENT_URL}/user/reset/${activation_token}`;
 
     sendMail(res, req.body.email, url, "Check your email to reset");
-
-    // try {
-    //   await new Email(user, resetURL).sendPasswordReset();
-
-    //   res.status(200).json({
-    //     status: "success",
-    //     message: "Token sent to email!",
-    //   });
-    // } catch (err) {
-    //   user.passwordResetToken = undefined;
-    //   user.passwordResetExpires = undefined;
-    //   await user.save({ validateBeforeSave: false });
-
-    //   return next(
-    //     new AppError(
-    //       "There was an error sending the email.Try again later",
-    //       500
-    //     )
-    //   );
-    // }
   }),
 
   resetPassword: catchAsync(async (req, res, next) => {
     const { activation_token } = req.body;
-    const id = jwt.verify(activation_token, process.env.JWT_ACTIVATION_KEY);
+    const decoded = jwt.verify(
+      activation_token,
+      process.env.JWT_ACTIVATION_KEY
+    );
 
-    const user = await User.findById(id);
+    const user = await User.findById(decoded.id);
 
     if (!user) {
       return next(new AppError("Token is invaild or has expired", 400));
