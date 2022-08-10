@@ -9,7 +9,7 @@ import { FaArrowRight } from "react-icons/fa";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user?.data?.user);
+  const user = useSelector((state) => state.auth.user);
 
   const [login, setLogin] = useState(false);
   const [email, setEmail] = useState("");

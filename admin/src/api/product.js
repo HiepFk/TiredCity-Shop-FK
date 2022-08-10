@@ -29,33 +29,43 @@ export const getProduct = async (dispatch, id) => {
     GetProductError(dispatch, error);
   }
 };
-export const updateProduct = async (dispatch, id, data) => {
+export const updateProduct = async (
+  dispatch,
+  id,
+  data,
+  axiosJWT,
+  accessToken
+) => {
   dispatch(GetProductStart());
   try {
-    const res = await axios({
+    const res = await axiosJWT({
       method: "PATCH",
       url: `${link}/v1/product/${id}`,
       data,
+      headers: { token: `Bearer ${accessToken}` },
     });
     dispatch(GetProductSuccess(res.data));
   } catch (error) {
     dispatch(GetProductError());
   }
 };
-export const deleteProduct = async (id, navigate) => {
+export const deleteProduct = async (id, navigate, axiosJWT, accessToken) => {
   try {
-    await axios.delete(`${link}/v1/product/${id}`);
+    await axiosJWT.delete(`${link}/v1/product/${id}`, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
     navigate("/products");
   } catch (error) {
     alert(error.message);
   }
 };
-export const addProduct = async (data, navigate) => {
+export const addProduct = async (data, navigate, axiosJWT, accessToken) => {
   try {
-    await axios({
+    await axiosJWT({
       method: "POST",
       url: `${link}/v1/product`,
       data,
+      headers: { token: `Bearer ${accessToken}` },
     });
     navigate("/products");
   } catch (error) {

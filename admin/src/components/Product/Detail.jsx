@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Review from "./Review";
 import { deleteProduct, updateProduct } from "../../api/product";
 import { useNavigate } from "react-router-dom";
+import { createAxios } from "../../api/createInstance";
+import { LoginSuccess } from "../../redux/authSlice";
 function Detail({ product }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  let axiosJWT = createAxios(user, dispatch, LoginSuccess);
   const [name, setName] = useState(product?.name);
   const [description, setDescription] = useState(product?.description);
-  // eslint-disable-next-line no-unused-vars
   const [imageCover, setImageCover] = useState(product?.imageCover);
-  // eslint-disable-next-line no-unused-vars
   const [images, setImages] = useState(product?.images);
   const [price, setPrice] = useState(product?.price);
   const [priceDiscount, sePriceDiscount] = useState(product?.priceDiscount);
@@ -27,7 +29,7 @@ function Detail({ product }) {
       priceDiscount,
       shipping,
     };
-    updateProduct(dispatch, product.id, data);
+    updateProduct(dispatch, product.id, data, axiosJWT, user?.accessToken);
   };
 
   return (
@@ -182,7 +184,9 @@ function Detail({ product }) {
           <button
             type="submit"
             className="btn"
-            onClick={() => deleteProduct(product.id, navigate)}
+            onClick={() =>
+              deleteProduct(product.id, navigate, axiosJWT, user?.accessToken)
+            }
           >
             Xóa
           </button>

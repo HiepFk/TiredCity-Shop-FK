@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
 
 import { addUser } from "../../api/user";
 import { useNavigate } from "react-router-dom";
+import { createAxios } from "../../api/createInstance";
+import { LoginSuccess } from "../../redux/authSlice";
 
 function Add() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  let axiosJWT = createAxios(user, dispatch, LoginSuccess);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
@@ -26,7 +31,7 @@ function Add() {
       adres,
       isAdmin,
     };
-    addUser(user, navigate);
+    addUser(user, navigate, axiosJWT, user?.accessToken);
   };
   return (
     <Wrapper>

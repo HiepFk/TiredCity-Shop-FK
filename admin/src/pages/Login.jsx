@@ -8,12 +8,12 @@ import styled from "styled-components";
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userLogin = useSelector((state) => state.auth?.user);
+  const user = useSelector((state) => state.auth?.user);
   useEffect(() => {
-    if (userLogin && userLogin?.user?.isAdmin) {
+    if (user && user?.isAdmin) {
       navigate("/");
     }
-  }, [userLogin, navigate]);
+  }, [user, navigate]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +32,7 @@ export default function Login() {
       }}
     >
       <div className="login">
-        <div className="title">Login</div>
+        <div className="title">Tired City Shop</div>
         <form className="form" onSubmit={handeSubmit}>
           <div className="login_container">
             <label>

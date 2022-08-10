@@ -3,11 +3,15 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { updateOrder, deleteOrder } from "../api/order";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createAxios } from "../api/createInstance";
+import { LoginSuccess } from "../redux/authSlice";
 function Order() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  let axiosJWT = createAxios(user, dispatch, LoginSuccess);
   const item = location.state;
   const [status, setStatus] = useState(item?.status);
   const handeUpdateOrder = (e) => {
@@ -15,7 +19,7 @@ function Order() {
     const data = {
       status,
     };
-    updateOrder(dispatch, item.id, data);
+    updateOrder(dispatch, item.id, data, axiosJWT, user?.accessToken);
   };
   return (
     <Wrapper className="left">
@@ -113,7 +117,9 @@ function Order() {
               </button>
               <button
                 className="btn"
-                onClick={() => deleteOrder(item.id, navigate)}
+                onClick={() =>
+                  deleteOrder(item.id, navigate, axiosJWT, user?.accessToken)
+                }
               >
                 Xóa
               </button>

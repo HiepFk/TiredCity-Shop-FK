@@ -4,13 +4,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllOrder } from "../api/order";
 import Loading from "../components/Loading";
 import styled from "styled-components";
+import { createAxios } from "../api/createInstance";
+import { LoginSuccess } from "../redux/authSlice";
 
 function Orders() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  let axiosJWT = createAxios(user, dispatch, LoginSuccess);
   const loading = useSelector((state) => state.product?.loading);
   const orders = useSelector((state) => state.order?.orders?.data?.orders);
   useEffect(() => {
-    getAllOrder(dispatch);
+    getAllOrder(dispatch, axiosJWT, user?.accessToken);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   if (loading) {

@@ -40,7 +40,7 @@ const sendMail = async (res, to, url, text) => {
     await configEmail(to, url, text);
     res.status(201).json({
       status: "success",
-      message: "Check your email to activate email account.",
+      message: "Please check your email!",
     });
   } catch (error) {
     res.status(500).json({

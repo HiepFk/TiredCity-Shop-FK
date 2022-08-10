@@ -7,7 +7,7 @@ import { navbar } from "../utils/link";
 
 function Navbar() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth?.user?.user);
+  const user = useSelector((state) => state.auth?.user);
   return (
     <Wrapper className="right">
       <img

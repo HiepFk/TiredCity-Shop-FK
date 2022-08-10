@@ -1,18 +1,21 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
 import { getAllUser } from "../api/user";
 import Loading from "../components/Loading";
 import styled from "styled-components";
 import Input from "../components/User/Input";
 import Add from "../components/User/Add";
+import { createAxios } from "../api/createInstance";
+import { LoginSuccess } from "../redux/authSlice";
 function Users() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  let axiosJWT = createAxios(user, dispatch, LoginSuccess);
   const loading = useSelector((state) => state.user?.loading);
   const users = useSelector((state) => state.user?.users?.data?.users);
   useEffect(() => {
-    getAllUser(dispatch);
+    getAllUser(dispatch, axiosJWT, user?.accessToken);
   }, [dispatch]);
 
   if (loading || !users) {

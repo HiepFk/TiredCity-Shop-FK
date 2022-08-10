@@ -3,6 +3,8 @@ import authReducer from "./authSlice";
 import productReducer from "./productSlice";
 import userReducer from "./userSlice";
 import orderReducer from "./orderSlice";
+import alertReducer from "./alertSlice";
+
 import {
   persistStore,
   persistReducer,
@@ -25,6 +27,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   order: orderReducer,
   product: productReducer,
+  alert: alertReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

@@ -111,11 +111,13 @@ const authController = {
   requestRefreshToken: catchAsync(async (req, res, next) => {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
+      console.log("You're not authenticated, Please login again!");
       return next(
         new AppError("You're not authenticated, Please login again!", 401)
       );
     }
     if (!refreshTokens.includes(refreshToken)) {
+      console.log("Refresh token is not valid,Please login again!");
       return next(
         new AppError("Refresh token is not valid,Please login again!", 403)
       );
@@ -132,8 +134,8 @@ const authController = {
       res.cookie("refreshToken", newRefreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        secure: req.secure || req.headers["x-forwarded-proto"] == "https",
-        sameSite: "none",
+        // secure: req.secure || req.headers["x-forwarded-proto"] == "https",
+        // sameSite: "none",
       });
       res.status(200).json({ accessToken: newAccessToken });
     });

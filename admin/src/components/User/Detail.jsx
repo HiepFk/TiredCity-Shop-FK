@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Review from "./Review";
-
+import { createAxios } from "../../api/createInstance";
+import { LoginSuccess } from "../../redux/authSlice";
 import { deleteUser, updateUser } from "../../api/user";
 import { useNavigate } from "react-router-dom";
 function Detail({ user }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth.user);
+  let axiosJWT = createAxios(auth, dispatch, LoginSuccess);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [number, setNumber] = useState(user.number);
@@ -27,7 +30,7 @@ function Detail({ user }) {
       adres,
       isAdmin,
     };
-    updateUser(dispatch, user._id, data);
+    updateUser(dispatch, user._id, data, axiosJWT, auth?.accessToken);
   };
   return (
     <div className="left">
@@ -138,7 +141,9 @@ function Detail({ user }) {
           <button
             type="submit"
             className="btn"
-            onClick={() => deleteUser(user._id, navigate)}
+            onClick={() =>
+              deleteUser(user._id, navigate, axiosJWT, auth?.accessToken)
+            }
           >
             Xóa
           </button>

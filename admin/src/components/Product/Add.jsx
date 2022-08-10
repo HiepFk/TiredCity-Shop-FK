@@ -5,9 +5,15 @@ import { storage } from "../../utils/firebase";
 import { v4 } from "uuid";
 import { addProduct } from "../../api/product";
 import { useNavigate } from "react-router-dom";
+import { createAxios } from "../../api/createInstance";
+import { LoginSuccess } from "../../redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Add() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+  let axiosJWT = createAxios(user, dispatch, LoginSuccess);
   const uploadFile = (e) => {
     e.preventDefault();
     if (imageCover == null) return;
@@ -39,7 +45,7 @@ function Add() {
       priceDiscount,
       type,
     };
-    addProduct(product, navigate);
+    addProduct(product, navigate, axiosJWT, user?.accessToken);
   };
   return (
     <Wrapper className="left">

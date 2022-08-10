@@ -11,35 +11,25 @@ import {
 axios.defaults.withCredentials = true;
 const link = process.env.REACT_APP_API_LINK;
 
-export const getAllUser = async (dispatch) => {
+export const getAllUser = async (dispatch, axiosJWT, accessToken) => {
   dispatch(GetUsersStart());
   try {
     const url = `${link}/v1/user/`;
-    const res = await axios.get(url);
+    const res = await axiosJWT.get(url, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
     dispatch(GetUsersSuccess(res.data));
   } catch (error) {
     dispatch(GetUsersError());
   }
 };
 
-export const getUser = async (dispatch, id) => {
+export const getUser = async (dispatch, id, axiosJWT, accessToken) => {
   dispatch(GetUserStart());
   try {
     console.log(id);
-    const res = await axios.get(`${link}/v1/user/${id}`);
-    dispatch(GetUserSuccess(res.data));
-  } catch (error) {
-    dispatch(GetUserError());
-  }
-};
-
-export const updateUser = async (dispatch, id, data) => {
-  dispatch(GetUserStart());
-  try {
-    const res = await axios({
-      method: "PATCH",
-      url: `${link}/v1/user/${id}`,
-      data,
+    const res = await axiosJWT.get(`${link}/v1/user/${id}`, {
+      headers: { token: `Bearer ${accessToken}` },
     });
     dispatch(GetUserSuccess(res.data));
   } catch (error) {
@@ -47,9 +37,26 @@ export const updateUser = async (dispatch, id, data) => {
   }
 };
 
-export const addUser = async (data, navigate) => {
+export const updateUser = async (dispatch, id, data, axiosJWT, accessToken) => {
+  dispatch(GetUserStart());
   try {
-    await axios.post(`${link}/v1/user/`, data);
+    const res = await axios({
+      method: "PATCH",
+      url: `${link}/v1/user/${id}`,
+      data,
+      headers: { token: `Bearer ${accessToken}` },
+    });
+    dispatch(GetUserSuccess(res.data));
+  } catch (error) {
+    dispatch(GetUserError());
+  }
+};
+
+export const addUser = async (data, navigate, axiosJWT, accessToken) => {
+  try {
+    await axiosJWT.post(`${link}/v1/user/`, data, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
     window.location.reload();
     navigate("/Users");
   } catch (error) {
@@ -57,9 +64,11 @@ export const addUser = async (data, navigate) => {
   }
 };
 
-export const deleteUser = async (id, navigate) => {
+export const deleteUser = async (id, navigate, axiosJWT, accessToken) => {
   try {
-    await axios.delete(`${link}/v1/user/${id}`);
+    await axiosJWT.delete(`${link}/v1/user/${id}`, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
     navigate("/Users");
   } catch (error) {
     alert("error");
