@@ -33,6 +33,17 @@ export const getOrder = async (dispatch, id, axiosJWT, accessToken) => {
     GetOrderError(dispatch, error);
   }
 };
+export const getUserOrder = async (dispatch, id, axiosJWT, accessToken) => {
+  dispatch(GetOrderStart());
+  try {
+    const res = await axiosJWT.get(`${link}/v1/order/user/${id}`, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
+    dispatch(GetOrderSuccess(res.data));
+  } catch (error) {
+    GetOrderError(dispatch, error);
+  }
+};
 
 export const updateOrder = async (
   dispatch,

@@ -4,6 +4,9 @@ import { getProduct } from "../api/product";
 import { useSelector, useDispatch } from "react-redux";
 import Loading from "../components/Loading";
 import Detail from "../components/Product/Detail";
+import Review from "../components/Product/Review";
+import styled from "styled-components";
+
 function Product() {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -23,7 +26,21 @@ function Product() {
   if (!product) {
     return <div>Ko có sản phẩm này</div>;
   }
-  return <Detail product={product} />;
+  return (
+    <Wrapper>
+      <Detail product={product} />
+      <div className="review">
+        <Review reviews={product?.reviews} />
+      </div>
+    </Wrapper>
+  );
 }
-
+const Wrapper = styled.div`
+  padding: 2rem 5rem;
+  width: 100%;
+  display: flex;
+  .review {
+    margin-left: 5rem;
+  }
+`;
 export default Product;

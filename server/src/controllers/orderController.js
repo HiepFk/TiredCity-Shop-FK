@@ -83,6 +83,15 @@ const orderController = {
       data: { order },
     });
   }),
+  getUserOrder: catchAsync(async (req, res) => {
+    const order = await Order.find({ user: req.user.id }).populate({
+      path: "products",
+    });
+    res.status(200).json({
+      status: "success",
+      data: { order },
+    });
+  }),
 };
 
 module.exports = orderController;

@@ -27,10 +27,10 @@ function GridView({ products = [""] }) {
 }
 
 const GridStyle = styled.div`
-  z-index: 1;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
+
   flex-wrap: wrap;
   .product_wrapper {
     display: flex;

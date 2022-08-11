@@ -4,38 +4,52 @@ import styled from "styled-components";
 function Review({ reviews }) {
   return (
     <Wrapper>
-      {reviews.map((item) => {
-        return (
-          <div className="container" key={item.id}>
-            <div className=" desc">
-              Name: <span className="name">{item?.user?.name}</span>{" "}
-            </div>
-            <div className="desc">
-              Number : <span>{item?.user?.email}</span>
-            </div>
-            <div className="desc">
-              Rating : <span>{item.rating}</span>{" "}
-            </div>
-
-            <div className="desc">
-              Review : <span>{item.review}</span>
-            </div>
-          </div>
-        );
-      })}
+      <div className="title">All reviews : </div>
+      <table>
+        <tr>
+          <th>STT</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Rating</th>
+          <th>Review</th>
+        </tr>
+        {reviews.map((item, index) => {
+          return (
+            <tr>
+              <td>{index + 1}</td>
+              <td>{item?.user?.name}</td>
+              <td>{item?.user?.email}</td>
+              <td>{item?.rating}</td>
+              <td>{item?.review}</td>
+            </tr>
+          );
+        })}
+      </table>
     </Wrapper>
   );
 }
 const Wrapper = styled.div`
-  padding: 5rem;
-  padding-top: 2rem;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  display: flex;
-  flex-wrap: wrap;
-  .container {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 0.5rem 1rem;
+  padding: 2rem;
+  width: 100%;
+  .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+  }
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  td,
+  th {
+    text-align: left;
+    padding: 8px;
+  }
+  tr {
+    border: 1px solid #ddd;
   }
 `;
 export default Review;

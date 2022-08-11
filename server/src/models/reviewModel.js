@@ -42,7 +42,7 @@ reviewSchema.pre(/^find/, function (next) {
     select: "name email",
   }).populate({
     path: "product",
-    select: "name",
+    select: "name imageCover",
   });
   next();
 });

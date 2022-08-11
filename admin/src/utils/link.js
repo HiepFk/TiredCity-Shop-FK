@@ -1,44 +1,67 @@
-import { FaUserAlt, FaShoppingCart, FaProductHunt } from "react-icons/fa";
-import { BsPieChartFill } from "react-icons/bs";
+import { FaStoreAlt } from "react-icons/fa";
+import { BsPieChartFill, BsTruck } from "react-icons/bs";
+import { TbLayoutDashboard } from "react-icons/tb";
+import { FiUser } from "react-icons/fi";
+import { CgProfile } from "react-icons/cg";
 
 export const navbar = [
   {
     id: 1,
-    title: "Quản lý người dùng",
-    link: "/users",
+    title: "Dashboard",
+    link: "/",
     icon: (
       <div className="icon">
-        <FaUserAlt />
+        <TbLayoutDashboard />
       </div>
     ),
   },
   {
     id: 2,
-    title: "Quản lý sản phẩm",
-    link: "/products",
+    title: "Users",
+    link: "/users",
     icon: (
       <div className="icon">
-        <FaProductHunt />
+        <FiUser />
       </div>
     ),
   },
   {
     id: 3,
-    title: "Quản lý đơn hàng",
-    link: "/orders",
+    title: "Products",
+    link: "/products",
     icon: (
       <div className="icon">
-        <FaShoppingCart />
+        <FaStoreAlt />
       </div>
     ),
   },
   {
     id: 4,
-    title: "Thống kê",
-    link: "/",
+    title: "Orders",
+    link: "/orders",
+    icon: (
+      <div className="icon">
+        <BsTruck />
+      </div>
+    ),
+  },
+  {
+    id: 5,
+    title: "Chart",
+    link: "/chart",
     icon: (
       <div className="icon">
         <BsPieChartFill />
+      </div>
+    ),
+  },
+  {
+    id: 6,
+    title: "Profile",
+    link: "/profile",
+    icon: (
+      <div className="icon">
+        <CgProfile />
       </div>
     ),
   },

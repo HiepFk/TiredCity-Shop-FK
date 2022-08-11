@@ -3,7 +3,7 @@ import { Login, Main } from "./pages";
 import Error from "./components/Error";
 function App() {
   return (
-    <Routes className="left">
+    <Routes>
       <Route exact path="/*" element={<Main />} />
       <Route exact path="Login" element={<Login />} />
       <Route path="*" element={<Error />} />

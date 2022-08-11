@@ -35,8 +35,7 @@ function Add() {
   };
   return (
     <Wrapper>
-      <div className="name">Khung thêm người dùng</div>
-
+      <div className="name">Add new user</div>
       <form action="" className="form">
         <div className="container">
           <label htmlFor="" className="title">
@@ -130,33 +129,25 @@ function Add() {
             onChange={(e) => setPasswordConfirm(e.target.value)}
           />
         </div>
-      </form>
-      <div className="btn_wrapper">
         <button type="submit" className="btn" onClick={handeAddUser}>
           Thêm User
         </button>
-      </div>
+      </form>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  padding: 5rem;
-  width: 100%;
-  padding-top: 2rem;
+  padding: 1rem 2rem 1.5rem;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 2rem;
   .name {
     font-weight: 600;
-    font-size: 1.5rem;
-    margin-bottom: 3rem;
-  }
-  span {
-    font-size: 2rem;
-    color: rgba(255, 0, 0, 0.7);
-    margin-left: 1rem;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
   }
   .form {
     display: flex;
@@ -165,25 +156,18 @@ const Wrapper = styled.div`
   .container {
     display: flex;
     align-items: center;
-    margin-bottom: 2rem;
-    margin-left: 2.5rem;
-    margin-right: 3.5rem;
+    margin-bottom: 0.25rem;
   }
   label {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 600;
     margin-right: 1rem;
-    width: 15rem;
-  }
-  textarea {
-    min-width: 50rem;
-    min-height: 10rem;
   }
   .input {
     font-family: inherit;
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: inherit;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.5rem;
     border: none;
     border-top: 3px solid transparent;
     border-bottom: 3px solid transparent;
@@ -191,15 +175,11 @@ const Wrapper = styled.div`
     border-radius: 4px;
     box-sizing: border-box;
     background-color: #eee;
-    margin-right: 1rem;
+    width: 25rem;
     :focus {
       outline: none;
       border-bottom: 3px solid #55c57a;
     }
-  }
-  .img {
-    width: 10rem;
-    height: 10rem;
   }
   .btn {
     margin-bottom: 1rem;

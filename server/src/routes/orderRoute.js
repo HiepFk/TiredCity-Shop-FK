@@ -10,6 +10,7 @@ router.route("/myorder").get(orderController.getMyOrder);
 router.use(isAdmin);
 router.route("/").post(orderController.addOrder);
 router.route("/:id").patch(orderController.updateOrder);
+router.route("/user/:id").get(orderController.getUserOrder);
 
 router.route("/").get(orderController.getAllOrders);
 router

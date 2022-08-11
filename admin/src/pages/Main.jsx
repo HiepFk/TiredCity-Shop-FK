@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import styled from "styled-components";
 import {
   Order,
   Products,
@@ -10,7 +10,9 @@ import {
   Users,
   Product,
   Orders,
-  CheckOut,
+  Chart,
+  Dashboard,
+  Profile,
 } from "./index";
 import Navbar from "../components/Navbar";
 import Error from "../components/Error";
@@ -25,9 +27,12 @@ function Main() {
     }
   }, [userLogin, navigate]);
   return (
-    <div className="app">
-      <Navbar />
-      <Routes className="left">
+    <Wrapper>
+      <div className="navbar">
+        <Navbar />
+      </div>
+      <Routes>
+        <Route exact path="/" element={<Dashboard />} />
         <Route exact path="/Users" element={<Users />} />
         <Route exact path="/Users/:id" element={<User />} />
         <Route exact path="/Products" element={<Products />} />
@@ -35,11 +40,17 @@ function Main() {
         <Route exact path="/AddProduct" element={<Add />} />
         <Route exact path="/Orders" element={<Orders />} />
         <Route exact path="/Orders/:id" element={<Order />} />
-        <Route exact path="/" element={<CheckOut />} />
+        <Route exact path="/Chart" element={<Chart />} />
+        <Route exact path="/Profile" element={<Profile />} />
         <Route path="*" element={<Error />} />
       </Routes>
-    </div>
+    </Wrapper>
   );
 }
-
+const Wrapper = styled.div`
+  display: flex;
+  .navbar {
+    width: 15rem;
+  }
+`;
 export default Main;

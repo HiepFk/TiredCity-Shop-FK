@@ -6,6 +6,20 @@ import Product from "./Product";
 import Products from "./Products";
 import User from "./User";
 import Users from "./Users";
-import CheckOut from "./CheckOut";
+import Chart from "./Chart";
+import Dashboard from "./Dashboard";
+import Profile from "./Profile";
 
-export { Login, Main, Order, Products, User, Users, Product, Orders, CheckOut };
+export {
+  Login,
+  Main,
+  Order,
+  Products,
+  User,
+  Users,
+  Product,
+  Orders,
+  Chart,
+  Dashboard,
+  Profile,
+};

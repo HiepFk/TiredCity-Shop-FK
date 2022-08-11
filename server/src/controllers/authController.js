@@ -111,13 +111,13 @@ const authController = {
   requestRefreshToken: catchAsync(async (req, res, next) => {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
-      console.log("You're not authenticated, Please login again!");
+      // console.log("You're not authenticated, Please login again!");
       return next(
         new AppError("You're not authenticated, Please login again!", 401)
       );
     }
     if (!refreshTokens.includes(refreshToken)) {
-      console.log("Refresh token is not valid,Please login again!");
+      // console.log("Refresh token is not valid,Please login again!");
       return next(
         new AppError("Refresh token is not valid,Please login again!", 403)
       );
