@@ -90,7 +90,11 @@ function Order() {
             <label htmlFor="" className="title">
               Thời gian đặt
             </label>
-            <input type="text" className="input" value={item?.time} />
+            <input
+              type="text"
+              className="input"
+              value={new Date(item?.time).toLocaleString()}
+            />
           </div>
           <div className="container">
             <label htmlFor="" className="title">

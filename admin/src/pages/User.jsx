@@ -21,9 +21,11 @@ function User() {
   const orders = useSelector((state) => state.order?.orders?.data?.orders);
   useEffect(() => {
     getUser(dispatch, id, axiosJWT, auth?.accessToken);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
   useEffect(() => {
     getUserOrder(dispatch, id, axiosJWT, auth?.accessToken);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
 
   useEffect(() => {

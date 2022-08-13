@@ -70,7 +70,8 @@ export const deleteOrder = async (id, navigate, axiosJWT, accessToken) => {
     await axiosJWT.delete(`${link}/v1/order/${id}`, {
       headers: { token: `Bearer ${accessToken}` },
     });
-    navigate("/products");
+    window.location.reload();
+    navigate("/orders");
   } catch (error) {
     alert(error.message);
   }

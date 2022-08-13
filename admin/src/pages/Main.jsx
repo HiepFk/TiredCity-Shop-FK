@@ -12,7 +12,6 @@ import {
   Orders,
   Chart,
   Dashboard,
-  Profile,
 } from "./index";
 import Navbar from "../components/Navbar";
 import Error from "../components/Error";
@@ -41,7 +40,6 @@ function Main() {
         <Route exact path="/Orders" element={<Orders />} />
         <Route exact path="/Orders/:id" element={<Order />} />
         <Route exact path="/Chart" element={<Chart />} />
-        <Route exact path="/Profile" element={<Profile />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Wrapper>

@@ -27,7 +27,6 @@ export const getAllUser = async (dispatch, axiosJWT, accessToken) => {
 export const getUser = async (dispatch, id, axiosJWT, accessToken) => {
   dispatch(GetUserStart());
   try {
-    console.log(id);
     const res = await axiosJWT.get(`${link}/v1/user/${id}`, {
       headers: { token: `Bearer ${accessToken}` },
     });
@@ -40,7 +39,7 @@ export const getUser = async (dispatch, id, axiosJWT, accessToken) => {
 export const updateUser = async (dispatch, id, data, axiosJWT, accessToken) => {
   dispatch(GetUserStart());
   try {
-    const res = await axios({
+    const res = await axiosJWT({
       method: "PATCH",
       url: `${link}/v1/user/${id}`,
       data,
@@ -69,6 +68,7 @@ export const deleteUser = async (id, navigate, axiosJWT, accessToken) => {
     await axiosJWT.delete(`${link}/v1/user/${id}`, {
       headers: { token: `Bearer ${accessToken}` },
     });
+    window.location.reload();
     navigate("/Users");
   } catch (error) {
     alert("error");

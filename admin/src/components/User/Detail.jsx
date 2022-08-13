@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createAxios } from "../../api/createInstance";
 import { LoginSuccess } from "../../redux/authSlice";
 import { updateUser } from "../../api/user";
-import { useNavigate } from "react-router-dom";
 function Detail({ user }) {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.user);
   let axiosJWT = createAxios(auth, dispatch, LoginSuccess);

@@ -17,7 +17,7 @@ function Add() {
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [adres, setAdress] = useState("");
+  const [adress, setAdress] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
 
   const handeAddUser = (e) => {
@@ -28,9 +28,10 @@ function Add() {
       number,
       password,
       passwordConfirm,
-      adres,
+      adress,
       isAdmin,
     };
+
     addUser(user, navigate, axiosJWT, user?.accessToken);
   };
   return (
@@ -77,7 +78,7 @@ function Add() {
           <input
             type="text"
             className="input"
-            value={adres}
+            value={adress}
             onChange={(e) => setAdress(e.target.value)}
           />
         </div>

@@ -13,7 +13,7 @@ function Review({ reviews }) {
           <th>Rating</th>
           <th>Review</th>
         </tr>
-        {reviews.map((item, index) => {
+        {reviews?.map((item, index) => {
           return (
             <tr>
               <td>{index + 1}</td>

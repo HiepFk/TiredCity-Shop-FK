@@ -8,7 +8,6 @@ import User from "./User";
 import Users from "./Users";
 import Chart from "./Chart";
 import Dashboard from "./Dashboard";
-import Profile from "./Profile";
 
 export {
   Login,
@@ -21,5 +20,4 @@ export {
   Orders,
   Chart,
   Dashboard,
-  Profile,
 };

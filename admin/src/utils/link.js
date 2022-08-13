@@ -2,7 +2,6 @@ import { FaStoreAlt } from "react-icons/fa";
 import { BsPieChartFill, BsTruck } from "react-icons/bs";
 import { TbLayoutDashboard } from "react-icons/tb";
 import { FiUser } from "react-icons/fi";
-import { CgProfile } from "react-icons/cg";
 
 export const navbar = [
   {
@@ -52,16 +51,6 @@ export const navbar = [
     icon: (
       <div className="icon">
         <BsPieChartFill />
-      </div>
-    ),
-  },
-  {
-    id: 6,
-    title: "Profile",
-    link: "/profile",
-    icon: (
-      <div className="icon">
-        <CgProfile />
       </div>
     ),
   },
