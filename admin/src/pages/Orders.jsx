@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllOrder } from "../api/order";
+import { getAllOrder, deleteOrder } from "../api/order";
 import Loading from "../components/Loading";
 import styled from "styled-components";
 import { createAxios } from "../api/createInstance";
@@ -9,6 +9,8 @@ import { LoginSuccess } from "../redux/authSlice";
 
 function Orders() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const user = useSelector((state) => state.auth.user);
   let axiosJWT = createAxios(user, dispatch, LoginSuccess);
   const loading = useSelector((state) => state.product?.loading);
@@ -25,55 +27,102 @@ function Orders() {
     return <div>Chưa có đơn đặt hàng nào</div>;
   }
   return (
-    <Wrapper>
-      {orders.map((item) => {
-        return (
-          <Link
-            to={`/orders/${item.id}`}
-            state={item}
-            className="container"
-            key={item.id}
-          >
-            <div className=" desc">
-              Người nhận : <span className="name">{item?.name}</span>
-            </div>
+    <Wrapper className="left">
+      <div className="name">Orders</div>
+      <table>
+        <tr>
+          <th>STT</th>
+          <th>Người Đặt</th>
+          <th>Email</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
 
-            <div className="desc">
-              Ngày đặt :
-              <span className="name">
-                {new Date(item?.time).toLocaleString()}
-              </span>
-            </div>
-
-            <div className="desc">
-              Trạng thái : <span className="name">{item?.status}</span>
-            </div>
-          </Link>
-        );
-      })}
+        {orders.map((item, index) => {
+          return (
+            <tr key={item?.id}>
+              <td>{index + 1}</td>
+              <td>{item?.user?.name}</td>
+              <td>{item?.user?.email}</td>
+              <td>{new Date(item?.time).toLocaleString()}</td>
+              <td>{item?.status}</td>
+              <td>
+                <div className="btns">
+                  <Link to={`/orders/${item.id}`} state={item}>
+                    <div className="btn btn_view">View</div>
+                  </Link>
+                  <div
+                    className="btn btn_delete"
+                    onClick={() =>
+                      deleteOrder(
+                        item.id,
+                        navigate,
+                        axiosJWT,
+                        user?.accessToken
+                      )
+                    }
+                  >
+                    Delete
+                  </div>
+                </div>
+              </td>
+            </tr>
+          );
+        })}
+      </table>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  padding: 5rem;
-  width: 100%;
-  padding-top: 2rem;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 2rem;
-  grid-row-gap: 2rem;
-  .container {
-    color: black;
-    padding: 2rem;
-    height: 8rem;
-    width: 20rem;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  }
+  padding: 2rem 5rem;
   .name {
-    color: #ff4c4c;
+    font-size: 2rem;
+    opacity: 0.5;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+    border: 1px dotted black;
+  }
+  td,
+  th {
+    text-align: left;
+    padding: 8px;
+  }
+  tr {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+  }
+  th {
+    border-right: 1px solid #ddd;
+  }
+  .btns {
+    display: flex;
+    align-items: center;
+    margin-right: -0.5rem;
+    .btn {
+      padding: 0.5rem 0.75rem;
+      margin-right: 0.5rem;
+      border-radius: 0.4rem;
+      cursor: pointer;
+    }
+    .btn_view {
+      border: 1.5px dotted green;
+      color: green;
+    }
+    .btn_delete {
+      color: red;
+      border: 1.5px dotted red;
+    }
   }
 `;
 
