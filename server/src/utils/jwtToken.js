@@ -26,8 +26,8 @@ const createSendToken = (user, statusCode, req, res, msg, refreshTokens) => {
   res.cookie("refreshToken", refreshToken, {
     maxAge: 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    // secure: req.secure || req.headers["x-forwarded-proto"] == "https",
-    // sameSite: "none",
+    secure: req.secure || req.headers["x-forwarded-proto"] == "https",
+    sameSite: "none",
   });
   user.password = undefined;
   const { password, ...others } = user._doc;

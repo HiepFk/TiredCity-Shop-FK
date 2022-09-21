@@ -134,8 +134,8 @@ const authController = {
       res.cookie("refreshToken", newRefreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        // secure: req.secure || req.headers["x-forwarded-proto"] == "https",
-        // sameSite: "none",
+        secure: req.secure || req.headers["x-forwarded-proto"] == "https",
+        sameSite: "none",
       });
       res.status(200).json({ accessToken: newAccessToken });
     });

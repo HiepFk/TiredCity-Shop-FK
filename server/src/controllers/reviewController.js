@@ -1,7 +1,7 @@
 const Review = require("../models/reviewModel");
 const catchAsync = require("./../middleware/catchAsync");
 const AppError = require("./../utils/appError");
-const userController = {
+const reivewController = {
   addReview: catchAsync(async (req, res) => {
     const newReview = new Review(req.body);
     const saveReview = await newReview.save();
@@ -72,4 +72,4 @@ const userController = {
   }),
 };
 
-module.exports = userController;
+module.exports = reivewController;

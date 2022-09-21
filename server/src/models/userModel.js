@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowcase: true,
     },
-
     number: {
       type: String,
       default: "0123456789",
