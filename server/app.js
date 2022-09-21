@@ -12,6 +12,8 @@ const credentials = require("./src/middleware/credentials");
 
 const globalErrorHandler = require("./src/middleware/errorHandle");
 
+const AppError = require("./src/utils/appError");
+
 const userRoute = require("./src/routes/userRoute");
 const productRoute = require("./src/routes/productRoute");
 const reviewRoute = require("./src/routes/reviewRoute");
