@@ -17,7 +17,7 @@ export const getAllProduct = async (dispatch) => {
     const res = await axios.get(`${link}/v1/product/`);
     dispatch(GetProductsSuccess(res.data));
   } catch (error) {
-    GetProductsError(dispatch, error);
+    dispatch(GetProductsError(error));
   }
 };
 export const getProduct = async (dispatch, id) => {
@@ -26,6 +26,6 @@ export const getProduct = async (dispatch, id) => {
     const res = await axios.get(`${link}/v1/product/${id}`);
     dispatch(GetProductSuccess(res.data));
   } catch (error) {
-    GetProductError(dispatch, error);
+    dispatch(GetProductError(error));
   }
 };
